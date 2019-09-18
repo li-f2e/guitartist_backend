@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>text</title>
+</head>
+
+<body>
+    <script>
+        // 1. JS有幾種基本類型？
+            Number、Boolean、String
+
+        // 2. 如何將某種類型轉換字串
+            .toString()
+            String()
+
+            n + "" //運算元左右兩側只要一個為字串，即為字串串接
+                /* let n = 6
+                   let n2 = t+"zxcvb"
+                   console.log(typeof(n2)); */  印出string
+
+        // 3. 如何將某種類型轉換數值
+            parseInt()
+            parseFloat()
+            Number()
+
+        // 4. 敘述結束的符號為
+            ;
+
+        // 5. 宣告變數用哪一個字
+            var //ES5 
+
+        // 6. 全域變數可視為哪個物件的屬性
+            window
+
+        // 7. var num = 1/7*10*7　//計算值為 9.999999999999998
+
+        // 11. var str = "abcdefdefghi"; str.indexOf('def')會得到? 
+            3　（取得元素值的索引）
+
+        // 12. var str = 'abcdefdefghi'; str.indexOf('fed')會得到?
+            -1  （找不到值回傳-1）
+
+        // 13. console.log(typeof v);
+            Object
+
+        // 14. 字串的哪個屬性可以得到字串的字元數量
+            str.length
+
+        // 15. 字串的哪個方法可以由字串建立(切割)成陣列
+            str.split("")
+
+        // 16.移除字串頭尾的空白可以使用哪個方法
+            str.trim()
+
+        // 17. var d = new Date(2014,7,8);
+            2014/8/8
+
+        // 18. 1970 起算的毫秒数
+            d.getTime
+
+        // 19. SetTimeout()的功能是
+            間隔一段時間後觸發一次
+            延遲了某段時間 (單位為毫秒) 之後，才去執行「一次」指定的程式碼
+
+        // 20. setInterval() 的功能是
+            間隔一段時間後重複觸發
+            固定延遲了某段時間之後，才去執行對應的程式碼，然後「不斷循環」。 
+
+        // 21. 數值 100 也可以使用以下哪幾種方式表示?(複選)
+        // 22. Math.floor(Math.random()*5) +7
+            7, 8, 9, 10, 11
+
+        // 23.若 num 為一大於零的整數,如何取得其十六進位的字串
+            num.toString(16)
+            /* let n = 100;
+               let n2 = n.toString(16)
+               console.log(n2)*/
+
+        // 24. 若要將"48.7公斤"轉換成數值應該使用下列哪種方式
+            let n = "48.7公斤"
+            parseFloat(n);
+
+        // 25. Math.sin (Math.PI/6) 的值大約是
+             二分之一
+             0.49999999999999994
+             0.5
+        // 26. 某陣列定義如下,如何取得陣列裡的'cat'?
+        // 27. 某陣列 ar 其最後的元素值為
+            ar.pop() 或 ar[ar.length-1]
+            // ar = [4,2,3,"aaa"]
+            // console.log(ar.pop())
+            // pop 從尾端取出一元素值，會回傳拿走的值"aaa"
+        
+        // 28. 某陣列定義如下,如何取得陣列裡的'g' ? 
+        //  var ar = [['a', 'b'], ['c', 'd', 'e'], ['f', 'g', 'h', 'i']];
+            console.log(ar[2][1])
+
+        // 29. 以下那個是合法的 for 迴意
+            for(;;){}
+        
+        // 30. 下列程式片段執行後,ar 的內容變成
+            // var i = 6; 
+            // var ar = []; 
+            // while (i--) {ar.push(i)};
+            // console.log(ar);
+            (6) [5, 4, 3, 2, 1, 0]
+
+        // 31. 下列程式片段執行後,ar 的內容變成 
+            // var ar = ['tony', 'bill', 'carl', 'david', 'emma']; 
+            // var br = ar.pop();
+            // console.log(br);
+            emma
+
+        // 32. 下列程式片段執行後,br 的內容為 
+            // var ar = ['tony', 'bill', 'carl', 'david', 'emma', 'flora']
+            // var br = ar.slice (2,4);  // slice 複製從索引值2到索引值4（不包括）的部分陣列
+            ["carl", "david"]
+        
+        // 33.下列程式片段執行結果為
+            // var ar = ['tony', 'bill', 'carl', 'david', 'emma', 'flora']; 
+            // console.log( ar.indexOf('tony'));
+            0
+        
+        // 34. 下列程式片段執行後,ar 的內容變成
+            // var ar = ['tony', 'bill', 'carl', 'david', 'emma', 'flora']; 
+            // ar.splice (2,3,'ken');　　// splice 從索引值2刪除三個後加入'ken'
+            // console.log(ar);  
+            ["tony", "bill", "ken", "flora"]
+        
+        // 35. 哪一個類別的屬性可以用來擴充類別
+            prototype
+        
+        // 36. 哪一個預設的類型物件可以當做字典
+            Object  //講義
+
+        // 37. (不確定)for/in 迴意的語法中(如下),在迴圈內部(大括號內), key 和 value 的表示式為
+            // var obj = {name: 'peter', age: 24};
+            // for (var s in obj){
+            // console.log(s+":"+obj[s])}
+            key→name、age
+            value→'peter'、24
+    
+        // 38. 取得下式'peter' 的方式有哪些
+            // var obj = {name: 'peter', age: 24};
+            obj.name
+        
+        // 39. 以下程式片段為 function 定義,請選出正確的描述:
+         // function func (a, b) {return a*b*10}
+        
+        // 40. 關於 function (函式)下列哪些描述是正確的
+        // 41. 標籤內定義事件處理器如下式,哪些描述是正確的? <div onclick="myclick(event)"/>Hi</div>
+
+        // 42. 使用JS 轉向某個URL 可以使用哪些方式
+                window.location
+
+        // 43. JS 詢問用戶"是"要進行某件事時,可以使用哪個方法
+                prompt()
+
+        // 44. 查看用戶的瀏覽器種類時,使用哪個物件
+                window.navigator
+
+        // 45. HTML 文件中唯一的表單內容如下列式子,哪些方式可以取得輸入欄裡的內容?(複選) 
+            // <form name="forml">
+            // <input type="text" name="user" value="Shinder" /><br/>
+            // <input type="text" name="email" value="shinder.lin@gmail.com" /><br/>
+            // <input type="submit" />
+            // </form>
+            document.forms[0].user.value;
+            document.forms[0].elements[0].value;
+            document.forms[0].elements["user"].value;
+        
+        // 46. JavaScript 取得標籤元素的方式為
+            document.getElementById();
+            document.getElementsByClassName();
+            document.getElementsByName();
+            document.getElementsByTagName();
+
+
+        
+        
+
+    </script>
+</body>
+
+</html>
