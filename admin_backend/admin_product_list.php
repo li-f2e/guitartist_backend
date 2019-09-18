@@ -12,7 +12,7 @@
     $page = isset($_GET['page'])? intval($_GET['page']) : 1;
     
     //每一頁顯示幾筆
-    $perPage = 10;
+    $perPage = 7;
 
     $modalType = isset($_GET['modal'])? $_GET['modal'] : null;
     
@@ -156,18 +156,18 @@
 <?php require_once __DIR__ . "/admin__header.php"; ?>
 <link rel="stylesheet" href="css/index.css">
 <style>
-    .fa-times, .fa-edit, .fa-trash-alt{
+    .fa-times{
         font-size: 1.5rem;
         color: var(--secondary);
     }
 
     .fa-check{
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         color: var(--success);
     }
 
     .fa-ban{
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         color: var(--red);
     }
 
@@ -175,32 +175,75 @@
         color: var(--dark);
     }
 
-    /* 頁簽 */
-    .list-link{
+    /* 全部|上架中|下架中 */
+    .condition{
         color: var(--dark);
+        transition: .3s;
+        font-weight: 700;
     }
 
-    .list-link.active{
-        color: rgb(226, 24, 24);
+    .condition:hover{
+        text-decoration: none;
+        color: var(--red);
+    }
+
+    /* 頁數 */
+    .pageNavigation{
+        background-color: #fff;
+        padding: 10px 20px;
+        border-radius: 30px;
+        box-shadow: 0 5px 15px rgba(0,0,0,.2);
+    }
+
+    .pageNavigation li{
+        list-style: none;
+        line-height: 30px;
+        margin: 0 5px;
+    }
+
+    .pageNavigation li.page-number{
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        text-align: center;
+    }
+
+    .pageNavigation li a{
+        display: block;
+        text-decoration: none;
+        color: #777;
+        font-weight: 900;
+        border-radius: 50%;
+        transition: .3s;
+        
+    }
+
+    .pageNavigation li.page-number:hover a,
+    .pageNavigation li.page-number.active a{
         background-color: var(--dark);
+        color: #fff;
     }
 
-    /* pagination */
-    .page-item.active .page-link {
-        background-color: var(--dark);
-        border-color: var(--dark);
-    }
-    .page-link{
-        color: var(--dark);
+    .pageNavigation li:first-child{
+        margin-right: 30px;
+        font-weight: 700;
+        font-size: 16px;
     }
 
+    .pageNavigation li:last-child{
+        margin-left: 30px;
+        font-weight: 700;
+        font-size: 16px;
+    }
 
+    /* 表單 */
     .product-table th{
         letter-spacing: 3px;
         font-size: 1rem;
         font-weight: 100;
     }
 
+    /* 全選按鈕 */
     .checkAll{
         padding: 0 13px;
         letter-spacing: 2px;
@@ -213,8 +256,9 @@
         border-color: rgb(226, 24, 24);
     }
 
+    /* 上下架按鈕 */
     .launchedBtn{
-        font-size: 1.2rem;
+        font-size: 1rem;
         font-weight: 500;
         text-decoration: none;
         color: var(--secondary);
@@ -226,14 +270,13 @@
     .launchedBtn:hover{
         text-decoration: none;
         color: var(--white);
-        border: 2px solid var(--gold);
-        background-color: var(--gold);
+        border: 2px solid var(--red);
+        background-color: var(--red);
     }
 
     .mainPhoto img{
         height:150px;
     }
-
 
     .photoFrame{
         border-radius: 5px;
@@ -310,79 +353,92 @@
         <div class="mainContent">
             <div class="container-fluid">
                 <div class="row justify-content-start">
-                    <div class="col-11 mt-5 mx-auto ">
+                    <div class="col-12 mt-5 mx-auto ">
+                        <!-- 頁簽 -->
                         <ul class="nav nav-tabs">
                             <li class="nav-item ">
-                                <a class="list-link nav-link active" href="admin_product_list.php">商品列表</a>
+                                <a class="nav-link list-link active" href="admin_product_list.php" style="color: var(--dark);">商品列表</a>
                             </li>
                             <li class="nav-item">
-                                <a class="list-link nav-link" href="admin_course_list.php">課程列表</a>
+                                <a class="nav-link list-link" href="admin_course_list.php" style="color: var(--dark);" >課程列表</a>
                             </li>
                             <li class="nav-item">
-                                <a class="list-link nav-link" href="admin_location_list.php">場地列表</a>
+                                <a class="nav-link list-link" href="admin_location_list.php" style="color: var(--dark);" >場地列表</a>
                             </li>
                         </ul>
-                        <!-- //全部|上架中|下架中 -->
-                        <div class="my-2 ml-2">
-                            <a href="admin_product_list.php">全部</a>
-                            <span>|</span>
-                            <a href="admin_product_up.php">上架中</a>
-                            <span>|</span>
-                            <a href="admin_product_down.php">下架中</a>
-                        </div>
-                        <!-- //換頁按鈕 -->
-                        <nav aria-label="Page navigation example ml-2">
-                            <ul class="pagination d-flex justify-content-end">
-                                <li class="page-item">
-                                    <a class="page-link" href="?page=<?= $page-1 ?>">
-                                        <i class="fas fa-caret-left"></i>
-                                    </a>
-                                </li>
-                                
-                                <?php 
-                                    $pageStart = $page-2;
-                                    $pageEnd = $page+2;
-                                ?>
-                                <?php if( $page <= 3  ): ?>
-                                <?php    $pageStart = 1;?>
-                                <?php    $pageEnd = $page+5; ?>
-                                    <?php for($i=$pageStart; $i <= $pageEnd -$page ; $i++): 
-                                            if ($i < 1 or $i > $totalPages) {
-                                                continue;
-                                            }?>
-                                        <li class="page-item  <?= $i==$page ? 'active' : ''  ?>">
-                                            <a class="page-link" href="?page=<?= $i ?>" > <?= $i ?> </a>
-                                        </li>
-                                    <?php endfor; ?>
-                                <?php elseif($page > $totalPages-2): ?>
-                                <?php $pageStart = $totalPages-4 ?>
-                                    <?php for($i=$pageStart; $i <= $totalPages; $i++): 
-                                        if ($i < 1 or $i > $totalPages) {
-                                                continue;
-                                        }?>
-                                        <li class="page-item  <?= $i==$page ? 'active' : ''  ?>">
-                                            <a class="page-link" href="?page=<?= $i ?>" > <?= $i ?> </a>
-                                        </li>
-                                    <?php endfor; ?>
-                                <?php else: ?>
-                                    <?php for($i=$pageStart; $i <= $pageEnd; $i++): 
-                                        if ($i < 1 or $i > $totalPages) {
-                                                continue;
-                                        }?>
-                                        <li class="page-item  <?= $i==$page ? 'active' : ''  ?>">
-                                            <a class="page-link" href="?page=<?= $i ?>" > <?= $i ?> </a>
-                                        </li>
-                                    <?php endfor; ?>
-                                <?php endif; ?>
-                                   
 
-                                <li class="page-item">
-                                    <a class="page-link" href="?page=<?= $page+1 ?>">
-                                        <i class="fas fa-caret-right"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
+                        <h2 class="" style="text-align:center; margin-top: 1.25rem;">商品列表 </h2>
+                        <!-- //全部|上架中|下架中 -->
+                        <div class="mt-4 mb-3 ml-2 d-flex justify-content-between align-items-center">
+                            <div>
+                                <a class="condition" href="admin_product_list.php">全部</a>
+                                <span>|</span>
+                                <a class="condition" href="admin_product_up.php">上架中</a>
+                                <span>|</span>
+                                <a class="condition" href="admin_product_down.php">下架中</a>
+                            </div>
+                            
+                            <!-- <div> -->
+                                <!-- //換頁按鈕 -->
+                                <!-- <nav aria-label="Page navigation example ml-2"> -->
+                                    <ul class="pageNavigation d-flex justify-content-end m-0">
+                                        <li class="pageDir"">
+                                            <a class="" href="?page=<?= $page-1 ?>">
+                                                <i class="fas fa-caret-left"></i>
+                                                Prev
+                                            </a>
+                                        </li>
+
+                                        <?php 
+                                            $pageStart = $page-2;
+                                            $pageEnd = $page+2;
+                                        ?>
+                                        <?php if( $page <= 3  ): ?>
+                                        <?php    $pageStart = 1;?>
+                                        <?php    $pageEnd = $page+5; ?>
+                                            <?php for($i=$pageStart; $i <= $pageEnd -$page ; $i++): 
+                                                    if ($i < 1 or $i > $totalPages) {
+                                                        continue;
+                                                    }?>
+                                                <li class="page-number <?= $i==$page ? 'active' : ''  ?>">
+                                                    <a class="" href="?page=<?= $i ?>" > <?= $i ?> </a>
+                                                </li>
+                                            <?php endfor; ?>
+                                        <?php elseif($page > $totalPages-2): ?>
+                                        <?php $pageStart = $totalPages-4 ?>
+                                            <?php for($i=$pageStart; $i <= $totalPages; $i++): 
+                                                if ($i < 1 or $i > $totalPages) {
+                                                        continue;
+                                                }?>
+                                                <li class="page-number <?= $i==$page ? 'active' : ''  ?>">
+                                                    <a class="" href="?page=<?= $i ?>" > <?= $i ?> </a>
+                                                </li>
+                                            <?php endfor; ?>
+                                        <?php else: ?>
+                                            <?php for($i=$pageStart; $i <= $pageEnd; $i++): 
+                                                if ($i < 1 or $i > $totalPages) {
+                                                        continue;
+                                                }?>
+                                                <li class="page-number <?= $i==$page ? 'active' : ''  ?>">
+                                                    <a class="" href="?page=<?= $i ?>" > <?= $i ?> </a>
+                                                </li>
+                                            <?php endfor; ?>
+                                        <?php endif; ?>
+                                            
+
+                                        <li class="">
+                                            <a class="pageDir" href="?page=<?= $page+1 ?>">
+                                                Next
+                                                <i class="fas fa-caret-right"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                <!-- </nav> -->
+                            <!-- </div> -->
+                            
+                        </div>
+                        
+                       
 
                         <div class="d-flex align-items-center py-2  pl-2">
                             <label class="mb-0 mr-2" for="modalSelect">桶身</label>
@@ -524,8 +580,9 @@
     let antiCheckAll = $('#antiCheckAll'); //反選所有勾選的欄位
     let allChecked = false;
 
-
-    $('.list-link').css()
+    //被選取的頁簽文字顏色變紅
+    $('.list-link.active').css('color','var(--red)');
+        
     // 全選
     checkAll.click(function() {
         let checkBoxes = $('tbody .checkboxeach input'); //其他勾選欄位

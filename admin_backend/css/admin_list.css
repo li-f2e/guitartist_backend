@@ -1,21 +1,21 @@
 
 .table{
     font-size: 14px;
+    
 }
 
 th{
-    /* text-align:center; */
+    text-align:center;
     vertical-align: middle;
+    letter-spacing: 3px;
 }
 
 td{
-    /* text-align:center; */
+    text-align:center;
     vertical-align: middle;
 }
 
-.fa-trash-alt, .fa-edit{
-    font-size: 14px;
-}
+
 
 .regular-checkbox{
     margin: 0;
