@@ -1,0 +1,61 @@
+*{
+    font-family: 微軟正黑體;
+}
+
+/* 登入打招呼文字 */
+.input_introduction{
+    margin-top: 4em;
+    margin-bottom: 3em;
+}
+
+h2{
+    font-size: 2em;
+}
+.identity_introduction{
+    font-size: 1.5em;
+    margin-top:20px; 
+}
+
+.identity_choose{
+    color:#AA1F23;
+    
+}
+
+
+
+/* 身分選擇 */
+.identity_icon{
+    position: relative; 
+}
+
+.icon{
+    background-color:#AA1F23;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    
+}
+
+.icon i{
+    color: #fff;
+    font-size: 5em;
+
+}
+
+.icon p{
+    position: absolute;
+    top:180px;
+    color:black;
+    
+    
+}
+
+
+
+/* .icon:hover{
+    background-color: #AA1F23;
+} */
+
+.icon:hover p{
+    color:#AA1F23;
+}

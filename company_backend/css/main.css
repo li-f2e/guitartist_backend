@@ -1,0 +1,176 @@
+/* CSS MAP */
+    /* Tags */
+        /* body */
+
+    /* 通用型class */
+
+    /* navBar */
+        /* -> 註冊按鈕  */
+        /* -> 註冊表單確定按鈕 */
+        /* 登出按鈕 */
+    
+    /* Modal 註冊表單 */
+
+    /* 左側導覽條 */
+        /* 標題 */
+        /* 內容 */
+        /* 內容項目 */
+
+    /* colors 
+    red    #aa1f23
+    black   #252121
+    gray    #eae5de
+    grey    #f6f5f1
+    white   #fff  */
+
+
+/* Tags */
+body{
+    height: 300vh;
+    font-family: 'Noto Sans TC', sans-serif;
+    padding-top: 70px;
+    background-color: #f6f5f1;
+}
+
+
+
+/* 通用型class */
+.bg-red{
+    background-color: #aa1f23;
+}
+
+.bg-black{
+    background-color: #252121;
+}
+.font-white{
+    color: whitesmoke;
+}
+
+
+
+/* navBar */
+.navbar-brand {
+    font-family: 'Lobster', cursive !important;
+    position: absolute;
+    top: 0;
+    width: 120px;
+    height: 60px;
+    font-size: 1.8rem;
+}
+
+
+/* 註冊按鈕 */
+#modalBtn{
+    color: whitesmoke;
+    transition: .3s;
+}
+
+#modalBtn:hover{
+    background-color: #d10a11;
+}
+
+/* #modalBtn:focus{
+    outline: none;
+    box-shadow: none;
+} */
+
+/* Modal 註冊表單 */
+    /* 目前為空 */
+
+/* 註冊表單確定按鈕 */
+#signUpBtn{
+    transition: .3s;
+}
+
+#signUpBtn:hover{
+    transition: .3s;
+    background-color: #d10a11;
+}
+
+/* #signUpBtn:focus{
+    outline: none;
+    box-shadow: none;
+} */
+
+#signUpBtn a{
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+
+/* 登出按鈕 */
+#logOut{
+    color: whitesmoke;
+    transition: .3s;
+}
+
+#logOut:hover{
+    background-color: #d10a11;
+}
+
+/* 左側導覽條 */
+.accordion{
+    background-color: #252121;
+}
+
+.accordion .card{
+    background-color: #252121;
+}
+
+.accordion .card-body{
+    background-color: #fff;
+    padding: 0
+}
+
+/* 標題 */
+.accordion button{
+    padding: 12px;
+    background-color: #252121;
+    color: #fff;
+    transition: .3s;
+    font-size: 1.2rem;
+}
+
+.accordion button:hover{
+    color: #aa1f23;
+}
+
+.accordion button:focus{
+    outline: none;
+    box-shadow: none;
+}
+
+/* 內容 */
+.accordion ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.accordion ul li {
+    padding: 0;
+}
+
+/* 內容項目 */
+.accordion ul li a{
+    display: block;
+    color: #252121;
+    text-decoration: none;
+    text-align: right;
+    width: 100%;
+    padding: 12px 70px 12px 20px;
+    border-bottom: 1px solid #d1d0ce;
+    transition: .3s;
+}
+
+.accordion ul li a:hover{
+    color: #fff;
+    background-color: #aa1f23;
+    border-bottom: 1px solid #aa1f23;
+    padding: 30px 70px 30px 20px;
+}
+
+.btn :focus{
+    outline: none !important;
+    box-shadow: none !important;
+}

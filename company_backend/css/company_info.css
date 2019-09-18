@@ -1,0 +1,37 @@
+* {
+  font-family: "Google Sans", Roboto, Arial, sans-serif;
+}
+.card-body h5 {
+  font-size: 1.475rem;
+  font-weight: 400;
+  color: #202124;
+  padding-left: 10px;
+}
+table th {
+  width: 160px;
+  font-size: 0.775rem;
+  font-weight: 500;
+  color: #5f6368;
+}
+table td {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #202124;
+  letter-spacing: 0.00625em;
+}
+td input {
+  width: 80%;
+}
+.pic {
+  margin-right: auto;
+  padding: 0;
+  width: 80px;
+  height: 80px;
+  overflow: hidden;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center center;
+}
+input {
+  margin: 5px 0px;
+}

@@ -1,0 +1,35 @@
+
+.table{
+    font-size: 14px;
+}
+
+th{
+    /* text-align:center; */
+    vertical-align: middle;
+}
+
+td{
+    /* text-align:center; */
+    vertical-align: middle;
+}
+
+.fa-trash-alt, .fa-edit{
+    font-size: 14px;
+}
+
+.regular-checkbox{
+    margin: 0;
+    padding: 0;
+}
+
+label{
+    margin-bottom:0;
+}
+
+.member-logo{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    overflow: hidden;
+    object-fit: cover;
+}
