@@ -39,6 +39,12 @@ include 'admin__nav_bar.php';
     font-family: 微軟正黑體;
 }
 
+
+.fa-ban{
+    font-size: 20px;
+    color: var(--red);
+}
+
 .table{
     font-size: 14px;
 }
@@ -48,9 +54,6 @@ th{
     vertical-align: middle;
 }
 
-.fa-trash-alt, .fa-edit{
-    font-size: 14px;
-}
 
 .member-logo{
     width: 45px;
@@ -59,7 +62,6 @@ th{
     overflow: hidden;
     object-fit: cover;
 }
-
 
 </style>
 
@@ -76,72 +78,80 @@ th{
                        <div class="container">
                        <ul class="nav nav-tabs">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="admin_backend_insert.php">新增使用者</a>
+                                    <a class="nav-link" href="admin_backend_insert.php" style="color: var(--dark);">新增使用者</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="admin_backend_list.php">後台使用者總表</a>
+                                    <a class="nav-link" href="admin_backend_list.php" style="color: var(--dark);">後台使用者總表</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="admin_company_list.php">代理商列表</a>
+                                    <a class="nav-link" href="admin_company_list.php" style="color: var(--dark);">代理商列表</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="admin_teacher_list.php">老師列表</a>
+                                    <a class="nav-link" href="admin_teacher_list.php" style="color: var(--dark);">老師列表</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="admin_hall_list.php">場地廠商列表</a>
+                                    <a class="nav-link" href="admin_hall_list.php" style="color: var(--dark);">場地廠商列表</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="admin_hire_list.php">徵才廠商列表</a>
+                                    <a class="nav-link active" href="admin_hire_list.php" style="color: var(--dark);">徵才廠商列表</a>
                                 </li>
                             </ul>
+
                             <!-- //換頁按鈕 -->
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination d-flex justify-content-center">
-                                    <li class="page-item">
-                                        <a class="page-link" href="?page=<?=$page - 1?>">
+                            <div class="d-flex justify-content-end my-4">
+                                <ul class="pageNavigation d-flex justify-content-end m-0">
+                                    <li class="pageDir"">
+                                        <a class="" href="?page=<?= $page-1 ?>">
                                             <i class="fas fa-caret-left"></i>
+                                            Prev
                                         </a>
                                     </li>
 
-                                    <?php $pageStart = $page - 2; $pageEnd = $page + 2;?>
-                                    <?php if ($page <= 3): ?>
-                                    <?php $pageStart = 0;?>
-                                    <?php $pageEnd = $page + 5;?>
-                                    <?php
-                                    for ($i = $pageStart; $i <= $pageEnd - $page; $i++):
-                                    if ($i < 1 or $i > $totalPages) {
-                                        continue;
-                                    }?>
-									<li class="page-item  <?=$i == $page ? 'active' : ''?>">
-										<a class="page-link" href="?page=<?=$i?>" > <?=$i?> </a>
-									</li>
-									<?php endfor;?>
-                                    <?php elseif ($page > $totalPages - 2): ?>
-                                    <?php $pageStart = $totalPages - 4?>
-                                        <?php for ($i = $pageStart; $i <= $totalPages; $i++): 
-                                        if ($i < 1 or $i > $totalPages) {
-                                        continue;
-                                        }?>  
-                                                <li class="page-item  <?=$i == $page ? 'active' : ''?>">
-                                                    <a class="page-link" href="?page=<?=$i?>" > <?=$i?> </a>
-                                                </li>
-                                        <?php endfor;?>
-                                    <?php else: ?>
-                                        <?php for ($i = $pageStart; $i <= $pageEnd; $i++): ?>
-                                            <li class="page-item  <?=$i == $page ? 'active' : ''?>">
-                                                <a class="page-link" href="?page=<?=$i?>" > <?=$i?> </a>
+                                    <?php 
+                                        $pageStart = $page-2;
+                                        $pageEnd = $page+2;
+                                    ?>
+                                    <?php if( $page <= 3  ): ?>
+                                    <?php    $pageStart = 1;?>
+                                    <?php    $pageEnd = $page+5; ?>
+                                        <?php for($i=$pageStart; $i <= $pageEnd -$page ; $i++): 
+                                                if ($i < 1 or $i > $totalPages) {
+                                                    continue;
+                                                }?>
+                                            <li class="page-number <?= $i==$page ? 'active' : ''  ?>">
+                                                <a class="" href="?page=<?= $i ?>" > <?= $i ?> </a>
                                             </li>
-                                        <?php endfor;?>
-                                    <?php endif;?>
+                                        <?php endfor; ?>
+                                    <?php elseif($page > $totalPages-2): ?>
+                                    <?php $pageStart = $totalPages-4 ?>
+                                        <?php for($i=$pageStart; $i <= $totalPages; $i++): 
+                                            if ($i < 1 or $i > $totalPages) {
+                                                    continue;
+                                            }?>
+                                            <li class="page-number <?= $i==$page ? 'active' : ''  ?>">
+                                                <a class="" href="?page=<?= $i ?>" > <?= $i ?> </a>
+                                            </li>
+                                        <?php endfor; ?>
+                                    <?php else: ?>
+                                        <?php for($i=$pageStart; $i <= $pageEnd; $i++): 
+                                            if ($i < 1 or $i > $totalPages) {
+                                                    continue;
+                                            }?>
+                                            <li class="page-number <?= $i==$page ? 'active' : ''  ?>">
+                                                <a class="" href="?page=<?= $i ?>" > <?= $i ?> </a>
+                                            </li>
+                                        <?php endfor; ?>
+                                    <?php endif; ?>
+                                                                    
 
-
-                                    <li class="page-item">
-                                        <a class="page-link" href="?page=<?=$page + 1?>">
+                                    <li class="">
+                                        <a class="pageDir" href="?page=<?= $page+1 ?>">
+                                            Next
                                             <i class="fas fa-caret-right"></i>
                                         </a>
                                     </li>
                                 </ul>
-                            </nav>
+                            </div>
 
                         <div style="margin-top: 2rem;">
                             <table class="table table-hover">
@@ -161,8 +171,8 @@ th{
                                     <th scope="col">統一編號</th>
                                     <th scope="col">連絡電話</th>
                                     <th scope="col">地址</th>
-                                    <th scope="col"><i class="fas fa-edit"></i></th>
-                                    <th scope="col"><i class="fas fa-ban"></i></th>
+                                    <th scope="col">編輯</th>
+                                    <th scope="col">禁用</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -209,12 +219,16 @@ th{
     </div>
 
     <script>
-    function delete_one(sid) {
+        //被選取的頁簽文字顏色變紅
+        $('.nav-link.active').css('color','var(--red)');
+
+        function delete_one(sid) {
             if(confirm(`確定要刪除編號為 ${sid} 的資料嗎?`)){
                 location.href = 'data_delete.php?sid=' + sid;
             }
         }
-    function ban_one(sid) {
+
+        function ban_one(sid) {
             let ban_btn = document.querySelector('.ban[href="javascript:ban_one(' + sid + ')"]');
 
             if(ban_btn.style.color == 'rgb(0, 123, 255)'){

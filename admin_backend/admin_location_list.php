@@ -81,7 +81,65 @@ $per_page
         font-size: 23px;
     }
 
+    /* 頁數 */
+    .pageNavigation{
+        background-color: #fff;
+        padding: 10px 20px;
+        border-radius: 30px;
+        box-shadow: 0 5px 15px rgba(0,0,0,.2);
+    }
+
+    .pageNavigation li{
+        list-style: none;
+        line-height: 30px;
+        margin: 0 5px;
+    }
+
+    .pageNavigation li.page-number{
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        text-align: center;
+    }
+
+    .pageNavigation li a{
+        display: block;
+        text-decoration: none;
+        color: #777;
+        font-weight: 900;
+        border-radius: 50%;
+        transition: .3s;
+        
+    }
+
+    .pageNavigation li.page-number:hover a,
+    .pageNavigation li.page-number.active a{
+        background-color: var(--dark);
+        color: #fff;
+    }
+
+    .pageNavigation li:first-child{
+        margin-right: 30px;
+        font-weight: 700;
+        font-size: 16px;
+    }
+
+    .pageNavigation li:last-child{
+        margin-left: 30px;
+        font-weight: 700;
+        font-size: 16px;
+    }
+
+
+
+    .table th{
+        text-align:center;
+        vertical-align: middle;
+        /* letter-spacing: 3px; */
+    }
+
     .table td{
+        text-align:center;
         vertical-align: middle;
         color : #6c757d;
     }
@@ -113,79 +171,79 @@ $per_page
                         <!-- 頁籤 -->
                         <ul class="nav nav-tabs">
                             <li class="nav-item ">
-                                <a class="nav-link " href="admin_product_list.php">商品列表</a>
+                                <a class="nav-link list-link " href="admin_product_list.php" style="color: var(--dark);">商品列表</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="admin_course_list.php">課程列表</a>
+                                <a class="nav-link list-link" href="admin_course_list.php" style="color: var(--dark);" >課程列表</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="admin_location_list.php">場地列表</a>
+                                <a class="nav-link list-link active" href="admin_location_list.php" style="color: var(--dark);" >場地列表</a>
                             </li>
                         </ul>
 
                         <div class="card card-css">
                             <div class="card-body">
                                 <h2 class="card-title" style="text-align:center;">場地列表 </h2>
-                                <div class="d-flex justify-content-center">
-                                    <!-- <h5 class="card-title">場地列表</h5> -->
-                                        <ul class="pagination ">
-                                            <li class="page-item">
-                                                <a class="page-link" href="?page=<?= $page - 1 ?>">
-                                                    <i class="fas fa-chevron-left"></i>
+                                <div class="d-flex justify-content-end mb-4">
+                                
+                                    <ul class="pageNavigation d-flex justify-content-end m-0">
+                                            <li class="pageDir"">
+                                                <a class="" href="?page=<?= $page-1 ?>">
+                                                    <i class="fas fa-caret-left"></i>
+                                                    Prev
                                                 </a>
                                             </li>
 
+                                            <?php 
+                                                $pageStart = $page-2;
+                                                $pageEnd = $page+2;
+                                            ?>
+                                            <?php if( $page <= 3  ): ?>
+                                            <?php    $pageStart = 1;?>
+                                            <?php    $pageEnd = $page+5; ?>
+                                                <?php for($i=$pageStart; $i <= $pageEnd -$page ; $i++): 
+                                                        if ($i < 1 or $i > $totalPages) {
+                                                            continue;
+                                                        }?>
+                                                    <li class="page-number <?= $i==$page ? 'active' : ''  ?>">
+                                                        <a class="" href="?page=<?= $i ?>" > <?= $i ?> </a>
+                                                    </li>
+                                                <?php endfor; ?>
+                                            <?php elseif($page > $totalPages-2): ?>
+                                            <?php $pageStart = $totalPages-4 ?>
+                                                <?php for($i=$pageStart; $i <= $totalPages; $i++): 
+                                                    if ($i < 1 or $i > $totalPages) {
+                                                            continue;
+                                                    }?>
+                                                    <li class="page-number <?= $i==$page ? 'active' : ''  ?>">
+                                                        <a class="" href="?page=<?= $i ?>" > <?= $i ?> </a>
+                                                    </li>
+                                                <?php endfor; ?>
+                                            <?php else: ?>
+                                                <?php for($i=$pageStart; $i <= $pageEnd; $i++): 
+                                                    if ($i < 1 or $i > $totalPages) {
+                                                            continue;
+                                                    }?>
+                                                    <li class="page-number <?= $i==$page ? 'active' : ''  ?>">
+                                                        <a class="" href="?page=<?= $i ?>" > <?= $i ?> </a>
+                                                    </li>
+                                                <?php endfor; ?>
+                                            <?php endif; ?>
+                                                                        
 
-                                <?php 
-                                    $pageStart = $page-2;
-                                    $pageEnd = $page+2;
-                                ?>
-                                <?php if( $page <= 3  ): ?>
-                                <?php    $pageStart = 1;?>
-                                <?php    $pageEnd = $page+5; ?>
-                                    <?php for($i=$pageStart; $i <= $pageEnd -$page ; $i++): 
-                                        if ($i < 1 or $i > $totalPages) {
-                                                continue;
-                                            }?>
-                                        <li class="page-item  <?= $i==$page ? 'active' : ''  ?>">
-                                            <a class="page-link" href="?page=<?= $i ?>" > <?= $i ?> </a>
-                                        </li>
-                                    <?php endfor; ?>
-                                <?php elseif($page > $totalPages-2): ?>
-                                <?php $pageStart = $totalPages-4 ?>
-                                    <?php for($i=$pageStart; $i <= $totalPages; $i++): 
-                                            if ($i < 1 or $i > $totalPages) {
-                                                continue;
-                                            }?>
-                                            <li class="page-item  <?= $i==$page ? 'active' : ''  ?>">
-                                                <a class="page-link" href="?page=<?= $i ?>" > <?= $i ?> </a>
-                                            </li>
-                                    <?php endfor; ?>
-                                <?php else: ?>
-                                    <?php for($i=$pageStart; $i <= $pageEnd; $i++): 
-                                        if ($i < 1 or $i > $totalPages) {
-                                                continue;
-                                        }?>
-                                        <li class="page-item  <?= $i==$page ? 'active' : ''  ?>">
-                                            <a class="page-link" href="?page=<?= $i ?>" > <?= $i ?> </a>
-                                        </li>
-                                    <?php endfor; ?>
-                                <?php endif; ?>
-                                    
-
-
-
-                                            <li class="page-item">
-                                                <a class="page-link" href="?page=<?= $page + 1 ?>">
-                                                    <i class="fas fa-chevron-right"></i>
+                                            <li class="">
+                                                <a class="pageDir" href="?page=<?= $page+1 ?>">
+                                                    Next
+                                                    <i class="fas fa-caret-right"></i>
                                                 </a>
                                             </li>
-                                        </ul>
-                               </div>
-                               <table class="table">
+                                    </ul>
+                                
+                                </div>
+                               <table class="table table-hover ">
                                     <thead>
                                         <tr>
-                                            <th scope="col"><i class="fas fa-trash-alt"></i></th>
+                                            <th scope="col">刪除</th>
                                             <th scope="col" >#</th>
                                             <th scope="col" style="width:11%;">場地名稱</th>
                                             <th scope="col" style="width:11%;">場地地址</th>
@@ -195,7 +253,7 @@ $per_page
                                             <th scope="col" style="width:11%;">場地價錢</th>
                                             <th scope="col" style="width:11%;">開放時間</th>
                                             <!-- <th scope="col">圖片</th> -->
-                                            <th scope="col"><i class="fas fa-edit"></i></th>
+                                            <th scope="col">編輯</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -234,6 +292,8 @@ $per_page
             </div>
 
             <script>
+                $('.list-link.active').css('color','var(--red)');
+
                 function delete_one(location_sid) {
                     if (confirm(`確定要刪除編號為 ${location_sid} 的資料嗎?`)) {
                         location.href = 'location_delete.php?location_sid=' + location_sid;
