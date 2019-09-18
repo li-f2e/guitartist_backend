@@ -1,3 +1,7 @@
+<?php
+require 'init.php';
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,10 +15,6 @@
 
 </head>
 
-<?php
-require 'init.php';
-
-?>
 
 <style>
 
@@ -138,8 +138,8 @@ button:hover{
                     <div class="d-flex">
                         <label for="password"></label>
                         <input type="password" class="pwdVisibility" id="password" name="password" placeholder="PASSWORD">
-                        <a href="" id="eye" style="position:absolute; top:250px; right:52px"><i class="far fa-eye-slash"></a></i>
-                        <small id="info_bar" style="text-align: center; margin:10px"></small>
+                        <a href="" id="eye" style="position:absolute; top:250px; right:52px"><i class="far fa-eye-slash"></a></i>  
+                        <small id="warn_text">Please check again</small>
                     </div>
                 </div>
                 <button type="submit" id='submit_btn'>Log in</button>
@@ -148,7 +148,7 @@ button:hover{
     <script src="js/pwdHidden_login.js"></script>
     <script>
             let wrap = document.getElementById('wrap');
-            let info_bar = document.querySelector('#info_bar');
+
             function checkForm() {
                 submit_btn.style.display = 'none'; // 執行時按鈕先消失
                 let fd = new FormData(document.form1);
@@ -163,15 +163,15 @@ button:hover{
                         .then(json => {
                             console.log(json);
                             submit_btn.style.display = 'block'; // 接受到response後, 按鈕回來
-                            info_bar.style.display = 'block';
-                            info_bar.innerHTML = json.info;
+                            // info_bar.style.display = 'block';
+                            // info_bar.innerHTML = json.info;
 
                             if (json.success) {
                                 // info_bar.className = 'alert alert-success';
                                 wrap.classList.remove("flipInY");
                                 wrap.classList.add("flipOutY");
                                 setTimeout(function() {
-                                    location.href = json.href;
+                                    location.href = json.href; 
                                 }, 1500);
                             } else {
                                 wrap.classList.remove("flipInY");
