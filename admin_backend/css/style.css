@@ -11,7 +11,7 @@
   --gold: #b1803f;
   --gray: #eae5de;
   --grey: #f6f5f1;
-  /* var(--primary); */
+  --red: rgb(226, 24, 24);
   --bar: rgb(226, 226, 226);
   --ye: #d8953d;
 }
@@ -35,7 +35,7 @@ body::after {
   pointer-events: none;
 }
 
-.fa-guitar,
+
 .fa-list-alt,
 .fa-file-invoice-dollar {
   font-size: 2rem;
@@ -144,6 +144,26 @@ body::after {
 }
 
 /* 左邊導覽列 */
+.fa-user-friends {
+  font-size: 1.5rem;
+  margin-left: 3px;
+}
+
+.fa-user-tie{
+  font-size: 1.5rem;
+  margin-left: 2px;
+}
+
+.fa-guitar{
+  font-size: 1.5rem;
+}
+
+.fa-cog{
+  font-size: 1.5rem;
+  margin-left: 1px;
+}
+
+
 .left-menu {
   width: 208px;
   background-color: #fff;
@@ -235,16 +255,16 @@ body::after {
 }
 
 .my-card-header.active {
-  border-radius: 0 32px 32px 0 !important;
+  border-radius: 0 25px 25px 0 !important;
   /* background-color: rgb(19, 19, 19); */
-  background-color: #b1803f;
+  background-color: var(--red);
   /* width: 50px; */
 }
 
 .my-card-header.active.ball {
-  border-radius: 32px !important;
-  margin-left: 8px;
-  width: 50px;
+  border-radius: 25px !important;
+  margin-left: 5px;
+  width: 45px;
 }
 
 .my-card-title {
@@ -327,10 +347,72 @@ body::after {
 }
 
 /* pagination */
-.page-item.active .page-link {
+/* .page-item.active .page-link {
   background-color: var(--dark);
   border-color: var(--dark);
 }
 .page-link{
   color: var(--dark);
+} */
+
+/* 頁數 */
+.pageNavigation{
+  background-color: var(--white);
+  padding: 10px 20px;
+  border-radius: 30px;
+  box-shadow: 0 5px 15px rgba(0,0,0,.2);
+}
+
+.pageNavigation li{
+  list-style: none;
+  line-height: 30px;
+  margin: 0 5px;
+}
+
+.pageNavigation li.page-number{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  text-align: center;
+  /* font-size: 1.2rem; */
+}
+
+.pageNavigation li a{
+  display: block;
+  text-decoration: none;
+  color: #777;
+  font-weight: 900;
+  border-radius: 50%;
+  transition: .3s;
+  
+}
+
+.pageNavigation li.page-number:hover a,
+.pageNavigation li.page-number.active a{
+  background-color: var(--dark);
+  color: #fff;
+}
+
+.pageNavigation li:first-child{
+  margin-right: 30px;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.pageNavigation li:last-child{
+  margin-left: 30px;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+
+/* 垃圾桶和編輯 圖案 */
+.fa-trash-alt, .fa-edit{
+  color: var(--dark);
+  font-size: 20px;
+}
+
+.fa-ban{
+  font-size: 20px;
+  color: var(--red);
 }
