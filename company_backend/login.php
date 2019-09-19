@@ -44,7 +44,7 @@ require 'init.php';
 						<input class="input100 pwdVisibility" type="password" name="password" id="password">
 						<span class="focus-input100"></span>
                         <span class="label-input100">密碼</span>
-                        <a href="" id="eye" style="position:absolute; top:50%; right:5%; transform:translate(-50%, -40%)"><i class="far fa-eye-slash" style="font-size: 1rem; "></a></i>  
+                        <a href="" id="eye" style="position:absolute; top:50%; right:5%; transform:translate(-50%, -50%)"><i class="far fa-eye-slash" style="font-size: 1rem; "></a></i>  
 					</div>
 
 					<div class="flex-sb-m w-full p-t-3 p-b-32">
