@@ -30,14 +30,9 @@ $row_main = $stmt_main->fetch();
 
 </div> -->
 
-<div class="search-box">
-    <input class="search-text" type="text" name="" placeholder="Type to search">
-    <a href="#" class="search-btn">
-        <i class="fas fa-search"></i>
-    </a>
-</div>
 
-<form class="form-inline my-2 my-lg-0 mx-3">
+
+<form class="form-inline my-2 my-lg-0 mr-3 ml-auto">
     <!-- <button href id="logOut" type="button" class="btn my-2 my-sm-0" data-toggle="modal"
         data-target="#exampleModal"></button> -->
         <a href="#" id="profile">
