@@ -1,6 +1,7 @@
-<?php // require '__admin_required.php'; ?>
-<!-- 可以改成自己的連結黨 -->
-<?php require_once __DIR__ . "/init.php"; ?>    
+<?php
+require '__admin_required.php';
+require_once __DIR__ . "/init.php"; ?> 
+
 <?php
   $page_name = 'job_list';
   $page_title = '編輯資料';
