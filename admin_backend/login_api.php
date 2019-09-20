@@ -6,7 +6,7 @@ $result = [
     'code' => 400,
     'info' => '資料欄位不足',
     'post' => $_POST,
-    'href' => 'selection.php',
+    'href' => 'admin_loading.php',
 ];
 // 必填欄位, 沒填寫則不往下執行
 // if(empty($_POST['email']) || empty($_POST['password'])){
@@ -42,32 +42,32 @@ if ($row['is_suspended'] == 1) {
     $result['code'] = 200;
     $result['info'] = '登入成功';
 
-    $num = $_SESSION['loginUser']['is_admin'] * 8 +
-            $_SESSION['loginUser']['is_company'] * 6 +
-            $_SESSION['loginUser']['is_teacher'] * 4 +
-            $_SESSION['loginUser']['is_hall_owner'] * 2 +
-            $_SESSION['loginUser']['is_hire'];
+    // $num = $_SESSION['loginUser']['is_admin'] * 8 +
+    //         $_SESSION['loginUser']['is_company'] * 6 +
+    //         $_SESSION['loginUser']['is_teacher'] * 4 +
+    //         $_SESSION['loginUser']['is_hall_owner'] * 2 +
+    //         $_SESSION['loginUser']['is_hire'];
 
-    switch($num){
-        case 1:
-            $result['href'] = '#';
-            break;
-        case 2:
-            $result['href'] = 'hall_owner_index.php';
-            break;
-        case 4:
-            $result['href'] = 'teacher_index.php';
-            break;
-        case 6:
-            $result['href'] = 'company_index.php';
-            break;
-        case 8:
-            $result['href'] = 'admin_company_list.php';
-            break;
-        default:
-            $result['href'] = 'selection.php';
-            break;
-    }
+    // switch($num){
+    //     case 1:
+    //         $result['href'] = '#';
+    //         break;
+    //     case 2:
+    //         $result['href'] = 'hall_owner_index.php';
+    //         break;
+    //     case 4:
+    //         $result['href'] = 'teacher_index.php';
+    //         break;
+    //     case 6:
+    //         $result['href'] = 'company_index.php';
+    //         break;
+    //     case 8:
+    //         $result['href'] = 'admin_company_list.php';
+    //         break;
+    //     default:
+    //         $result['href'] = 'selection.php';
+    //         break;
+    // }
 
     // if ($_SESSION['loginUser']['is_company'] == 1 && $_SESSION['loginUser']['is_teacher'] == 0 && $_SESSION['loginUser']['is_hall_owner'] == 0 && $_SESSION['loginUser']['is_hire'] == 0 && $_SESSION['loginUser']['is_admin'] == 0) {
     //     $result['href'] = 'company_index.php';

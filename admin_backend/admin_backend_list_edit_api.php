@@ -36,10 +36,10 @@ $stmt = $pdo->prepare($sql);
 
 $stmt->execute([
     (empty($_POST['name']) ? '' : $_POST['name']),
-    ($_POST['is_company'] == null ? 0 : 1),
-    ($_POST['is_teacher'] == null ? 0 : 1),
-    ($_POST['is_hall_owner'] == null ? 0 : 1),
-    ($_POST['is_hire'] == null ? 0 : 1),
+    (empty($_POST['is_company']) ? 0 : 1),
+    (empty($_POST['is_teacher']) ? 0 : 1),
+    (empty($_POST['is_hall_owner']) ? 0 : 1),
+    (empty($_POST['is_hire']) ? 0 : 1),
     $_POST['email'],
     $_POST['password'],
     $_POST['tel'],
