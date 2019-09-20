@@ -13,10 +13,10 @@
                                 <h2 class="mb-0 p-0 text-center">
                                     <button class="btn p-0 my-2 card-title my-card-title" type="button" data-toggle="collapse"
                                         data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        <div class="ml-3 mr-2">
-                                        <i class="ml-1 fas fa-user-friends"></i>
+                                        <div class="ml-1 mr-4">
+                                        <i class=" fas fa-user-friends"></i>
                                         </div>
-                                        <div class="heading ml-2 font-weight-bold">會員後台管理</div>
+                                        <div class="heading ml-2 font-weight-bold" >會員後台管理</div>
                                     </button>
                                 </h2>
                             </div>
@@ -38,8 +38,8 @@
                             <h2 class="mb-0 p-0 text-center">
                                 <button class="btn p-0 my-2 card-title my-card-title" type="button" data-toggle="collapse"
                                     data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                                    <div class="ml-3 mr-2">
-                                    <i class="ml-1 fas fa-user-tie"></i>
+                                    <div class="ml-2 mr-4">
+                                    <i class=" fas fa-user-tie"></i>
                                     </div>
                                     <div class="heading ml-2 font-weight-bold">廠商後台管理</div>
                                 </button>
@@ -65,10 +65,10 @@
                             <h2 class="mb-0 w-100 p-0 text-center">
                                 <button class="btn  p-0 my-2 my-2 card-title my-card-title" type="button" data-toggle="collapse"
                                     data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                    <div class="ml-3 mr-2">
-                                    <i class="ml-1 fas fa-guitar"></i>
+                                    <div class="ml-2 mr-4">
+                                    <i class=" fas fa-guitar"></i>
                                     </div>
-                                    <div class="heading ml-2 font-weight-bold">商品後台管理</div>
+                                    <div class="heading font-weight-bold" style="margin: 0 0 0 12px;">商品後台管理</div>
                                 </button>
                             </h2>
                         </div>
@@ -79,7 +79,6 @@
                                     <li class="ml-5"><a href="admin_product_list.php" style="text-align: left;">商品列表</a></li>
                                     <li class="ml-5"><a href="admin_course_list.php" style="text-align: left;">課程列表</a></li>
                                     <li class="ml-5"><a href="admin_location_list.php" style="text-align: left;">場地列表</a></li>
-                                    <li class="ml-5"><a href="admin_job_list.php" style="text-align: left;">徵才列表</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -89,10 +88,10 @@
                             <h2 class="mb-0 w-100 p-0 text-center">
                                 <button class="btn p-0 my-2 my-2 card-title my-card-title" type="button" data-toggle="collapse"
                                     data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                    <div class="ml-3 mr-2">
-                                    <i class="ml-1 fas fa-cog"></i>
+                                    <div class="ml-2 mr-4">
+                                    <i class=" fas fa-cog"></i>
                                     </div>
-                                    <div class="heading ml-2 font-weight-bold">設定</div>
+                                    <div class="heading  font-weight-bold" style="margin: 0 0 0 12px;">設定</div>
                                 </button>
                             </h2>
                         </div>
