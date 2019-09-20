@@ -12,12 +12,12 @@
     $page = isset($_GET['page'])? intval($_GET['page']) : 1;
     
     //每一頁顯示幾筆
-    $perPage = 7;
+    // $perPage = 25;
 
-    $modalType = isset($_GET['modal'])? $_GET['modal'] : null;
+    // $modalType = isset($_GET['modal'])? $_GET['modal'] : null;
     
 
-    $brand = isset($_GET['brand'])? $_GET['brand'] : null;
+    // $brand = isset($_GET['brand'])? $_GET['brand'] : null;
     
 
     $quantity = isset($_GET['quantity'])? $_GET['quantity'] : 0;
@@ -29,132 +29,35 @@
     
     function querySql(PDO $pdo, $str){
         $stmt = $pdo->query($str);
-    
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
 
-    if(!empty($modalType) ){
-
-        //實驗性寫成function
-        // showTable( 'product_model',  $modalType);
-
-
-        $sql_total = "SELECT COUNT(1) FROM `product` WHERE `product_model` = '$modalType'";
-        $totalRows = $pdo->query($sql_total)->fetch(PDO::FETCH_NUM)[0];
-        $totalPages = ceil( $totalRows/$perPage);
     
-        if($page<1){
-        header("Location: admin_product_list.php");
-        exit();
-        };
+    $sql_total = "SELECT COUNT(1) FROM `product` ";
+    $totalRows = $pdo->query($sql_total)->fetch(PDO::FETCH_NUM)[0];
+    // $totalPages = ceil( $totalRows/$perPage);
 
-        if($page > $totalPages){
-        header("Location: admin_product_list.php?page={$totalPages}");
-        exit();
-        };
+    // if($page<1){
+    //     header("Location: admin_product_list.php");
+    //     exit();
+    // };
 
-        $sql = sprintf( "SELECT * FROM `product` WHERE `product_model` = '$modalType' ORDER BY `product_id` DESC LIMIT %s, %s " , 
-                    ($page-1)*$perPage, $perPage );
+    // if($page > $totalPages){
+    //     header("Location: admin_product_list.php?page={$totalPages}");
+    //     exit();
+    // };
 
-        $rows = querySql($pdo, $sql);
+    $sql =  "SELECT * FROM `product` ORDER BY `product_id` DESC ";
+    $rows = querySql($pdo, $sql);
         
-
-    }
-    elseif(!empty($brand) ){
-        $sql_total = "SELECT COUNT(1) FROM `product` WHERE `product_brand` = '$brand' ";
-        // $sql_total = sprintf("SELECT COUNT(1) FROM `product` WHERE `product_email`= %s", $_SESSION['loginUser']['email']);
-        //執行SQL語法並 拿到總比數
-        $totalRows = $pdo->query($sql_total)->fetch(PDO::FETCH_NUM)[0];
-        // 有幾頁 = 總比數/每一頁顯示幾筆
-        $totalPages = ceil( $totalRows/$perPage);
     
-        if($page<1){
-            header("Location: admin_product_list.php");
-            exit();
-        };
-
-        if($page > $totalPages){
-            header("Location: admin_product_list.php?page={$totalPages}");
-            exit();
-        };
-
-
-        $sql = sprintf( "SELECT * FROM `product` WHERE `product_brand` = '$brand'  ORDER BY `product_id` DESC LIMIT %s, %s " , 
-            ($page-1)*$perPage, $perPage );
-
-        $rows = querySql($pdo, $sql);
-        
-    }
-    elseif(!empty($quantity) ){
-
-        $sql_total = "SELECT COUNT(1) FROM `product` WHERE `product_quantity` < '$quantity'";
-        $totalRows = $pdo->query($sql_total)->fetch(PDO::FETCH_NUM)[0];
-        $totalPages = ceil( $totalRows/$perPage);
-    
-        if($page<1){
-        header("Location: admin_product_list.php");
-        exit();
-        };
-
-        if($page > $totalPages){
-        header("Location: admin_product_list.php?page={$totalPages}");
-        exit();
-        };
-
-        $sql = sprintf( "SELECT * FROM `product` WHERE `product_quantity` < '$quantity'  ORDER BY `product_id` DESC LIMIT %s, %s " , 
-            ($page-1)*$perPage, $perPage );
-            
-        $rows = querySql($pdo, $sql);
-        
-    }
-    elseif(!empty($cutaway) ){
-
-        $sql_total = "SELECT COUNT(1) FROM `product` WHERE `product_cutaway` = '$cutaway'";
-        $totalRows = $pdo->query($sql_total)->fetch(PDO::FETCH_NUM)[0];
-        $totalPages = ceil( $totalRows/$perPage);
-    
-        if($page<1){
-        header("Location: admin_product_list.php");
-        exit();
-        };
-
-        if($page > $totalPages){
-        header("Location: admin_product_list.php?page={$totalPages}");
-        exit();
-        };
-
-        $sql = sprintf( "SELECT * FROM `product` WHERE `product_cutaway` = '$cutaway'  ORDER BY `product_id` DESC LIMIT %s, %s " , 
-            ($page-1)*$perPage, $perPage );
-        $rows = querySql($pdo, $sql);
-       
-    }
-
-    else{
-
-        $sql_total = "SELECT COUNT(1) FROM `product` ";
-        $totalRows = $pdo->query($sql_total)->fetch(PDO::FETCH_NUM)[0];
-        $totalPages = ceil( $totalRows/$perPage);
-
-        if($page<1){
-            header("Location: admin_product_list.php");
-            exit();
-        };
-
-        if($page > $totalPages){
-            header("Location: admin_product_list.php?page={$totalPages}");
-            exit();
-        };
-
-        $sql = sprintf( "SELECT * FROM `product` ORDER BY `product_id` DESC LIMIT %s, %s " , 
-                    ($page-1)*$perPage, $perPage );
-        $rows = querySql($pdo, $sql);
-        
-    }
     // echo '<pre>',print_r($rows),'</pre>'
 ?>   
 <?php require_once __DIR__ . "/admin__header.php"; ?>
 <link rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 <style>
     .fa-times{
         font-size: 1.5rem;
@@ -188,7 +91,7 @@
     }
 
     /* 頁數 */
-    .pageNavigation{
+    /* .pageNavigation{
         background-color: #fff;
         padding: 10px 20px;
         border-radius: 30px;
@@ -234,14 +137,78 @@
         margin-left: 30px;
         font-weight: 700;
         font-size: 16px;
-    }
+    } */
+
+
+    /* dataTable */
+    
 
     /* 表單 */
     .product-table th{
-        letter-spacing: 3px;
-        font-size: 1rem;
-        font-weight: 100;
+        font-size: 16px;
+        font-weight: 700;
+        width:100%;
+        vertical-align: middle;
     }
+
+    .dt-table{
+        margin: 0;
+    }
+
+    .dataTables_info{
+        display: none;
+    }
+
+    .dataTables_length, .dataTables_filter{
+        margin: 10px;
+    }
+
+    input[type="search"]:focus{
+        box-shadow: none;
+        border-color:var(--red);
+    }
+
+    .custom-select:focus{
+        border-color:var(--red);
+        box-shadow: none;
+    }
+
+    table.dataTable thead th, 
+    table.dataTable thead td{
+        padding: 10px 0px ;
+    }
+    
+    
+    /* table.dataTable thead>tr>th.sorting_asc, 
+    table.dataTable thead>tr>th.sorting_desc, 
+    table.dataTable thead>tr>th.sorting, 
+    table.dataTable thead>tr>td.sorting_asc, 
+    table.dataTable thead>tr>td.sorting_desc, 
+    table.dataTable thead>tr>td.sorting{
+        padding-right: 10px;
+    } */
+
+    
+    /* table.dataTable thead .sorting:before, 
+    table.dataTable thead .sorting:after, 
+    table.dataTable thead .sorting_asc:before, 
+    table.dataTable thead .sorting_asc:after, 
+    table.dataTable thead .sorting_desc:before, 
+    table.dataTable thead .sorting_desc:after, 
+    table.dataTable thead .sorting_asc_disabled:before, 
+    table.dataTable thead .sorting_asc_disabled:after, 
+    table.dataTable thead .sorting_desc_disabled:before, 
+    table.dataTable thead .sorting_desc_disabled:after{
+        content: '';
+    } */
+
+    /* table.dataTable thead .sorting:after, 
+    table.dataTable thead .sorting_asc:after, 
+    table.dataTable thead .sorting_desc:after, 
+    table.dataTable thead .sorting_asc_disabled:after, 
+    table.dataTable thead .sorting_desc_disabled:after{
+        content: '';
+    } */
 
     /* 全選按鈕 */
     .checkAll{
@@ -339,6 +306,20 @@
         height: 100px;
     }
 
+    .my-card{
+        border: none;
+        padding: 5px 0;
+        /* margin: 5px 0; */
+    }
+
+    .my-card-header{
+        background-color: transparent;
+        border: none;
+    }
+
+    .my-card-title{
+        display: flex;
+    }
     
     
 </style>    
@@ -378,10 +359,9 @@
                                 <a class="condition" href="admin_product_down.php">下架中</a>
                             </div>
                             
-                            <!-- <div> -->
-                                <!-- //換頁按鈕 -->
-                                <!-- <nav aria-label="Page navigation example ml-2"> -->
-                                    <ul class="pageNavigation d-flex justify-content-end m-0">
+
+                                <!-- //換頁按鈕 -->                              
+                                    <!-- <ul class="pageNavigation d-flex justify-content-end m-0">
                                         <li class="pageDir"">
                                             <a class="" href="?page=<?= $page-1 ?>">
                                                 <i class="fas fa-caret-left"></i>
@@ -432,23 +412,21 @@
                                                 <i class="fas fa-caret-right"></i>
                                             </a>
                                         </li>
-                                    </ul>
-                                <!-- </nav> -->
-                            <!-- </div> -->
-                            
+                                    </ul> -->
                         </div>
                         
-                       
-
+                        <!-- 分類選擇 -->
                         <div class="d-flex align-items-center py-2  pl-2">
-                            <label class="mb-0 mr-2" for="modalSelect">桶身</label>
+                            <div class="mr-4">
+                                總共有 <?= $totalRows; ?> 筆商品
+                            </div>
+                            
+                            <!-- <label class="mb-0 mr-2" for="modalSelect">桶身</label>
                             <select class="modalSelect mr-5 h-100" name="modalSelect" id="modalSelect" onchange="selectCategory()">
                                 <option value="" <?= isset($modalType)? '' : 'selected'; ?> >--請選擇--</option>
                                 <option value="D" <?= $modalType == "D" ? 'selected' : ''; ?> >D</option>
                                 <option value="OM" <?= $modalType == "OM" ? 'selected' : ''; ?> >OM</option>
                                 <option value="OOO" <?= $modalType == "OOO" ? 'selected' : ''; ?> >OOO</option>
-                                <!-- <option value="Jumbo">Jumbo</option>
-                                <option value="Jumbo">Parlor</option> -->
                             </select>
                             
                             <label class="mb-0 mr-2" for="brandSelect"> 廠牌 </label> 
@@ -459,41 +437,41 @@
                                 <option value="Martin" <?= $brand == "Martin" ? 'selected' : ''; ?> >Martin</option>
                                 <option value="Cort" <?= $brand == "Cort" ? 'selected' : ''; ?> >Cort</option>
                                 <option value="Seagull" <?= $brand == "Seagull" ? 'selected' : ''; ?> >Seagull</option>
-                            </select>
-
+                            </select> -->
+                            <button id='checkAll' class="checkAll btn btn-info mr-2" name='checkboxall'>全選</button>
+                            <button id='antiCheckAll' class="checkAll btn btn-info mr-2" name='checkboxall'>反選</button>
                             <button class="btn btn-secondary checkAll mr-3" onclick="showCutaway()"> 缺角 </button>
                             
                             <button class="btn btn-secondary checkAll mr-3" onclick="lowQuantity('quantity', '20')"> 庫存緊張 </button>
+                            
                         </div>
                         
 
                         <!-- 總比數計數器 -->
                         <div class="my-2  pl-2">
-                            <button id='checkAll' class="checkAll btn btn-info mr-2" name='checkboxall'>全選</button>
-                            <button id='antiCheckAll' class="checkAll btn btn-info mr-2" name='checkboxall'>反選</button>
-                            總共有 <?= $totalRows; ?> 筆商品
+                            
+                            
                         </div>
 
-                        
 
                         <!-- //顯示商品的表格 -->
-                        <table class="table table-hover product-table">
+                        <table id="product-table" class="table table-hover product-table">
                             <thead class="">
                                 <tr class="text-center">
-                                    <th scope="col">編號</th>
-                                    <th scope="col">選取</th>
-                                    <th scope="col">刪除</th>
-                                    <th scope="col">狀態</th>
-                                    <th scope="col">圖片</th>
-                                    <th scope="col">廠牌</th>
-                                    <th scope="col">系列</th>
-                                    <th scope="col">品名</th>
-                                    <th scope="col">桶身</th>
-                                    <th scope="col">數量</th>
-                                    <th scope="col">價格</th>
-                                    <th scope="col">優惠</th>
-                                    <th scope="col">編輯</th>
-                                    <th scope="col">販售</th>
+                                    <th scope="col" style="width: 60px;">編號</th>
+                                    <th scope="col" style="width: 60px;">選取</th>
+                                    <th scope="col" style="width: 60px;">刪除</th>
+                                    <th scope="col" style="width: 100px;">狀態</th>
+                                    <th scope="col" style="width: 60px;">圖片</th>
+                                    <th scope="col" style="width: 60px;">廠牌</th>
+                                    <th scope="col" style="width: 60px;">系列</th>
+                                    <th scope="col" style="width: 60px;">品名</th>
+                                    <th scope="col" style="width: 60px;">桶身</th>
+                                    <th scope="col" style="width: 60px;">數量</th>
+                                    <th scope="col" style="width: 60px;">價格</th>
+                                    <th scope="col" style="width: 60px;">優惠</th>
+                                    <th scope="col" style="width: 60px;">編輯</th>
+                                    <th scope="col" style="width: 60px;">販售</th>
                                     
                                 </tr>
                             </thead>
@@ -501,8 +479,8 @@
                             <tbody class="table-striped">
                                 <?php foreach($rows as $r): ?>
                                     <tr class="tr<?=$r['product_id']?> text-center">
-                                        <td class="align-middle"> <?= htmlspecialchars( $r['product_id']);  ?> </td>
-                                        <td class="align-middle">
+                                        <td class="align-middle" > <?= htmlspecialchars( $r['product_id']);  ?> </td>
+                                        <td class="align-middle" >
                                             <label class=' checkbox-inline checkboxeach'>
                                                 <!-- 選取 -->
                                                 <input id="<?= 'readtrue' . $r['product_id'] ?>" type='checkbox' name=<?= 'readtrue' . $r['product_id'] . '[]' ?> value='<?= $r['product_id'] ?>'>
@@ -515,7 +493,7 @@
                                             </a> 
                                         </td>
                                         
-                                        <td class="align-middle ">
+                                        <td class="align-middle " >
 
                                         <?php if($r['product_out']): ?>
                                             <a class="launchedBtn" id="btn<?= $r['product_id'] ?>" href="javascript: changeProduct(<?= $r['product_id'] ?>, 0)">
@@ -534,12 +512,12 @@
                                                 <img src="uploads/<?= htmlspecialchars( $r['product_image1'] ) ?>" alt="" height="200">
                                             </figure>
                                         </td>
-                                        <td class="align-middle"><?= htmlspecialchars( $r['product_brand']); ?></td>
-                                        <td class="align-middle"><?= htmlspecialchars( $r['product_series']); ?></td>
-                                        <td class="align-middle"><?= htmlspecialchars( $r['product_name']); ?></td>
+                                        <td class="align-middle"  style="width: 60px;"><?= htmlspecialchars( $r['product_brand']); ?></td>
+                                        <td class="align-middle"  style="width: 60px;"><?= htmlspecialchars( $r['product_series']); ?></td>
+                                        <td class="align-middle"  style="width: 60px;"><?= htmlspecialchars( $r['product_name']); ?></td>
                                         <td class="align-middle"><?= htmlspecialchars( $r['product_model']); ?></td>
                                         <td class="align-middle"><?= htmlspecialchars( $r['product_quantity']); ?></td>
-                                        <td class="align-middle"><?= htmlspecialchars( $r['product_price']."    NTD");  ?></td>
+                                        <td class="align-middle"  style="width: 60px;"><?= htmlspecialchars( $r['product_price']."    NTD");  ?></td>
                                         <td class="align-middle"><?= htmlspecialchars( $r['product_discount']); ?></td>
 
                                         <td class="align-middle"> 
@@ -575,7 +553,76 @@
         </div>
     </div>
 
-<script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+
+    $('#product-table').dataTable({
+        // scrollY: '60vh',
+        // scrollCollapse: true,
+        // paging: true,
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        "columnDefs": [
+            { "orderable": false, "targets": 1},
+            { "orderable": false, "targets": 2},
+            { "orderable": false, "targets": 3},
+            { "orderable": false, "targets": 4},
+            { "orderable": false, "targets": 5},
+            { "orderable": false, "targets": 6},
+            { "orderable": false, "targets": 7},
+            { "orderable": false, "targets": 8},
+            // { "orderable": false, "targets": 9},
+            // { "orderable": false, "targets": 10},
+            { "orderable": false, "targets": 11},
+            { "orderable": false, "targets": 12},
+            { "orderable": false, "targets": 13},
+        ]
+    });
+
+    $('.page-item').css({
+        'width': '30px',
+        'height': '30px',
+        'padding': '0',
+    })
+
+    $('.page-link').css({
+        'display':'flex',
+        'justify-content':'center',
+        'align-items':'center',
+        'width': '30px',
+        'height': '30px',
+        'padding': '0',
+        'border': 'none',
+        'border-radius': '50%',
+        'vertical-align': 'middle',
+        'color':'var(--dark)',
+    })
+    
+    // $('.page-link').mouseover().css({
+    //     'background-color':'red',
+    // })
+
+    $('.page-item.active .page-link').css({
+        'background-color':'var(--dark)',
+        'color':'var(--white)',
+    })
+
+    
+    $('.paginate_button').mouseover().css({
+        'background':'transparent',
+        'border':'none',
+    })
+
+
+    $('.previous').css({
+        'margin-right': '30px',
+    })
+
+    $('.next').css({
+        'margin-left': '30px',
+    })
+
     let checkAll = $('#checkAll'); //控制所有勾選的欄位
     let antiCheckAll = $('#antiCheckAll'); //反選所有勾選的欄位
     let allChecked = false;

@@ -2,7 +2,7 @@
 <?php
 
 
-require __DIR__.'/__connect_db.php';
+require __DIR__.'/__init.php';
 
 $result = [
     'success' => false,

@@ -2,7 +2,7 @@
 <?php
 
 // 多重刪除
-require __DIR__. '/__connect_db.php';
+require __DIR__. '/__init.php';
 
 $sids = isset($_GET['sid']) ? $_GET['sid'] : ''; //將陣列轉成字串
     
