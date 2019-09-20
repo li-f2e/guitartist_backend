@@ -1,3 +1,35 @@
+<?php 
+require 'init.php';
+// echo '<pre>',print_r($_SESSION['loginUser']),'<pre>';
+ $num = $_SESSION['loginUser']['is_admin'] * 8 +
+            $_SESSION['loginUser']['is_company'] * 6 +
+            $_SESSION['loginUser']['is_teacher'] * 4 +
+            $_SESSION['loginUser']['is_hall_owner'] * 2 +
+            $_SESSION['loginUser']['is_hire'];
+
+    switch($num){
+        case 1:
+            $result['href'] = '#';
+            break;
+        case 2:
+            $result['href'] = 'hall_owner_index.php';
+            break;
+        case 4:
+            $result['href'] = 'teacher_index.php';
+            break;
+        case 6:
+            $result['href'] = 'company_index.php';
+            break;
+        case 8:
+            $result['href'] = 'admin_company_list.php';
+            break;
+        default:
+            $result['href'] = 'selection.php';
+            break;
+    }
+    $href = json_encode($result, JSON_UNESCAPED_UNICODE);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +38,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Loading...</title>
 </head>
+
 <style>
     /* *{
         outline: 1px solid red;
@@ -147,19 +180,22 @@
  $(".line_5").addClass("ani-load").css("animation-delay","0.4s")
  $(".line_6").addClass("ani-load").css("animation-delay","0.5s")
  
- $(".title").delay(1700).fadeOut()
+ $(".title").delay(1700).fadeOut();
 
  
 // N秒之後跳轉頁面
-function delay_run(){
-    $(window).attr("location","https://www.udemy.com/")
- }
-$(function(){
-    setTimeout("delay_run()",1700)
-})
+// function delay_run(){
+//     $(window).attr("location",<?php $result['href'] ?>)
+//  }
 
 
+ setTimeout(function() {
+        location.href = <?= $href ?>.href; 
+ }, 1500);
 
+// $(function(){
+//     setTimeout("delay_run()",1700)
+// })
 
 </script>
 </body>

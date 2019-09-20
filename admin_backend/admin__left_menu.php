@@ -79,6 +79,7 @@
                                     <li class="ml-5"><a href="admin_product_list.php" style="text-align: left;">商品列表</a></li>
                                     <li class="ml-5"><a href="admin_course_list.php" style="text-align: left;">課程列表</a></li>
                                     <li class="ml-5"><a href="admin_location_list.php" style="text-align: left;">場地列表</a></li>
+                                    <li class="ml-5"><a href="admin_job_list.php" style="text-align: left;">徵才列表</a></li>
                                 </ul>
                             </div>
                         </div>
