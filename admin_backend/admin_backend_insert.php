@@ -414,7 +414,7 @@ require 'init.php';
                     })
                     .then(json => {
                         console.log(json);
-
+                        submit_btn.style.display = 'block';
                         info_bar.style.display = 'block';
                         info_bar.innerHTML = json.info;
 
