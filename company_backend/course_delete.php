@@ -1,7 +1,7 @@
 <?php require '__admin_required.php'; ?>
 <?php
 
-require __DIR__. '/__connect_db.php';
+require __DIR__. '/__init.php';
 
 $sid=isset($_GET['sid'])? intval($_GET['sid']) : 0 ;
 if(!empty($sid)){
