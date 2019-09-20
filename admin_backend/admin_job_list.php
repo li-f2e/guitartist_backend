@@ -1,4 +1,7 @@
-<?php require_once __DIR__ . "/init.php"; ?>    
+<?php 
+require '__admin_required.php';
+require_once __DIR__ . "/init.php";
+ ?>    
 <?php
     // $page_name = 'data_list';
 $page_title = '資料列表';
@@ -389,6 +392,7 @@ function delete_one(sid) {
     // 多重刪除 
     function delete_all() {
         let sid = [];
+        var checkBoxes = $('tbody .checkboxeach input'); 
         checkBoxes.each(function() {
             if ($(this).prop('checked')) {
                 sid.push($(this).val())

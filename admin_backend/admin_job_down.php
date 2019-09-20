@@ -1,4 +1,6 @@
-<?php require_once __DIR__ . "/init.php"; ?>    
+<?php
+require '__admin_required.php';
+require_once __DIR__ . "/init.php"; ?>    
 <?php
     // $page_name = 'data_list';
 $page_title = '資料列表';
@@ -317,14 +319,35 @@ $check=[];
     <script>
     let checkAll = $('#checkAll'); //控制所有勾選的欄位
     let checkBoxes = $('tbody .checkboxeach input'); //其他勾選欄位
-    // 以長度來判斷
-    checkAll.click(function() {
-        for (let i = 0; i < checkBoxes.length; i++) {
-            checkBoxes[i].checked = this.checked;
-        }
-    })
+    let antiCheckAll = $('#antiCheckAll'); //反選所有勾選的欄位
+    let allChecked = false;
+
 </script>
 <script> 
+   // 全選
+   checkAll.click(function() {
+        let checkBoxes = $('tbody .checkboxeach input'); //其他勾選欄位
+        allChecked = !allChecked;
+        console.log(allChecked);
+        for (let i = 0; i < checkBoxes.length; i++) {
+            checkBoxes[i].checked = allChecked;
+        };
+    })
+
+   // 反選
+   antiCheckAll.click(function() {
+        let checkBoxes = $('tbody .checkboxeach input'); //其他勾選欄位
+        for (let i = 0; i < checkBoxes.length; i++) {
+            if( checkBoxes[i].checked){
+                console.log('A');
+                checkBoxes[i].checked = false;
+            }
+            else{
+                console.log('B');
+                checkBoxes[i].checked = true;
+            }
+        };
+    })
 // 控制物品上下架的function
 function changeProduct(id, int){
         
@@ -361,6 +384,7 @@ function delete_one(sid) {
     // 多重刪除 
     function delete_all() {
         let sid = [];
+        var checkBoxes = $('tbody .checkboxeach input'); 
         checkBoxes.each(function() {
             if ($(this).prop('checked')) {
                 sid.push($(this).val())
