@@ -140,7 +140,7 @@ $check=[];
 
     <div class="d-flex justify-content-end mb-4">
         <ul class="pageNavigation d-flex justify-content-end m-0">
-                <li class="pageDir"">
+                <li class="pageDir">
                     <a class="" href="?page=<?= $page-1 ?>">
                         <i class="fas fa-caret-left"></i>
                         Prev
@@ -211,7 +211,7 @@ $check=[];
             <th scope="col"class="box_td">#</th>
             <!-- <th scope="col"class="box_td">帳號（電子信箱）</th> -->
             <th scope="col"class="box_td">課程名稱</th>
-            <th scope="col"class="box_td">課程類型</th>
+            <!-- <th scope="col"class="box_td">課程類型</th> -->
             <th scope="col"class="box_td">課程開始時期</th>
             <th scope="col"class="box_td">課程結束時期</th>
             <th scope="col"class="box_td">課程時間</th>
@@ -219,7 +219,7 @@ $check=[];
             <th scope="col"class="box_td">上課地點</th>
             <th scope="col"class="box_td">課程價格</th>
             <th scope="col"class="box_td">課程優惠價格</th>
-            <th scope="col"class="box_td">課程描述</th>
+            <!-- <th scope="col"class="box_td">課程描述</th> -->
             <th scope="col"class="box_td">課程圖片</th>
             <th scope="col"class="box_td">編輯</th>
             <!-- <th scope="col"class="box_td"><i class="fas fa-trash-alt"></i></th> -->
@@ -241,7 +241,7 @@ $check=[];
                 <td class="box_td"><?= $r['sid'] ?></td>
                 <!-- <td class="box_td"><?= htmlentities($r['email'])?></td> -->
                 <td class="box_td"><?= htmlentities($r['course_name']) ?></td>
-                <td class="box_td"><?= htmlentities($r['course_sort']) ?></td>
+                <!-- <td class="box_td"><?= htmlentities($r['course_sort']) ?></td> -->
                 <td class="box_td"><?= htmlentities($r['course_begindate']) ?></td>
                 <td class="box_td"><?= htmlentities($r['course_enddate']) ?></td>
                 <td class="box_td"><?= htmlentities($r['course_time']) ?></td>
@@ -249,7 +249,7 @@ $check=[];
                 <td class="box_td"><?= htmlentities($r['course_address']) ?></td>
                 <td class="box_td"><?= htmlentities($r['course_price']) ?></td>
                 <td class="box_td"><?= htmlentities($r['course_bonus']) ?></td>
-                <td class="box_td"><?= htmlentities($r['course_describe']) ?></td>
+                <!-- <td class="box_td"><?= htmlentities($r['course_describe']) ?></td> -->
                 <td><img src="uploads/<?=$r['course_pic']?>" alt=""  width="150"></td>
                 <td><a href="admin_course_edit.php?sid=<?= $r['sid'] ?>">
                 <i class="fas fa-edit"></i></a>

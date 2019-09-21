@@ -19,35 +19,60 @@
   }
 ?>   
 <?php require_once __DIR__ . "/admin__header.php"; ?>
-<link rel="stylesheet" href="css/index.css">
+<!-- <link rel="stylesheet" href="css/index.css"> -->
+<?php include __DIR__ . '/admin__nav_bar.php' ?>
+<style>
+    small.form-text {
+        color: red;
+    }
 
-    <script>
-        // css打這裡
-    </script>
-</head>
-<body>
-<?php require_once __DIR__ . "/admin__nav_bar.php"; ?>
+    .fa-user-alt{
+        font-size: 25px;
+    }
 
-    <div class="wrapper d-flex">
-        
-    <?php require_once __DIR__ . "/admin__left_menu.php"; ?>
-    
-        <div class="mainContent">
-            <div class="container-fluid">
-                <div class="row justify-content-center">
-                    <div class="col-10 p-0 mt-5 ml-3 ">
-                    <div style="margin-top: 2rem;">
-    <div class="row">
-        <div class="col">
-            <div class="alert alert-primary" role="alert" id="info-bar" style="display: none"></div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">編輯課程</h5>
-                    <form name="form1" onsubmit="return checkForm()">
+    .fa-hotel{
+        font-size: 22px;
+    }
+
+    .fa-list-alt{
+        font-size: 25px;
+    }
+
+    .fa-piggy-bank{
+        font-size: 23px;
+    }
+
+    .table td{
+        vertical-align: middle;
+        color : #6c757d;
+    }
+
+    .mainContent-css{
+        background-color: #F9F9F9;
+    }
+
+    .card-css{
+        border: none;
+        border-radius: 8px;
+        box-shadow: 3px 8px 8px #ccc;
+    }
+</style>
+
+<div class="wrapper d-flex">
+    <?php include 'admin__left_menu.php' ?>
+    <div class="mainContent mainContent-css">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-10 p-0 m-5 ">
+                    <div class="container mt-4">
+                    <div class="alert alert-primary" role="alert" id="info-bar" style="display: none;width: 50rem;"></div>   
+                        <div class="card card-css" style="width: 50rem;">
+                            <div class="card-body">
+                            <h2 class="card-title" style="text-align:center;">編輯課程資訊</h2>
+                                <div class="d-flex">
+                                    <!-- <div class="alert alert-primary" role="alert" id="info-bar" style="display: none;width: 50rem;"></div>    -->
+                               </div>
+                               <form name="form1" onsubmit="return checkForm()">
                     <input type="hidden" name="sid" value="<?= $row['sid'] ?>">
                     <div class="form-group">
                             <label for="email">帳號（電子信箱）</label>
@@ -145,7 +170,7 @@
                                 <button type="button" class="btn btn-info" onclick="selUpload()" >選擇上傳的圖檔</button>
                             </div>
                             
-                            <img class="course_pic" src="uploads/<?=$row['course_pic']?>" alt="" height="200">
+                            <img class="course_pic" id="pic" src="uploads/<?=$row['course_pic']?>" alt="" height="200">
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary" id="submit_btn">確定修改</button>
                             </div>
@@ -155,28 +180,20 @@
 
                         <!-- <button type="submit" class="btn btn-primary" id="submit_btn">修改</button> -->
                     </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-        </div>
-    </div>
-
-
-
-
-
-
-</div>
-
-
-    <script>
+            <script>
         
         function selUpload(){
             document.querySelector('#course_pic').click();
         }
         //圖片預覽
         function previewFile() {
-                var preview = document.querySelector('img');
+                var preview = document.querySelector('#pic');
                 var file    = document.querySelector('input[type=file]').files[0];
                 var reader  = new FileReader();
 
@@ -238,7 +255,7 @@
             let fd = new FormData(document.form1);
 
             if(isPass) {
-                fetch('course_edit_api.php', {
+                fetch('admin_course_edit_api.php', {
                     method: 'POST',
                     body: fd,
                 })
@@ -259,7 +276,7 @@
                             timer: 1500
                             })
                             setTimeout(function(){
-                               document.location.href="course_list.php"
+                               document.location.href="admin_course_list.php"
                             },1000);
 
                         } else {
