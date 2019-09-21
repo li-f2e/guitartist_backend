@@ -62,19 +62,18 @@ $row = $stmt->fetch();
   color:black;
 }
 
-.form-group{
-  position: relative;
-}
 
 #submit_btn{
   border: 0;
   background-color:var(--red);
+  margin-top: 10px;
+  color:#fff
 }
 
 .card-img{
   width:90%;
   margin:auto;
-  margin-bottom:10%;
+  margin-bottom:7%;
 }
 
 .input_css{
@@ -95,12 +94,13 @@ $row = $stmt->fetch();
   padding:5px;
 }
 .text-p{
-  color: gray;
-  margin-bottom: 3px;
+  color: #555555;
+  margin-bottom: 5px;
+  margin-top:10px;
 }
 
 .pass-div{
-  margin-top: 30px;
+  margin-top: 15px;
   margin-bottom: 3px;
 }
 
@@ -111,6 +111,7 @@ $row = $stmt->fetch();
 
 .PAWS{
   font-size: 14px;
+  color:#555555;
 }
 
 </style>
@@ -125,11 +126,11 @@ $row = $stmt->fetch();
 
         <div class="mainContent mainContent-css">
             <div class="container-fluid">
-                <div class="row justify-content-start">
+                <div class="row justify-content-center">
                     <div class="col-10 p-0 mt-5 ml-3">
                         <!-- html馬打這裡 -->
                         <div class="container">
-                            <div style="margin-top: 2rem;">
+                            <div style="margin-top: 0.5rem;">
                                 <div class="row">
                                 <div class="col">
                                     <div
@@ -151,22 +152,21 @@ $row = $stmt->fetch();
                                     <!-- <div class="card-img"></div> -->
                                     <div class="card-body">
                                         <img class="card-img" src="images/logo.svg" alt="">
-                                        <form name="form1" onsubmit="return checkForm()">
+                                        <form name="form1" onsubmit="return checkForm()" style="margin-top:15px">
                                         <input type="hidden" name="sid" value="<?=$row['sid']?>" />
                                         <p class="text-p">請輸入舊密碼</p>
-                                        <div class="form-group d-flex">
+                                        <div class=" position-relative d-flex" >
                                             <input
                                             type="password"
                                             class="input_css"
                                             id="old_pwd"
                                             name="old_pwd"
-                                            
-                                            style=""/>
-                                            <a href="" id="eye_1" style="position:absolute; top:24%; right:5%"><i class="far fa-eye-slash"></i></a>
+                                            />
+                                            <a href="" id="eye_1" style="position:absolute; top:20%; right:5%"><i class="far fa-eye-slash"></i></a>
                                             <small id="passwordHelp" class="form-text"></small>
                                         </div>
                                         <div class="d-flex pass-div mb-2 align-items-center">
-                                            <div class="PAWS">Password Strength</div>
+                                            <div class="PAWS">密碼強度</div>
                                             <div class="progress" style="width:120px; height:15px; margin-left:8px;">
                                             <div
                                                 class="progress-bar bg-dark"
@@ -177,7 +177,7 @@ $row = $stmt->fetch();
                                             </div>
                                         </div>
                                         <p class="text-p">請輸入新密碼</p>
-                                        <div class="form-group d-flex">
+                                        <div class="d-flex position-relative" >
                                             <input
                                             type="password"
                                             class="input_css pwdVisibility"
@@ -185,10 +185,10 @@ $row = $stmt->fetch();
                                             name="password"
                                             
                                             />
-                                            <a href="" id="eye_2" style="position:absolute; top:24%; right:5%"><i class="far fa-eye-slash"></a></i>
+                                            <a href="" id="eye_2" style="position:absolute; top:20%; right:5%"><i class="far fa-eye-slash"></a></i>
                                         </div>
                                         <p class="text-p">確認密碼</p>
-                                        <div class="form-group">
+                                        <div class="" style="margin-left:0; padding:0">
                                             <input
                                             type="password"
                                             class="input_css pwdVisibility"
@@ -197,9 +197,17 @@ $row = $stmt->fetch();
                                             
                                             />
                                         </div>
-                                        <button type="submit" class="btn btn-primary" id="submit_btn">
-                                            修改
-                                        </button>
+                                        <div class="row" style="margin-top:15px">
+                                          <div class="col-12" style="text-align:right">
+                                            <button type="submit" class="btn" id="submit_btn">
+                                              修改
+                                            </button>
+                                            <button type="submit" class="btn btn-outline-dark" style="margin-top:10px">
+                                                取消
+                                            </button>
+                                          </div>
+                                        </div>
+                                          
                                         </form>
                                     </div>
                                     </div>
@@ -229,15 +237,27 @@ $row = $stmt->fetch();
       .then(json => {
         console.log(json);
         submit_btn.style.display = "block"; // 接受到response後, 按鈕回來
-        info_bar.style.display = "block";
-        info_bar.innerHTML = json.info;
+        // info_bar.style.display = "block";
+        // info_bar.innerHTML = json.info;
         if (json.success) {
-          info_bar.className = "alert alert-success";
+          // info_bar.className = "alert alert-success";
+          Swal.fire({
+          type: 'success',
+          title: json.info,
+          showConfirmButton: false,
+          timer: 1500
+          })  
           setTimeout(function() {
             location.href = "admin_company_list.php";
           }, 1000);
         } else {
-          info_bar.className = "alert alert-danger";
+          // info_bar.className = "alert alert-danger";
+          Swal.fire({
+          type: 'error',
+          title: json.info,
+          showConfirmButton: false,
+          timer: 1500
+          })
         }
       });
     return false;
