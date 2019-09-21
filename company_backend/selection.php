@@ -142,9 +142,9 @@ require 'init.php';
           .siblings()
           .css("border", "4px solid transparent");
         $(this)
-          .addClass("animated infinite bounce slow")
+          .addClass("animated infinite bounce ")
           .siblings()
-          .removeClass("animated infinite bounce slow");
+          .removeClass("animated infinite bounce ");
       });
     </script>
   </body>

@@ -99,7 +99,7 @@
                             data-parent="#accordionExample">
                             <div class="card-body my-card-content">
                                 <ul class="subTitle">
-                                    <li class="ml-5"><a href="#" style="text-align: left;">修改密碼</a></li>
+                                    <li class="ml-5"><a href="admin_changePwd.php" style="text-align: left;">修改密碼</a></li>
                                     <li class="ml-5"><a href="#" style="text-align: left;">編輯資料</a></li>
                                 </ul>
                             </div>
