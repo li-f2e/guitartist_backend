@@ -1,6 +1,6 @@
 <?php
 require '__admin_required.php';
-require '__connect_db.php';
+require 'init.php';
 $result = [
     'success' => false,
     'code' => 400,
