@@ -1,26 +1,26 @@
 <?php 
 require 'init.php';
 // echo '<pre>',print_r($_SESSION['loginUser']),'<pre>';
- $num = $_SESSION['loginUser']['is_admin'] * 8 +
-            $_SESSION['loginUser']['is_company'] * 6 +
-            $_SESSION['loginUser']['is_teacher'] * 4 +
-            $_SESSION['loginUser']['is_hall_owner'] * 2 +
+  $num = $_SESSION['loginUser']['is_admin'] * 9 +
+            $_SESSION['loginUser']['is_company'] * 7 +
+            $_SESSION['loginUser']['is_teacher'] * 5 +
+            $_SESSION['loginUser']['is_hall_owner'] * 3 +
             $_SESSION['loginUser']['is_hire'];
 
     switch($num){
         case 1:
             $result['href'] = '#';
             break;
-        case 2:
+        case 3:
             $result['href'] = 'hall_owner_index.php';
             break;
-        case 4:
+        case 5:
             $result['href'] = 'teacher_index.php';
             break;
-        case 6:
+        case 7:
             $result['href'] = 'company_index.php';
             break;
-        case 8:
+        case 9:
             $result['href'] = 'admin_company_list.php';
             break;
         default:
