@@ -269,21 +269,33 @@ input{
                     })
                     .then(json => {
                         console.log(json);
-                        // submit_btn.style.display = 'block'; // 接受到response後, 按鈕回來
-                        info_bar.style.display = 'block';
-                        info_bar.innerHTML = json.info;
+                        submit_btn.style.display = 'block'; // 接受到response後, 按鈕回來
+                        // info_bar.style.display = 'block';
+                        // info_bar.innerHTML = json.info;
                         if (json.success) {
                             // info_bar.style.display = 'block';
                             // info_bar.innerHTML = json.info;
-                            info_bar.className = 'alert alert-success';
+                            // info_bar.className = 'alert alert-success';
                             // location.href = 'hall_index.php';
+                            Swal.fire({
+                            type: 'success',
+                            title: json.info,
+                            showConfirmButton: false,
+                            timer: 1500
+                            })
                             setTimeout(function() {
                                 location.href = 'admin_hall_list.php';
                             }, 1000);
                         } else {
                             // info_bar.style.display = 'block';
                             // info_bar.innerHTML = json.info;
-                            info_bar.className = 'alert alert-danger';
+                            // info_bar.className = 'alert alert-danger';
+                            Swal.fire({
+                            type: 'error',
+                            title: json.info,
+                            showConfirmButton: false,
+                            timer: 1500
+                            })
                         }
                     });
                 return false;

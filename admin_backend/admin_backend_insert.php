@@ -415,16 +415,28 @@ require 'init.php';
                     .then(json => {
                         console.log(json);
                         submit_btn.style.display = 'block';
-                        info_bar.style.display = 'block';
-                        info_bar.innerHTML = json.info;
+                        // info_bar.style.display = 'block';
+                        // info_bar.innerHTML = json.info;
 
                         if (json.success) {
-                            info_bar.className = 'alert alert-success'; // 如果json.success = true, info bar 轉為綠色
+                            // info_bar.className = 'alert alert-success'; // 如果json.success = true, info bar 轉為綠色
+                            Swal.fire({
+                            type: 'success',
+                            title: json.info,
+                            showConfirmButton: false,
+                            timer: 1500
+                            })
                             setTimeout(function() {
                                 location.href = 'admin_backend_list.php';
                             }, 1000);
                         } else {
-                            info_bar.className = 'alert alert-danger';
+                            // info_bar.className = 'alert alert-danger';
+                            Swal.fire({
+                            type: 'error',
+                            title: json.info,
+                            showConfirmButton: false,
+                            timer: 1500
+                            })
                         }
                     })
             } else {

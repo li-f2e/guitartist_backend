@@ -132,30 +132,30 @@ if (empty($row)) {
                                     let info_bar = document.querySelector('#info-bar');
                                     const submit_btn = document.querySelector('#submit_btn');
                                     let i, s, item;
-                                    const required_fields = [
-                                        {
-                                            id: 'name',
-                                            pattern: /^\S{2,}/,
-                                            info: '請填寫正確的姓名'
-                                        },
-                                        {
-                                            id: 'email',
-                                            pattern: /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i,
-                                            info: '請填寫正確的 email 格式'
-                                        },
-                                        {
-                                            id: 'mobile',
-                                            pattern: /^09\d{2}\-?\d{3}\-?\d{3}$/,
-                                            info: '請填寫正確的手機號碼格式'
-                                        },
-                                    ];
+                                    // const required_fields = [
+                                    //     {
+                                    //         id: 'name',
+                                    //         pattern: /^\S{2,}/,
+                                    //         info: '請填寫正確的姓名'
+                                    //     },
+                                    //     {
+                                    //         id: 'email',
+                                    //         pattern: /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i,
+                                    //         info: '請填寫正確的 email 格式'
+                                    //     },
+                                    //     {
+                                    //         id: 'mobile',
+                                    //         pattern: /^09\d{2}\-?\d{3}\-?\d{3}$/,
+                                    //         info: '請填寫正確的手機號碼格式'
+                                    //     },
+                                    // ];
 
                                     // 拿到對應的 input element (el), 顯示訊息的 small element (infoEl)
-                                    for(s in required_fields){
-                                        item = required_fields[s];
-                                        item.el = document.querySelector('#' + item.id);
-                                        item.infoEl = document.querySelector('#' + item.id + 'Help');
-                                    }
+                                    // for(s in required_fields){
+                                    //     item = required_fields[s];
+                                    //     item.el = document.querySelector('#' + item.id);
+                                    //     item.infoEl = document.querySelector('#' + item.id + 'Help');
+                                    // }
 
                                     //   /[A-Z]{2}\d{8}/i  統一發票
 
@@ -195,15 +195,27 @@ if (empty($row)) {
                                                 .then(json => {
                                                     console.log(json);
                                                     submit_btn.style.display = 'block'; // 接受到response後, 按鈕回來
-                                                    info_bar.style.display = 'block';
-                                                    info_bar.innerHTML = json.info;
+                                                    // info_bar.style.display = 'block';
+                                                    // info_bar.innerHTML = json.info;
                                                     if (json.success) {
-                                                        info_bar.className = 'alert alert-success';
+                                                        // info_bar.className = 'alert alert-success';
+                                                        Swal.fire({
+                                                        type: 'success',
+                                                        title: json.info,
+                                                        showConfirmButton: false,
+                                                        timer: 1500
+                                                        })
                                                         setTimeout(function() {
                                                             location.href = 'admin_backend_list.php';
                                                         }, 1000);
                                                     } else {
-                                                        info_bar.className = 'alert alert-danger';
+                                                        // info_bar.className = 'alert alert-danger';
+                                                        Swal.fire({
+                                                        type: 'error',
+                                                        title: json.info,
+                                                        showConfirmButton: false,
+                                                        timer: 1500
+                                                        })
                                                     }
                                                 });
                                         return false; // 表單不出用傳統的 post 方式送出
