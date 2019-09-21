@@ -28,7 +28,7 @@ if ($page > $totalPages) {
 }
 ;
 
-$sql_page = sprintf("SELECT * FROM `member_list` WHERE `is_hall_owner` =1 ORDER BY `sid` DESC LIMIT %s, %s",($page - 1) * $perPage, $perPage);
+$sql_page = sprintf("SELECT * FROM `member_list` WHERE `is_hire` =1 ORDER BY `sid` DESC LIMIT %s, %s",($page - 1) * $perPage, $perPage);
 $stmt = $pdo->query($sql_page);
 include 'admin__header.php';
 include 'admin__nav_bar.php';
@@ -100,7 +100,7 @@ th{
                             <!-- //換頁按鈕 -->
                             <div class="d-flex justify-content-end my-4">
                                 <ul class="pageNavigation d-flex justify-content-end m-0">
-                                    <li class="pageDir"">
+                                    <li class="pageDir">
                                         <a class="" href="?page=<?= $page-1 ?>">
                                             <i class="fas fa-caret-left"></i>
                                             Prev
