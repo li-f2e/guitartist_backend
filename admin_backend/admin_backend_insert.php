@@ -250,9 +250,7 @@ require 'init.php';
                                             </form>
                                         </div>
                                     </div>
-
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -293,7 +291,7 @@ require 'init.php';
                 is_company_card.style.display = 'none'
                 company_common_info.style.display = 'none';
             }
-        })
+        });
 
         is_teacher.addEventListener('click', function(e) {
             if (is_teacher.checked) {
@@ -301,7 +299,7 @@ require 'init.php';
             } else {
                 is_teacher_card.style.display = 'none'
             }
-        })
+        });
 
         is_hall_owner.addEventListener('click', function(e) {
             if (is_hall_owner.checked) {
@@ -319,7 +317,8 @@ require 'init.php';
             } else {
                 company_common_info.style.display = 'none';
             }
-        })
+        });
+
         is_hire.addEventListener('click', function(e) {
             if (is_company.checked && is_hire.checked) {
                 acc_info.style.display = 'flex';
