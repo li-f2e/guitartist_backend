@@ -34,7 +34,7 @@
     
         <div class="mainContent">
             <div class="container-fluid">
-                <div class="row justify-content-start">
+                <div class="row justify-content-center">
                     <div class="col-10 p-0 mt-5 ml-3 ">
                     <div style="margin-top: 2rem;">
     <div class="row">
@@ -248,16 +248,28 @@
                     .then(json => {
                         console.log(json);
                         submit_btn.style.display = 'block';
-                        info_bar.style.display = 'block';
-                        info_bar.innerHTML = json.info;
+                        // info_bar.style.display = 'block';
+                        // info_bar.innerHTML = json.info;
                         if (json.success) {
-                            info_bar.className = 'alert alert-success';
+                            // info_bar.className = 'alert alert-success';
+                            Swal.fire({
+                            type: 'success',
+                            title: json.info,
+                            showConfirmButton: false,
+                            timer: 1500
+                            })
                             setTimeout(function(){
                                document.location.href="course_list.php"
                             },1000);
 
                         } else {
-                            info_bar.className = 'alert alert-danger';
+                            // info_bar.className = 'alert alert-danger';
+                            Swal.fire({
+                            type: 'error',
+                            title: json.info,
+                            showConfirmButton: false,
+                            timer: 1500
+                            })
                         }
                     });
             } else {

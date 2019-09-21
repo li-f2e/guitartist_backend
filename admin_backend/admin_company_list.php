@@ -68,7 +68,7 @@ include 'admin__nav_bar.php';
 
                             <div class="d-flex justify-content-end my-4">
                                 <ul class="pageNavigation d-flex justify-content-end m-0">
-                                        <li class="pageDir"">
+                                        <li class="pageDir">
                                             <a class="" href="?page=<?= $page-1 ?>">
                                                 <i class="fas fa-caret-left"></i>
                                                 Prev

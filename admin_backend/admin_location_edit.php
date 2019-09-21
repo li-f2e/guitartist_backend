@@ -194,15 +194,27 @@ $people_a = empty($row['location-people']) ? 0 : intval($row['location-people'])
                 })
                 .then(json => {
                     console.log(json);
-                    info_bar.style.display = 'block';
-                    info_bar.innerHTML = json.info;
+                    // info_bar.style.display = 'block';
+                    // info_bar.innerHTML = json.info;
                     if (json.success) {
-                        info_bar.className = 'alert alert-success';
+                        // info_bar.className = 'alert alert-success';
+                        Swal.fire({
+                        type: 'success',
+                        title: json.info,
+                        showConfirmButton: false,
+                        timer: 1500
+                        })
                         setTimeout(function() {
                             document.location.href = 'admin_location_list.php'
                         }, 1000);
                     } else {
-                        info_bar.className = 'alert alert-danger';
+                        // info_bar.className = 'alert alert-danger';
+                        Swal.fire({
+                        type: 'error',
+                        title: json.info,
+                        showConfirmButton: false,
+                        timer: 1500
+                        })
                     }
                 });
 

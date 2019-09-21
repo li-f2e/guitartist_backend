@@ -231,7 +231,7 @@ include 'admin__nav_bar.php';
                                             <!-- 刪除單個sid -->
                                             <a style="outline: none;" href="javascript:delete_one(<?=$r['sid']?>)"><i class="fas fa-trash-alt"></i></a>
                                         </td>
-                                        <td> <img src="uploads/<?=$r['teacher_pic']?>" class="pic" alt=""></td>
+                                        <td> <img style="height:50px; width:50px" src="uploads/<?=$r['teacher_pic']?>" class="pic" alt=""></td>
                                         <td><?=$r['teacher_name']?></td>
                                         <td><?=$r['email']?></td>
                                         <td><?=$r['password']?></td>

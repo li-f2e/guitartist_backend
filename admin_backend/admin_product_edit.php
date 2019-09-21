@@ -158,14 +158,29 @@
         })
         .then(jsonObj =>{
             console.log(jsonObj);
-            infoBar.style.display = 'block';
-            infoBar.innerHTML = jsonObj.info;
-
+            // infoBar.style.display = 'block';
+            // infoBar.innerHTML = jsonObj.info;
+            
             if (jsonObj.success){
-                infoBar.className = 'alert alert-success';
-            } 
+                // infoBar.className = 'alert alert-success';
+                Swal.fire({
+                type: 'success',
+                title: jsonObj.info,
+                showConfirmButton: false,
+                timer: 1500
+                })
+                setTimeout(function() {
+                location.href = 'admin_product_list.php';
+                }, 1000);
+                } 
             else{
-                infoBar.className = 'alert alert-danger';
+                // infoBar.className = 'alert alert-danger';
+                Swal.fire({
+                type: 'error',
+                title: jsonObj.info,
+                showConfirmButton: false,
+                timer: 1500
+                })
             }
             
         });
