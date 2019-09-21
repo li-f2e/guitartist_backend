@@ -10,7 +10,7 @@ $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 $per_page = 5; // 每一頁要顯示幾筆
 $email=$_SESSION['loginUser']['email'];
 
-$t_sql = "SELECT COUNT(1) FROM `course_tb` WHERE `email`='$email'";
+$t_sql = "SELECT COUNT(1) FROM `course_tb` WHERE `course_down`='1' & `email`='$email'";
 
 $t_stmt = $pdo->query($t_sql);
 $totalRows = $t_stmt->fetch(PDO::FETCH_NUM)[0]; // 拿到總筆數
@@ -28,7 +28,7 @@ if ($page > $totalPages) {
 }
 
 $sql = sprintf(
-    "SELECT * FROM course_tb WHERE `email`=? ORDER BY `sid` DESC LIMIT %s, %s",
+    "SELECT * FROM course_tb WHERE `email`=? AND `course_down`='1' ORDER BY `sid` DESC LIMIT %s, %s",
     ($page - 1) * $per_page,
     $per_page
 );
