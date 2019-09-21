@@ -262,7 +262,7 @@ include 'admin__nav_bar.php';
 
 
 
-
+    <script src="js/admin_ban_one.js"></script>
     <script>
     //被選取的頁簽文字顏色變紅
     $('.nav-link.active').css('color','var(--red)');
@@ -329,19 +329,7 @@ include 'admin__nav_bar.php';
                 location.href = 'data_delete.php?sid=' + sid;
             }
         }
-    function ban_one(sid) {
-            let ban_btn = document.querySelector('.ban[href="javascript:ban_one(' + sid + ')"]');
-
-            if(ban_btn.style.color == 'rgb(0, 123, 255)'){
-                if(confirm(`確定要禁用編號為 ${sid} 的資料嗎?`)){
-                    location.href = 'data_ban.php?sid=' + sid;
-                }
-            }else{
-                if(confirm(`確定要解除編號為 ${sid} 的禁用嗎?`)){
-                    location.href = 'remove_data_ban.php?sid=' + sid;
-                }
-            }
-        }    
+      
 
     //傳送
     // function Search() {
