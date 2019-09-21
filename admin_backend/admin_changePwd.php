@@ -3,7 +3,7 @@
 require '__admin_required.php';
 require 'init.php';
 
-$page_name = 'HALL Change PWD';
+$page_name = 'admin-changePwd';
 
 $sql = "SELECT * FROM member_list WHERE `email` = ?;";
 $stmt = $pdo->prepare($sql);
@@ -12,7 +12,7 @@ $row = $stmt->fetch();
 
 ?>
 
-<?php require_once "__header.php";?>
+<?php require_once "admin__header.php";?>
 <link rel="stylesheet" href="css/index.css">
 </head>
 
@@ -90,9 +90,12 @@ $row = $stmt->fetch();
   opacity: 0.4;
   /* position: relative; */
 }
-
+.form-group{
+  margin:5px;
+  padding:5px;
+}
 .text-p{
-  color: #dc3545;
+  color: gray;
   margin-bottom: 3px;
 }
 
@@ -114,11 +117,11 @@ $row = $stmt->fetch();
 
 
 <body>
-<?php require_once "__nav_bar.php";?>
+<?php require_once "admin__nav_bar.php";?>
 
     <div class="wrapper d-flex">
 
-    <?php require_once "__left_menu.php";?>
+    <?php require_once "admin__left_menu.php";?>
 
         <div class="mainContent mainContent-css">
             <div class="container-fluid">
@@ -159,7 +162,7 @@ $row = $stmt->fetch();
                                             name="old_pwd"
                                             
                                             style=""/>
-                                            <a href="" id="eye_1" style="position:absolute; top:20%; right:5%"><i class="far fa-eye-slash"></i></a>
+                                            <a href="" id="eye_1" style="position:absolute; top:24%; right:5%"><i class="far fa-eye-slash"></i></a>
                                             <small id="passwordHelp" class="form-text"></small>
                                         </div>
                                         <div class="d-flex pass-div mb-2 align-items-center">
@@ -182,7 +185,7 @@ $row = $stmt->fetch();
                                             name="password"
                                             
                                             />
-                                            <a href="" id="eye_2" style="position:absolute; top:20%; right:5%"><i class="far fa-eye-slash"></a></i>
+                                            <a href="" id="eye_2" style="position:absolute; top:24%; right:5%"><i class="far fa-eye-slash"></a></i>
                                         </div>
                                         <p class="text-p">確認密碼</p>
                                         <div class="form-group">
@@ -216,7 +219,7 @@ $row = $stmt->fetch();
   let info_bar = document.querySelector("#info-bar");
   function checkForm() {
     let fd = new FormData(document.form1);
-    fetch("changePwd_api.php", {
+    fetch("admin_changePwd_api.php", {
       method: "POST",
       body: fd
     })
@@ -231,7 +234,7 @@ $row = $stmt->fetch();
         if (json.success) {
           info_bar.className = "alert alert-success";
           setTimeout(function() {
-            location.href = "company_index.php";
+            location.href = "admin_company_list.php";
           }, 1000);
         } else {
           info_bar.className = "alert alert-danger";
@@ -241,6 +244,6 @@ $row = $stmt->fetch();
   }
 </script>
 
-<?php require_once "__footer.php";?>
+<?php require_once "admin__footer.php";?>
 
 
