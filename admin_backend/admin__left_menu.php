@@ -5,7 +5,7 @@
                 </div>
             </div>
 
-            <div class="container">
+            <div class="container" >
                 <div class="row py-3">
                     <div class="accordion left-collapse" id="accordionExample">
                         <div class=" card my-card">
