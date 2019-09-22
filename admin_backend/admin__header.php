@@ -148,12 +148,15 @@
     <link href="https://fonts.googleapis.com/css?family=Lobster|Noto+Sans+TC&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Prata&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="01_fontawesome-free-5.9.0-web\css\all.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 
     <link rel="stylesheet" type="text/css" href="css/flatpickr.dark.min.css">
     <!-- <link rel="stylesheet" href="css/admin_list.css"> -->
     <!-- 不確定這隻css還要不要 -->
     <link rel="stylesheet" href="css/style.css">
+    
+    <!-- 廠商【新增與編輯】的CSS -->
+    <link rel="stylesheet" href="css/admin_edit.css">
 </head>
 
 <body>
