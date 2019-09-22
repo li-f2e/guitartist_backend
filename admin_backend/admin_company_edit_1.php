@@ -12,40 +12,51 @@ $row = $stmt->fetch();
 
 <?php require 'admin__header.php';?>
 <!-- <link rel="stylesheet" href="css/index.css"> -->
-<link rel="stylesheet" href="css/company_info.css">
 
 <style>
-.avatar {
-  /* margin-left: auto; */
-  padding: 0;
-  width: 128px;
-  height: 128px;
-  overflow: hidden;
-  border-radius: 50%;
-  background-size: cover;
-  background-position: center center;
-}
-.avatar img {
-  width: 100%;
-}
-#semi-circle {
-  width: 128px;
-  height: 128px;
-  line-height: 128px;
-  text-align: center;
-  margin: 100px;
-  background-color: var(--text);
-  border-radius: 0 0 100px 100px;
-  height: 64px;
-  position: absolute;
-  z-index: 1000;
-  left: -100px;
-  bottom: -100px;
-  opacity: 0.3;
-  display:none;
-  pointer-events:none;
+  .avatar {
+    /* margin-left: auto; */
+    padding: 0;
+    width: 128px;
+    height: 128px;
+    overflow: hidden;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center center;
+  }
+
+  .avatar img {
+    width: 100%;
+  }
+
+  #semi-circle {
+    width: 128px;
+    height: 128px;
+    line-height: 128px;
+    text-align: center;
+    margin: 100px;
+    background-color: var(--text);
+    border-radius: 0 0 100px 100px;
+    height: 64px;
+    position: absolute;
+    z-index: 1000;
+    left: -100px;
+    bottom: -100px;
+    opacity: 0.3;
+    display: none;
+    pointer-events: none;
+  }
+
+  .table th {
+    width: 20%;
+  }
+
+  .table td {
+    vertical-align: middle;
+    color: #6c757d;
   }
 </style>
+
 </head>
 <body>
 
@@ -55,93 +66,111 @@ $row = $stmt->fetch();
       <?php require "admin__left_menu.php";?>
 
 
-        <div class="mainContent">
-            <div class="container-fluid">
-                <div class="row justify-content-center">
-                    <div class="col-10 p-0 mt-5 ml-3 ">
-                        <!-- html馬打這裡 -->
-                        <div class="container">
-                            <div style="margin-top: 2rem;">
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="alert alert-primary" role="alert" id="info-bar" style="display: none"></div>
-                                    </div>
-                                </div>
-                                <div class="container mt-4">
-                                    <div class="card" style="width: 50rem;">
-                                        <div class="card-body">
-                                            <h5 class="card-title">廠商資料</h5>
-                                            <form name="form1" onsubmit="return checkForm()">
-                                                <input type="hidden" name="sid" value="<?=$row['sid']?>">
-                                                <table class="table table-hover">
-                                                    <tr>
-                                                        <th class="align-middle">照片</th>
-                                                        <td>
-                                                            <a href="#" onclick="selUpload()">
-                                                              <figure id="profile_img" class="avatar" style="position: relative;">
-                                                                  <img style= "object-fit:cover; width:128px; height:128px"src="uploads/<?=empty($row['pic']) ? 'profile.png' : $row['pic']?>" alt="">
-                                                                  <div id="semi-circle"></div>
-                                                                  <i class="fas fa-camera" id="update_img" style="position: absolute; top:80px; left:55px; color:white;display:none"></i>
-                                                              </figure>
-                                                            </a>
-                                                            <div class="form-group">
-                                                                <input type="file" class="form-control-file" id="my_file" name="my_file" style="display:none" onchange="previewFile()">
-                                                            </div>
-
-                                                        </td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th class="align-middle">名稱</th>
-                                                        <td><?=htmlentities($row['name'])?></td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr>
-                                                    <tr>
-                                                        <th class="align-middle">統一編號</th>
-                                                        <td><?=htmlentities($row['tax_id'])?></td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th class="align-middle">密碼</th>
-                                                        <td>
-                                                          <input type="password" name="password" id="password" value="<?=htmlentities($row['password'])?>">
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th class="align-middle">代理品牌</th>
-                                                        <td>
-                                                          <div>
-                                                            <input type="text" name="brand_1" id="brand_1" value="<?=htmlentities($row['brand_1'])?>">
-                                                            <a href="" id="addBtn_1"><i class="fas fa-plus"></i></a>
-                                                          </div>
-                                                          <div>
-                                                            <input type="<?=!empty($row['brand_2']) ? 'text' : 'hidden'?>" name="brand_2" id="brand_2" value="<?=htmlentities($row['brand_2'])?>">
-                                                            <a href="" style="<?=!empty($row['brand_2']) ? 'display:inline-block' : 'display: none'?>" id="removeBtn_1"><i class="fas fa-minus"></i></a>
-                                                          </div>
-                                                          <div>
-                                                            <input type="<?=!empty($row['brand_3']) ? 'text' : 'hidden'?>" name="brand_3" id="brand_3" value="<?=htmlentities($row['brand_3'])?>">
-                                                            <a href="" style="<?=!empty($row['brand_3']) ? 'display:inline-block' : 'display: none'?>" id="removeBtn_2"><i class="fas fa-minus"></i></a>
-                                                          </div>
-                                                        </td>
-                                                        <td></td>
-                                                    </tr>
-                                                  </table>
-                                                    <div class="ml-auto d-flex" style="width:130px">
-                                                        <button type="submit" class="btn btn-primary" id="submit_btn" style="margin-right:5px">修改</button>
-                                                        <a name="" id="" class="btn btn-primary" href="company_info.php" role="button">返回</a>
-                                                    </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+      <div class="mainContent mainContent-css">
+      <div class="container-fluid">
+        <div class="row justify-content-center">
+          <div class="col-11 mt-5 mx-auto">
+            <!-- html碼打這裡 -->
+            <div class="container">
+              <div style="margin-top: 2rem;">
+                <div class="row">
+                  <div class="col">
+                    <div class="alert alert-primary" role="alert" id="info-bar" style="display: none"></div>
+                  </div>
                 </div>
+
+                <!-- 麵包屑 -->
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb mb-3 p-1">
+                    <li class="breadcrumb-item"><a href="admin_hire_list.php">代理商列表</a></li>
+                    <li class="breadcrumb-item"><a href="admin_hire_info.php">編輯代理商資訊</a></li>
+                    <li class="breadcrumb-item active font-weight-bold" aria-current="page">編輯基本資訊</li>
+                  </ol>
+                </nav>
+                <div class="card edit_card">
+                  <div class="card-body">
+                    <h5 class="card-title">基本資訊</h5>
+                    <form name="form1" onsubmit="return checkForm()">
+                      <input type="hidden" name="sid" value="<?=$row['sid']?>">
+                      <table class="table table-hover">
+                        <tr>
+                          <th class="align-middle">L O G O</th>
+                          <td>
+                            <a href="#" onclick="selUpload()">
+                              <figure id="profile_img" class="avatar" style="position: relative;">
+                                <img style="object-fit:cover; width:128px; height:128px"
+                                  src="uploads/<?=empty($row['pic']) ? 'profile.png' : $row['pic']?>" alt="">
+                                <div id="semi-circle"></div>
+                                <i class="fas fa-camera" id="update_img"
+                                  style="position: absolute; top:80px; left:55px; color:white;display:none"></i>
+                              </figure>
+                            </a>
+                            <div class="form-group">
+                              <input type="file" class="form-control-file" id="my_file" name="my_file"
+                                style="display:none" onchange="previewFile()">
+                            </div>
+
+                          </td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <th class="align-middle">名稱</th>
+                          <td><?=htmlentities($row['name'])?></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                        <tr>
+                          <th class="align-middle">統一編號</th>
+                          <td><?=htmlentities($row['tax_id'])?></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <th class="align-middle">密碼</th>
+                          <td>
+                            <input type="password" name="password" id="password"
+                              value="<?=htmlentities($row['password'])?>">
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="align-middle">代理品牌</th>
+                          <td>
+                            <div>
+                              <input type="text" name="brand_1" id="brand_1" value="<?=htmlentities($row['brand_1'])?>">
+                              <a href="" id="addBtn_1"><i class="fas fa-plus"></i></a>
+                            </div>
+                            <div>
+                              <input type="<?=!empty($row['brand_2']) ? 'text' : 'hidden'?>" name="brand_2" id="brand_2"
+                                value="<?=htmlentities($row['brand_2'])?>">
+                              <a href="" style="<?=!empty($row['brand_2']) ? 'display:inline-block' : 'display: none'?>"
+                                id="removeBtn_1"><i class="fas fa-minus"></i></a>
+                            </div>
+                            <div>
+                              <input type="<?=!empty($row['brand_3']) ? 'text' : 'hidden'?>" name="brand_3" id="brand_3"
+                                value="<?=htmlentities($row['brand_3'])?>">
+                              <a href="" style="<?=!empty($row['brand_3']) ? 'display:inline-block' : 'display: none'?>"
+                                id="removeBtn_2"><i class="fas fa-minus"></i></a>
+                            </div>
+                          </td>
+                          <td></td>
+                        </tr>
+                      </table>
+                      <div class="mr-auto mt-4 d-flex" style="width:130px">
+                        <button type="submit" class="btn btn-dark" id="submit_btn"
+                          style="margin-right:5px">修改</button>
+                        <a name="" id="" class="btn btn-light" href="admin_company_info.php" role="button">返回</a>
+                      </div>
+                  </div>
+                  </form>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
+  </div>
+  
 <script>
 
   let profile_img = document.querySelector('#profile_img');
