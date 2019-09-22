@@ -4,22 +4,22 @@ require 'init.php';
 $page_name = 'HALL LIST';
 $page_title = '資料列表';
 
-// $sql_location = "SELECT * FROM `location` WHERE `email`=?";
-// $stmt = $pdo->prepare($sql_location);
-// $stmt->execute([
-//     $_SESSION['loginUser']['email'],
-// ]);
+$sql_location = "SELECT * FROM `location` WHERE `email`=?";
+$stmt = $pdo->prepare($sql_location);
+$stmt->execute([
+    $_SESSION['loginUser']['email'],
+]);
 
 
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 
 $per_page = 10; // 每一頁要顯示幾筆
-$e_mail=$_SESSION['loginUser']['email'];
-$t_sql = "SELECT COUNT(1) FROM location  WHERE `email`='$e_mail'";
 
-// $t_sql = "SELECT COUNT(1) FROM `location` WHERE`location_sid`";
-// $t_sql = "SELECT COUNT(1) FROM `location` JOIN `member_list` ON `location`.`email` = `member_list`.`email`";
-// $t_sql = "SELECT COUNT(1) FROM `member_list`";
+$e_mail=$_SESSION['loginUser']['email'];
+
+// echo $e_mail;
+
+$t_sql = "SELECT COUNT(1) FROM location  WHERE `email`='$e_mail'";
 
 
 $t_stmt = $pdo->query($t_sql);
@@ -38,21 +38,8 @@ if ($page > $totalPages) {
     exit;
 }
 
-// $total_sql = sprintf(
-//     "SELECT * FROM `location` ORDER BY `location_sid` LIMIT %s, %s",
-//     ($page - 1) * $per_page,
-//     $per_page
-// );
 
-// $sql = "SELECT * FROM `location`";
-// $stmt_list = prepare($sql);
-// $rows = $stmt_list->fetchAll();
-
-
-$sql = sprintf("SELECT * FROM `location` WHERE `email`=? ORDER BY `location_sid` LIMIT %s, %s",
-($page - 1) * $per_page,
-$per_page
-);
+$sql = "SELECT * FROM `location` WHERE `email`='$e_mail' ";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([
         $_SESSION['loginUser']['email']
@@ -63,9 +50,9 @@ $per_page
 
 ?>
 <?php include __DIR__ . '/__header.php' ?>
-
-</head>
-
+<link rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 <style>
     .fa-user-alt{
         font-size: 25px;
@@ -98,11 +85,25 @@ $per_page
         box-shadow: 3px 8px 8px #ccc;
     }
 
+    .my-card{
+        border: none;
+        padding: 5px 0;
+        /* margin: 5px 0; */
+    }
+
+    .my-card-header{
+        background-color: transparent;
+        border: none;
+    }
+
+    .my-card-title{
+        display: flex;
+    }
+    
 </style>
 
+</head>
 <body>
-
-
 <?php include __DIR__ . '/__hall__nav_bar.php' ?>
 
 <div class="wrapper d-flex">
@@ -110,41 +111,19 @@ $per_page
     <div class="mainContent mainContent-css">
         <div class="container-fluid">
             <div class="row justify-content-center">
-                <div class="col-11 p-0 mt-5 mr-0 ml-0">
+                <div class="col-12 p-0 mt-5 mr-0 ml-0">
                         <div class="card card-css">
                             <div class="card-body">
                                 <h2 class="card-title" style="text-align:center;">場地列表 </h2>
                                 <div class="d-flex">
                                     <!-- <h5 class="card-title">場地列表</h5> -->
-                                        <ul class="pagination">
-                                            <li class="page-item">
-                                                <a class="page-link" href="?page=<?= $page - 1 ?>">
-                                                    <i class="fas fa-chevron-left"></i>
-                                                </a>
-                                            </li>
-                                                <?php
-                                                $p_start = $page - 5;
-                                                $p_end = $page + 5;
-                                                for ($i = $p_start; $i <= $p_end; $i++) :
-                                                if ($i < 1 or $i > $totalPages) {
-                                                continue;
-                                                }?>
-                                            <li class="page-item <?= $i == $page ? 'active' : '' ?>">
-                                                <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
-                                            </li>
-                                                <?php endfor; ?>
-                                            <li class="page-item">
-                                                <a class="page-link" href="?page=<?= $page + 1 ?>">
-                                                    <i class="fas fa-chevron-right"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                               </div>
-                               <table class="table">
+                                        
+                                </div>
+                               <table id="location-table" class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th scope="col"><i class="fas fa-trash-alt"></i></th>
-                                            <th scope="col" >#</th>
+                                            <th scope="col">刪除</th>
+                                            <th scope="col" >編號</th>
                                             <th scope="col" style="width:11%;">場地名稱</th>
                                             <th scope="col" style="width:11%;">場地地址</th>
                                             <th scope="col" style="width:11%;">場地電話</th>
@@ -153,12 +132,13 @@ $per_page
                                             <th scope="col" style="width:11%;">場地價錢</th>
                                             <th scope="col" style="width:11%;">開放時間</th>
                                             <!-- <th scope="col">圖片</th> -->
-                                            <th scope="col"><i class="fas fa-edit"></i></th>
+                                            <th scope="col">編輯</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                             <?php foreach ($rows as $r ) {  ?>
                                         <tr>
+                                            
                                             <td>
                                                 <a href="javascript:delete_one(<?= $r['location_sid'] ?>)"><i class="fas fa-trash-alt"></i></a>
                                             </td>
@@ -176,10 +156,11 @@ $per_page
                                                     ) 
                                                 ?>
                                             </td> 
-                                            <!-- <td><img src="upload/<?= $r['pic'] ?>" alt=""></td> -->
+                                            
                                             <td>
-                                                <a href="location_edit.php?location_sid=<?= $r['location_sid'] ?>"><i class="fas fa-edit"></i></a>
-                                                <!-- <i class="fas fa-edit" href="location_edit.php?location_sid=<?= $r['location_sid'] ?>"></<i> -->
+                                                <a href="location_edit.php?location_sid=<?= $r['location_sid'] ?>">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
                                             </td>
                                         </tr>
                                             <?php } ?>
@@ -190,8 +171,23 @@ $per_page
                    
                 </div>
             </div>
-
+            <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+            <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+            <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
             <script>
+
+                $('#location-table').dataTable({
+                        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                        "columnDefs": [
+                            { "orderable": false, "targets": 0},
+                            { "orderable": false, "targets": 2},
+                            { "orderable": false, "targets": 3},
+                            { "orderable": false, "targets": 4},
+                            { "orderable": false, "targets": 5},
+                            { "orderable": false, "targets": 9},
+                        ]
+                    });
+
                 function delete_one(location_sid) {
                     if (confirm(`確定要刪除編號為 ${location_sid} 的資料嗎?`)) {
                         location.href = 'location_delete.php?location_sid=' + location_sid;
