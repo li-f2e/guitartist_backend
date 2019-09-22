@@ -36,10 +36,11 @@ $stmt = $pdo->query($sql);
 $check=[];
 ?>   
 <?php require_once __DIR__ . "/__header.php"; ?>
+
 <link rel="stylesheet" href="css/index.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
-
+<link href="css/lightbox.css" rel="stylesheet" />
     <style>
 
     /* 頁數
@@ -168,11 +169,11 @@ $check=[];
                         <div style="margin-top: 1.25rem;">
                             <!-- <h2 class="card-title" style="text-align:center;">我的課程</h2> -->
                             <div class="condition my-3">
-                                <a class="condition" href="admin_product_list.php">全部</a>
+                                <a class="condition" href="course_list.php">全部</a>
                                 <span>|</span>
-                                <a class="condition" href="admin_product_up.php">上架中</a>
+                                <a class="condition" href="course_up.php">上架中</a>
                                 <span>|</span>
-                                <a class="condition" href="admin_product_down.php">下架中</a>
+                                <a class="condition" href="course_down.php">下架中</a>
                             </div> 
 
                             <div class="d-flex justify-content-start mb-4">
@@ -183,7 +184,7 @@ $check=[];
                                             <th scope="col" style="">
                                                 <label class='checkbox-inline checkboxeach'>
                                                     <!-- 選取全部 -->
-                                                    選取
+                                                    全選
                                                 </label>
                                                 <input id='checkAll' type='checkbox' name='checkboxall' value='1'>
                                             </th>
@@ -203,9 +204,10 @@ $check=[];
                                             <th scope="col"class="box_td" style="width: 60px">地點</th>
                                             <th scope="col"class="box_td" style="width: 60px">價格</th>
                                             <th scope="col"class="box_td" style="width: 60px">優惠</th>
-                                            <th scope="col"class="box_td" style="width: 60px">課程描述</th>
+                                            <!-- <th scope="col"class="box_td" style="width: 60px">課程描述</th> -->
                                             <th scope="col"class="box_td" style="width: 150px">課程圖片</th>
                                             <th scope="col"class="box_td" style="width: 60px">編輯</th>
+                                            <th scope="col" >狀態</th>
                                             <!-- <th scope="col"class="box_td"><i class="fas fa-trash-alt"></i></th> -->
                                         </tr>
                                     </thead>
@@ -234,10 +236,22 @@ $check=[];
                                             <td class="box_td"><?= htmlentities($r['course_address']) ?></td>
                                             <td class="box_td"><?= htmlentities($r['course_price']) ?></td>
                                             <td class="box_td"><?= htmlentities($r['course_bonus']) ?></td>
-                                            <td class="box_td"><?= htmlentities($r['course_describe']) ?></td>
-                                            <td><img src="uploads/<?=$r['course_pic']?>" alt=""  ></td>
+                                            <!-- <td class="box_td"><?= htmlentities($r['course_describe']) ?></td> -->
+                                            <td>
+                                                <a href="uploads/<?=$r['course_pic']?>" data-lightbox="image-1" data-title="My caption">
+                                                    <img src="uploads/<?=$r['course_pic']?>"  style="width:80px;" >
+                                                </a>
+                                            </td>
                                             <td><a href="course_edit.php?sid=<?= $r['sid'] ?>">
                                             <i class="fas fa-edit"></i></a>
+                                            </td>
+                                            <td>
+                                                    <?php
+                                                    $d=$r['course_down']=="0"? "block":"none";
+                                                    $u=$r['course_down']=="1"? "block":"none";
+                                                    ?>
+                                                <a href="javascript:down_one(<?= $r['sid'] ?>)"><i class="fas fa-arrow-down " style="display:<?=$d?>"></i></a>
+                                                <a href="javascript:up_one(<?= $r['sid'] ?>)"><i class="fas fa-arrow-up " style="display:<?=$u?>"></i></a>
                                             </td>
                                             <!-- <td>
                                                 <a href="javascript:delete_one(<?= $r['sid'] ?>)"><i class="fas fa-trash-alt"></i></a>
@@ -255,11 +269,19 @@ $check=[];
         </div>
     </div>
 
-
+    <script src="js/lightbox.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
     <script>
+    lightbox.option({
+      'resizeDuration': 200,
+      'wrapAround': true,
+      'fadeDuration':600
+    });
+</script>
+    <script>
+
 
 
 $('.course_table').dataTable({
@@ -281,7 +303,18 @@ $('.course_table').dataTable({
         ]
     });
 
-
+    //上架課程
+    function up_one(sid) {
+            if (confirm(`確定要上架編號為 ${sid} 的課程嗎?`)) {
+                location.href = 'course_up_api.php?sid=' + sid;
+            }
+        }
+        //下架課程
+        function down_one(sid) {
+            if (confirm(`確定要下架編號為 ${sid} 的課程嗎?`)) {
+                location.href = 'course_down_api.php?sid=' + sid;
+            }
+        }
 
 
 

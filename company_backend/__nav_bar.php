@@ -5,7 +5,7 @@ $stmt_main->execute([$_SESSION['loginUser']['email']]);
 $row_main = $stmt_main->fetch();
 ?>
 
-<nav class="navbar navbar-expand-md navbar-light bg-light navBar">
+<nav class="navbar navbar-expand-md navBar">
 
 <a  class="left-menu-toggle-btn d-flex flex-column justify-content-center align-items-center py-1" role="button">
     <div class="black-line up-line"></div>
@@ -13,8 +13,9 @@ $row_main = $stmt_main->fetch();
     <div class="black-line lower-line"></div>
 </a>
 
-<a href="company_index.php" class="navbar-brand d-flex justify-content-center align-items-center logo" href="#">GUITARTIST</a>
-
+<a href="teacher-index.php" class="navbar-brand d-flex justify-content-start align-items-center logo" href="#">
+    <img src="images/logo-sample-01.png" alt="" style="width: 23%">
+</a>
 <!-- <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse"
     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
     aria-label="Toggle navigation">
@@ -28,14 +29,9 @@ $row_main = $stmt_main->fetch();
 
 </div> -->
 
-<div class="search-box">
-    <input class="search-text" type="text" name="" placeholder="Type to search">
-    <a href="#" class="search-btn">
-        <i class="fas fa-search"></i>
-    </a>
-</div>
 
-<form class="form-inline my-2 my-lg-0 mx-3">
+
+<form class="form-inline my-2 my-lg-0 mr-3 ml-auto">
     <!-- <button href id="logOut" type="button" class="btn my-2 my-sm-0" data-toggle="modal"
         data-target="#exampleModal"></button> -->
         <a href="#" id="profile">

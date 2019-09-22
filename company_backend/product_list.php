@@ -1,4 +1,4 @@
-
+<?php require_once __DIR__ . "/__admin_required.php"; ?>   
 <?php require_once __DIR__ . "/init.php"; ?>    
 
 <?php
@@ -6,55 +6,36 @@
     //debug用
     // echo '<pre>',print_r($row),'</pre>';
     
-    $pageName = 'product_info';
-
-    //用戶選的頁面是第幾頁? 沒有選的話就是1
-    $page = isset($_GET['page'])? intval($_GET['page']) : 1;
+    $pageName = 'product_list';
     
-    //每一頁顯示幾筆
-    // $perPage = 25;
+    $sql = "SELECT * FROM member_list WHERE `email` = ?;";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$_SESSION['loginUser']['email']]);
+    $row = $stmt->fetch();
 
-    // $modalType = isset($_GET['modal'])? $_GET['modal'] : null;
-    
 
-    // $brand = isset($_GET['brand'])? $_GET['brand'] : null;
-    
-
-    $quantity = isset($_GET['quantity'])? $_GET['quantity'] : 0;
-    // echo $modalType;
-    
     $cutaway = isset($_GET['cutaway'])? $_GET['cutaway'] : 0;
+   
 
-
-    
     function querySql(PDO $pdo, $str){
         $stmt = $pdo->query($str);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
 
-    
-    $sql_total = "SELECT COUNT(1) FROM `product` ";
+    $e_mail = $_SESSION['loginUser']['email'];
+    $sql_total = "SELECT COUNT(1) FROM `product` WHERE `product_email` = '$e_mail'";
     $totalRows = $pdo->query($sql_total)->fetch(PDO::FETCH_NUM)[0];
     // $totalPages = ceil( $totalRows/$perPage);
 
-    // if($page<1){
-    //     header("Location: admin_product_list.php");
-    //     exit();
-    // };
 
-    // if($page > $totalPages){
-    //     header("Location: admin_product_list.php?page={$totalPages}");
-    //     exit();
-    // };
-
-    $sql =  "SELECT * FROM `product` ORDER BY `product_id` DESC ";
+    $sql =  "SELECT * FROM `product` WHERE `product_email` = '$e_mail'";
     $rows = querySql($pdo, $sql);
         
     
     // echo '<pre>',print_r($rows),'</pre>'
 ?>   
-<?php require_once __DIR__ . "/admin__header.php"; ?>
+<?php require_once __DIR__ . "/__header.php"; ?>
 <link rel="stylesheet" href="css/index.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
@@ -325,94 +306,27 @@
 </style>    
 </head>
 <body>
-<?php require_once __DIR__ . "/admin__nav_bar.php"; ?>
+<?php require_once __DIR__ . "/__nav_bar.php"; ?>
 
     <div class="wrapper d-flex">
         
-    <?php require_once __DIR__ . "/admin__left_menu.php"; ?>
+    <?php require_once __DIR__ . "/__left_menu.php"; ?>
     
         <div class="mainContent">
             <div class="container-fluid">
                 <div class="row justify-content-start">
                     <div class="col-12 mt-5 mx-auto ">
-                        <!-- 頁簽 -->
-                        <ul class="nav nav-tabs">
-                            <li class="nav-item ">
-                                <a class="nav-link list-link active" href="admin_product_list.php" style="color: var(--dark);">商品列表</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link list-link" href="admin_course_list.php" style="color: var(--dark);" >課程列表</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link list-link" href="admin_location_list.php" style="color: var(--dark);" >場地列表</a>
-                            </li>
-                        </ul>
-
-                        <h2 class="" style="text-align:center; margin-top: 1.25rem;">商品列表 </h2>
+                        
+                        <!-- <h2 class="" style="text-align:center; margin-top: 1.25rem;">商品列表 </h2> -->
                         <!-- //全部|上架中|下架中 -->
                         <div class="mt-4 mb-3 ml-2 d-flex justify-content-between align-items-center">
                             <div>
-                                <a class="condition" href="admin_product_list.php">全部</a>
+                                <a class="condition" href="product_list.php">全部</a>
                                 <span>|</span>
-                                <a class="condition" href="admin_product_up.php">上架中</a>
+                                <a class="condition" href="product_up.php">上架中</a>
                                 <span>|</span>
-                                <a class="condition" href="admin_product_down.php">下架中</a>
+                                <a class="condition" href="product_down.php">下架中</a>
                             </div>
-                            
-
-                                <!-- //換頁按鈕 -->                              
-                                    <!-- <ul class="pageNavigation d-flex justify-content-end m-0">
-                                        <li class="pageDir"">
-                                            <a class="" href="?page=<?= $page-1 ?>">
-                                                <i class="fas fa-caret-left"></i>
-                                                Prev
-                                            </a>
-                                        </li>
-
-                                        <?php 
-                                            $pageStart = $page-2;
-                                            $pageEnd = $page+2;
-                                        ?>
-                                        <?php if( $page <= 3  ): ?>
-                                        <?php    $pageStart = 1;?>
-                                        <?php    $pageEnd = $page+5; ?>
-                                            <?php for($i=$pageStart; $i <= $pageEnd -$page ; $i++): 
-                                                    if ($i < 1 or $i > $totalPages) {
-                                                        continue;
-                                                    }?>
-                                                <li class="page-number <?= $i==$page ? 'active' : ''  ?>">
-                                                    <a class="" href="?page=<?= $i ?>" > <?= $i ?> </a>
-                                                </li>
-                                            <?php endfor; ?>
-                                        <?php elseif($page > $totalPages-2): ?>
-                                        <?php $pageStart = $totalPages-4 ?>
-                                            <?php for($i=$pageStart; $i <= $totalPages; $i++): 
-                                                if ($i < 1 or $i > $totalPages) {
-                                                        continue;
-                                                }?>
-                                                <li class="page-number <?= $i==$page ? 'active' : ''  ?>">
-                                                    <a class="" href="?page=<?= $i ?>" > <?= $i ?> </a>
-                                                </li>
-                                            <?php endfor; ?>
-                                        <?php else: ?>
-                                            <?php for($i=$pageStart; $i <= $pageEnd; $i++): 
-                                                if ($i < 1 or $i > $totalPages) {
-                                                        continue;
-                                                }?>
-                                                <li class="page-number <?= $i==$page ? 'active' : ''  ?>">
-                                                    <a class="" href="?page=<?= $i ?>" > <?= $i ?> </a>
-                                                </li>
-                                            <?php endfor; ?>
-                                        <?php endif; ?>
-                                            
-
-                                        <li class="">
-                                            <a class="pageDir" href="?page=<?= $page+1 ?>">
-                                                Next
-                                                <i class="fas fa-caret-right"></i>
-                                            </a>
-                                        </li>
-                                    </ul> -->
                         </div>
                         
                         <!-- 分類選擇 -->
@@ -420,38 +334,13 @@
                             <div class="mr-4">
                                 總共有 <?= $totalRows; ?> 筆商品
                             </div>
-                            
-                            <!-- <label class="mb-0 mr-2" for="modalSelect">桶身</label>
-                            <select class="modalSelect mr-5 h-100" name="modalSelect" id="modalSelect" onchange="selectCategory()">
-                                <option value="" <?= isset($modalType)? '' : 'selected'; ?> >--請選擇--</option>
-                                <option value="D" <?= $modalType == "D" ? 'selected' : ''; ?> >D</option>
-                                <option value="OM" <?= $modalType == "OM" ? 'selected' : ''; ?> >OM</option>
-                                <option value="OOO" <?= $modalType == "OOO" ? 'selected' : ''; ?> >OOO</option>
-                            </select>
-                            
-                            <label class="mb-0 mr-2" for="brandSelect"> 廠牌 </label> 
-                            <select class="brandSelect mr-5 h-100" name="brandSelect" id="brandSelect" onchange="selectCategory()">
-                                <option value="" <?= isset($brand)? '' : 'selected'; ?> >--請選擇--</option>
-                                <option value="LakeWood" <?= $brand == "LakeWood" ? 'selected' : ''; ?> >LakeWood</option>
-                                <option value="Alvarez" <?= $brand == "Alvarez" ? 'selected' : ''; ?> >Alvarez</option>
-                                <option value="Martin" <?= $brand == "Martin" ? 'selected' : ''; ?> >Martin</option>
-                                <option value="Cort" <?= $brand == "Cort" ? 'selected' : ''; ?> >Cort</option>
-                                <option value="Seagull" <?= $brand == "Seagull" ? 'selected' : ''; ?> >Seagull</option>
-                            </select> -->
                             <button id='checkAll' class="checkAll btn btn-info mr-2" name='checkboxall'>全選</button>
                             <button id='antiCheckAll' class="checkAll btn btn-info mr-2" name='checkboxall'>反選</button>
                             <button class="btn btn-secondary checkAll mr-3" onclick="showCutaway()"> 缺角 </button>
-                            
                             <button class="btn btn-secondary checkAll mr-3" onclick="lowQuantity('quantity', '20')"> 庫存緊張 </button>
-                            
                         </div>
                         
 
-                        <!-- 總比數計數器 -->
-                        <div class="my-2  pl-2">
-                            
-                            
-                        </div>
 
 
                         <!-- //顯示商品的表格 -->
@@ -521,7 +410,7 @@
                                         <td class="align-middle"><?= htmlspecialchars( $r['product_discount']); ?></td>
 
                                         <td class="align-middle"> 
-                                            <a href=" admin_product_edit.php?product_id=<?= $r['product_id'] ?> ">
+                                            <a href="product_edit.php?product_id=<?= $r['product_id'] ?> ">
                                                 <i class="fas fa-edit"></i>
                                             </a> 
                                         </td>
@@ -543,9 +432,7 @@
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
-
-                        <div class="cube">
-                                        
+   
                         </div>
                     </div>
                 </div>
@@ -668,7 +555,7 @@
             alert('沒有選擇任何商品');
         } else {
             if (confirm('確定要刪除這些商品嗎？')) {
-                location.href = 'admin_product_delete_all.php?sid=' + sid.toString();
+                location.href = 'product_delete_all.php?sid=' + sid.toString();
             }
         }
     }
@@ -676,7 +563,7 @@
     // 控制物品上下架的function
     function changeProduct(id, int){
         
-        fetch("admin_product_out.api.php?product_id="+id+'&value='+int)
+        fetch("product_out.api.php?product_id="+id+'&value='+int)
         .then( response =>{
             console.log(response);
             return response.json();
@@ -702,7 +589,7 @@
     // 禁售物品的function
     function changeBanded(id, int){
         
-        fetch("admin_product_banned.api.php?product_id="+id+'&value='+int)
+        fetch("product_banned.api.php?product_id="+id+'&value='+int)
         .then( response =>{
             console.log(response);
             return response.json();
@@ -732,13 +619,13 @@
     //分類顯示要哪種分類(下拉選單)的function
     function selectCategory(){
         if(!!modalSelect.value && !!brandSelect.value ){
-            window.location.href= `admin_product_list.php?modal=${modalSelect.value}&brand=${brandSelect.value}`;
+            window.location.href= `product_list.php?modal=${modalSelect.value}&brand=${brandSelect.value}`;
         }
         else if(!!modalSelect.value ){
-            window.location.href= `admin_product_list.php?modal=${modalSelect.value}`;
+            window.location.href= `product_list.php?modal=${modalSelect.value}`;
         }
         else{
-            window.location.href= `admin_product_list.php?brand=${brandSelect.value}`;
+            window.location.href= `product_list.php?brand=${brandSelect.value}`;
         } 
 
     }
@@ -747,12 +634,12 @@
         
     // 庫存警張
     function lowQuantity(column, quantity){
-        window.location.href= `admin_product_list.php?${column}=${quantity}`;
+        window.location.href= `product_list.php?${column}=${quantity}`;
     }
 
     // 缺角
     function showCutaway(){
-        window.location.href= `admin_product_list.php?cutaway=1`;
+        window.location.href= `product_list.php?cutaway=1`;
     }
 
     //刪除資料警告
@@ -760,7 +647,7 @@
         if( confirm(`確定要刪除編號為 ${id} 的商品嗎?`) ){
             let currentRow = document.querySelector('.tr<?= $r['product_id'] ?>');
             // currentRow.style.backgroundColor = 'red';
-            location.href = "admin_product_delete.api.php?product_id=" + id;
+            location.href = "product_delete.api.php?product_id=" + id;
         }
     };
 
@@ -768,7 +655,7 @@
     
     // 實驗性的function
     function ajaxTest(){
-        fetch('admin_product_select_modal.api.php?value=' + selectValue)
+        fetch('product_select_modal.api.php?value=' + selectValue)
         .then(response => {
             console.log(response);
             return response.json();
@@ -789,6 +676,6 @@
         // console.log(table);
     }
 </script>
-<?php require_once __DIR__ . "/admin__footer.php"; ?>
+<?php require_once __DIR__ . "/__footer.php"; ?>
 
 
