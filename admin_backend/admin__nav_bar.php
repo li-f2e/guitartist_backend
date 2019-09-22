@@ -61,7 +61,7 @@ $row_main = $stmt_main->fetch();
         <a class="btn btn-outline-secondary" style="display:inline-block; margin-left:200px" href="logout.php" role="button">登出</a>
     </div>
     </div> -->
-<div class="card" id="logout" style="position: absolute; right: 20px; top: 82px;width: 300px; height:183px; z-index: 1000; display:none">
+<div class="card" id="logout" style="position: absolute; right: 20px; top: 82px;width: 300px; height:183px; z-index: 1000; display:none; box-shadow: 5px 5px 5px rgb(129, 129, 129)">
     <div class="d-flex" style="height:120px">
         <a href="#"><div style="margin: 10px 10px 10px 20px;border: 1px solid lightgray; width:100px; height:100px; border-radius:50%; background-size:cover; background-image: url(uploads/<?=empty($row_main['pic']) ? 'profile.png' : $row_main['pic']?>);"></div></a>
         <div style="flex:1; width:160px;margin:auto">
