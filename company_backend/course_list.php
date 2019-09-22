@@ -36,10 +36,11 @@ $stmt = $pdo->query($sql);
 $check=[];
 ?>   
 <?php require_once __DIR__ . "/__header.php"; ?>
+
 <link rel="stylesheet" href="css/index.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
-
+<link href="css/lightbox.css" rel="stylesheet" />
     <style>
 
     /* 頁數
@@ -236,7 +237,11 @@ $check=[];
                                             <td class="box_td"><?= htmlentities($r['course_price']) ?></td>
                                             <td class="box_td"><?= htmlentities($r['course_bonus']) ?></td>
                                             <!-- <td class="box_td"><?= htmlentities($r['course_describe']) ?></td> -->
-                                            <td><img src="uploads/<?=$r['course_pic']?>" alt=""  ></td>
+                                            <td>
+                                                <a href="uploads/<?=$r['course_pic']?>" data-lightbox="image-1" data-title="My caption">
+                                                    <img src="uploads/<?=$r['course_pic']?>"  style="width:80px;" >
+                                                </a>
+                                            </td>
                                             <td><a href="course_edit.php?sid=<?= $r['sid'] ?>">
                                             <i class="fas fa-edit"></i></a>
                                             </td>
@@ -264,11 +269,19 @@ $check=[];
         </div>
     </div>
 
-
+    <script src="js/lightbox.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
     <script>
+    lightbox.option({
+      'resizeDuration': 200,
+      'wrapAround': true,
+      'fadeDuration':600
+    });
+</script>
+    <script>
+
 
 
 $('.course_table').dataTable({
