@@ -9,6 +9,9 @@ require 'init.php';
     small.form-text {
         color: red;
     }
+    #identity{
+        margin: 1rem 0 1rem 0;
+    }
     
 </style>
 </head>
@@ -56,10 +59,9 @@ require 'init.php';
                                     <div class="col">
                                         <div>
                                             <div>
-                                                <h5 class="card-title">新增資料</h5>
                                                 <!-- notice here -->
                                                 <form name="form1" onsubmit="return checkForm()">
-                                                    <div class="form-group" id="identity">
+                                                    <div id="identity">
                                                         <input type="checkbox" id="is_company" name="is_company" value="1">
                                                         <label for="is_company" form-check>吉他代理商</label>
                                                         <input type="checkbox" id="is_teacher" name="is_teacher" value="1">
@@ -71,36 +73,37 @@ require 'init.php';
                                                     </div>
                                                     <!--  -->
                                                     <div class="d-flex card">
-                                                        <div class="card-body">
-                                                            <div class="form-group ">
+                                                        <div class="card-body" style="1rem 0 1rem 0">
+                                                            <div class="form-group " style="margin: 20px 23px 0 23px">
                                                                 <label for="email">電子信箱</label>
-                                                                <input type="text" class="form-control" id="email" name="email">
+                                                                <input type="text" class="form-control" id="email" name="email" style="width:880px">
                                                                 <small id="emailHelp" class="form-text"></small>
                                                             </div>
-                                                            <div class="form-group">
+                                                            <div class="form-group" style="padding-bottom:1rem;margin: 20px 23px 0 23px">
                                                                 <label for="password">密碼</label>
-                                                                <input type="text" class="form-control" id="password" name="password">
+                                                                <input type="text" class="form-control" id="password" name="password" style="width:880px">
                                                                 <small id="passwordHelp" class="form-text"></small>
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                     <!--  -->
-                                                    <div id="company_common_info" style="display:none" class="card">
+                                                    <div id="company_common_info" style="display:none; margin-top: 2rem" class="card">
                                                         <div class="card-body ">
 
                                                             <div class="d-flex row">
                                                                 <div class="col-6">
-                                                                    <div class="form-group">
-                                                                        <label for="name">廠商名稱 / 樂團名稱</label>
-                                                                        <input type="text" class="form-control" id="name" name="name">
+                                                                    <div class="form-group" style="margin: 20px 23px 0 23px">
+                                                                        <label for="name">廠商 / 樂團名稱</label>
+                                                                        <input type="text" class="form-control" id="name" name="name" >
                                                                         <small id="nameHelp" class="form-text"></small>
                                                                     </div>
-                                                                    <div class="form-group">
-                                                                        <label for="tax_id">統一編號</label>
-                                                                        <input type="text" class="form-control" id="tax_id" name="tax_id">
-                                                                        <small id="tax_idHelp" class="form-text"></small>
+                                                                    <div class="form-group" >
+                                                                            <label for="">資本額</label>
+                                                                            <input type="text" class="form-control" id="capital" name="capital">
+                                                                            <small id="capitalHelp" class="form-text"></small>
                                                                     </div>
+                                                                    
                                                                     <!-- <div class="form-group">
                                                                                 <label for="bank_acc">帳戶名稱</label>
                                                                                 <input type="text" class="form-control" id="bank_acc" name="bank_acc">
@@ -108,26 +111,21 @@ require 'init.php';
                                                                             </div> -->
                                                                 </div>
                                                                 <div class="col-6">
-                                                                    <div class="d-flex">
-                                                                        <div class="form-group">
-                                                                            <label for="">資本額</label>
-                                                                            <input type="text" class="form-control" id="capital" name="capital">
-                                                                            <small id="capitalHelp" class="form-text"></small>
+                                                                    <div class="d-flex" >
+                                                                        
+                                                                        <div class="form-group" >
+                                                                            <label for="tax_id">統一編號</label>
+                                                                            <input type="text" class="form-control" id="tax_id" name="tax_id">
+                                                                            <small id="tax_idHelp" class="form-text"></small>
                                                                         </div>
-                                                                        <div class="form-group">
-                                                                            <label for="">員工人數 / 團員人數</label>
+                                                                        
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                            <label for="">員工 / 團員人數</label>
                                                                             <input type="text" class="form-control" id="ppl_num" name="ppl_num">
                                                                             <small id="ppl_numHelp" class="form-text"></small>
-                                                                        </div>
                                                                     </div>
-
-                                                                    <div class="form-group">
-                                                                        <div class="form-group">
-                                                                            <label for="tel">聯絡電話</label>
-                                                                            <input type="text" class="form-control" id="tel" name="tel">
-                                                                            <small id="telHelp" class="form-text"></small>
-                                                                        </div>
-                                                                    </div>
+                                                                    
                                                                     <!-- <div class="form-group">
                                                                                     <label for="bank_num">帳戶號碼</label>
                                                                                     <input type="text" class="form-control" id="bank_num" name="bank_num">
@@ -137,17 +135,15 @@ require 'init.php';
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-6">
-
                                                                     <div class="form-group">
-                                                                        <label for="addr">地址</label>
-                                                                        <div class="d-flex">
-                                                                            <input type="text" class="form-control" id="addr_district" name="addr_district" style="width:30%">
-                                                                            <input type="text" class="form-control" id="addr" name="addr">
-                                                                            <small id="addrHelp" class="form-text"></small>
+                                                                        <div>
+                                                                            <label for="tel">聯絡電話</label>
+                                                                            <input type="text" class="form-control" id="tel" name="tel">
+                                                                            <small id="telHelp" class="form-text"></small>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-6">
+                                                                 <div class="col-6">
                                                                     <div class="form-group">
                                                                         <label for="fax">傳真號碼</label>
                                                                         <input type="text" class="form-control" id="fax" name="fax">
@@ -155,7 +151,21 @@ require 'init.php';
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="row" id="acc_info">
+                                                            <div class="row">
+                                                                <div class="col">
+
+                                                                    <div class="form-group" style="margin: 20px 0 0 23px; width: 890px">
+                                                                        <label for="addr">地址</label>
+                                                                        <div class="d-flex">
+                                                                            <input type="text" class="form-control" id="addr_district" name="addr_district" style="width:30%; margin-right:10px">
+                                                                            <input type="text" class="form-control" id="addr" name="addr" style="margin-left:10px;">
+                                                                            <small id="addrHelp" class="form-text"></small>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                            </div>
+                                                            <div class="row" id="acc_info" style="padding-bottom:1rem">
                                                                 <div class="col-6">
                                                                     <div class="form-group">
                                                                         <label for="bank_acc">帳戶名稱</label>
@@ -178,52 +188,66 @@ require 'init.php';
 
 
                                             <!-- company -->
-                                            <div class="card" style="display: none" id="is_company_card">
+                                            <div class="card" style="display: none; margin-top:2rem" id="is_company_card">
                                                 <div class="card-body">
-                                                    <div class="form-group">
+                                                    <div class="form-group" style="margin: 20px 23px 0 23px">
                                                         <label for="brand_1">代理品牌1</label>
-                                                        <input type="text" class="form-control" id="brand_1" name="brand_1">
+                                                        <input type="text" class="form-control" id="brand_1" name="brand_1" style="width:880px">
                                                         <small id="addrHelp" class="form-text"></small>
                                                     </div>
-                                                    <div class="form-group">
+                                                    <div class="form-group" style="margin: 20px 23px 0 23px">
                                                         <label for="addr">代理品牌2</label>
-                                                        <input type="text" class="form-control" id="brand_2" name="brand_2">
+                                                        <input type="text" class="form-control" id="brand_2" name="brand_2" style="width:880px">
                                                         <small id="brand_2Help" class="form-text"></small>
                                                     </div>
-                                                    <div class="form-group">
+                                                    <div class="form-group" style="margin: 20px 23px 0 23px;padding-bottom:1rem">
                                                         <label for="addr">代理品牌3</label>
-                                                        <input type="text" class="form-control" id="brand_3" name="brand_3">
+                                                        <input type="text" class="form-control" id="brand_3" name="brand_3" style="width:880px">
                                                         <small id="brand_3Help" class="form-text"></small>
                                                     </div>
                                                 </div>
                                             </div>
                                             <!-- teacher -->
-                                            <div class="card" style="display: none" id="is_teacher_card">
+                                            <div class="card" style="display: none; margin-top:2rem" id="is_teacher_card">
                                                 <div class="card-body">
-                                                    <div class="form-group">
-                                                        <label for="teacher_name">老師姓名</label>
-                                                        <input type="text" class="form-control" id="teacher_name" name="teacher_name">
-                                                        <small id="teacher_nameHelp" class="form-text"></small>
-                                                    </div>
-                                                    <div>
-                                                        <label for="teacher_gender">性別</label>
-                                                        <div class="d-flex" style="width: 250px">
-                                                            <input type="radio" class="" id="teacher_gender" name="teacher_gender" value="M">男
-                                                            <input type="radio" class="" id="teacher_gender" name="teacher_gender" value="F">女
-                                                            <small id="teacher_genderHelp" class="form-text"></small>
+                                                    
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                        
+                                                            <div class="form-group" style="margin:20px 23px 0 23px">
+                                                                <label for="teacher_name">老師姓名</label>
+                                                                <input type="text" class="form-control" id="teacher_name" name="teacher_name">
+                                                                <small id="teacher_nameHelp" class="form-text"></small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="form-group" style="margin:20px 23px 0 23px">
+                                                                <label for="teacher_gender">性別</label>
+                                                                <div class="d-flex" style="width: 250px">
+                                                                    <span style="margin-right:8px"><input type="radio" class="" id="teacher_gender" name="teacher_gender" value="M" style="margin-right:5px">男</span>
+                                                                    <span><input type="radio" class="" id="teacher_gender" name="teacher_gender" value="F" style="margin-right:5px">女</span>
+                                                                    <small id="teacher_genderHelp" class="form-text"></small>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="teacher_birthday">生日</label>
-                                                        <input type="text" class="form-control" id="teacher_birthday" name="teacher_birthday">
-                                                        <small id="teacher_birthdayHelp" class="form-text"></small>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="teacher_tel">聯絡電話</label>
-                                                        <input type="text" class="form-control" id="teacher_tel" name="teacher_tel">
-                                                        <small id="teacher_telHelp" class="form-text"></small>
-                                                    </div>
 
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <div class="form-group" style="margin:20px 23px 0 23px; padding-bottom:1rem">
+                                                                <label for="teacher_birthday">生日</label>
+                                                                <input type="text" class="form-control" id="teacher_birthday" name="teacher_birthday">
+                                                                <small id="teacher_birthdayHelp" class="form-text"></small>
+                                                            </div>
+                                                        </div>    
+                                                        <div class="col-6">
+                                                            <div class="form-group" style="margin:20px 23px 0 23px;padding-bottom:1rem">
+                                                                <label for="teacher_tel">聯絡電話</label>
+                                                                <input type="text" class="form-control" id="teacher_tel" name="teacher_tel">
+                                                                <small id="teacher_telHelp" class="form-text"></small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <!--  hall -->
@@ -242,7 +266,7 @@ require 'init.php';
                                                             </div>
                                                         </div> -->
 
-                                            <button type="submit" id="submit_btn" class="btn btn-primary">新增</button>
+                                            <button type="submit" id="submit_btn" class="btn btn-dark" style="margin-top:2rem">新增</button>
                                             </form>
                                         </div>
                                     </div>
@@ -255,6 +279,7 @@ require 'init.php';
         </div>
     </div>
     </div>
+
     <script>
         const submit_btn = document.querySelector('#submit_btn');
         let info_bar = document.querySelector('#info-bar');

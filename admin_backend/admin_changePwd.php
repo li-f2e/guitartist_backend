@@ -150,7 +150,7 @@ $row = $stmt->fetch();
                                     <!--</div>-->
                                     
                                     <!-- <div class="card-img"></div> -->
-                                    <div class="card-body">
+                                    <div class="card-body" style="box-shadow:none">
                                         <img class="card-img" src="images/logo.svg" alt="">
                                         <form name="form1" onsubmit="return checkForm()" style="margin-top:15px">
                                         <input type="hidden" name="sid" value="<?=$row['sid']?>" />
