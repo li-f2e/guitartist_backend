@@ -236,7 +236,7 @@ $check=[];
                                             <td class="box_td"><?= htmlentities($r['course_price']) ?></td>
                                             <td class="box_td"><?= htmlentities($r['course_bonus']) ?></td>
                                             <!-- <td class="box_td"><?= htmlentities($r['course_describe']) ?></td> -->
-                                            <td><img src="uploads/<?=$r['course_pic']?>" alt=""  ></td>
+                                            <td><img src="uploads/<?=$r['course_pic']?>" alt="" style="width:80px;" ></td>
                                             <td><a href="course_edit.php?sid=<?= $r['sid'] ?>">
                                             <i class="fas fa-edit"></i></a>
                                             </td>
