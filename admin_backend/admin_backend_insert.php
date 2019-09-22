@@ -9,11 +9,7 @@ require 'init.php';
     small.form-text {
         color: red;
     }
-
-    /* #bank_acc, #bank_num{
-        display: inline;
-        width:30%;
-    } */
+    
 </style>
 </head>
 
@@ -30,22 +26,22 @@ require 'init.php';
                         <div class="container">
                             <ul class="nav nav-tabs">
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="admin_backend_insert.php">新增使用者</a>
+                                    <a class="nav-link active " href="admin_backend_insert.php">新增使用者</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="admin_backend_list.php">後台使用者總表</a>
+                                    <a class="nav-link " href="admin_backend_list.php">後台使用者總表</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="admin_company_list.php">代理商列表</a>
+                                    <a class="nav-link " href="admin_company_list.php">代理商列表</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="admin_teacher_list.php">老師列表</a>
+                                    <a class="nav-link " href="admin_teacher_list.php">老師列表</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="admin_hall_list.php">場地廠商列表</a>
+                                    <a class="nav-link " href="admin_hall_list.php">場地廠商列表</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="admin_hire_list.php">徵才廠商列表</a>
+                                    <a class="nav-link " href="admin_hire_list.php">徵才廠商列表</a>
                                 </li>
                             </ul>
                             <div style="margin-top: 2rem;">
