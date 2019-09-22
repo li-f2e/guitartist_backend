@@ -59,7 +59,7 @@ if (empty($row)) {
                                 <div class="row">
                                     <div class="col-md-6">                                
                                         <div class="card edit_card">
-                                            <div class="card-body">
+                                            <div class="card-body card-body-css">
                                                 <!-- <h5 class="card-title">編輯資料</h5> -->
                                                 <form name="form1" onsubmit="return checkForm()">
                                                     <input type="hidden" name="sid" value="<?=$row['sid']?>">

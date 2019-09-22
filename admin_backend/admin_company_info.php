@@ -20,6 +20,10 @@ $row = $pdo->query($sql)->fetch();// $row 取資料
         vertical-align: middle;
         color : #6c757d;
     }
+
+    .breadcrumb-item a{
+        color: rgb(226, 24, 24);
+    }
 </style>
 <body>
 <?php require 'admin__nav_bar.php'?>
@@ -41,7 +45,7 @@ $row = $pdo->query($sql)->fetch();// $row 取資料
                                 </ol>
                             </nav>
                             <div class="card edit_card">
-                                <div class="card-body">
+                                <div class="card-body card-body-css">
                                     <div class="d-flex">
                                         <h5 class="card-title">基本資訊</h5>
                                         <div class="ml-auto">
@@ -98,7 +102,7 @@ $row = $pdo->query($sql)->fetch();// $row 取資料
 
                         <div class="container mt-4">
                             <div class="card edit_card">
-                                <div class="card-body">
+                                <div class="card-body card-body-css">
                                     <div class="d-flex">
                                         <h5 class="card-title">聯絡資訊</h5>
                                         <div class="ml-auto">
@@ -140,7 +144,7 @@ $row = $pdo->query($sql)->fetch();// $row 取資料
                         </div>
                         <div class="container mt-4">
                             <div class="card edit_card">
-                                <div class="card-body">
+                                <div class="card-body card-body-css">
                                     <div class="d-flex">
                                         <h5 class="card-title">收款資訊</h5>
                                         <div class="ml-auto">
