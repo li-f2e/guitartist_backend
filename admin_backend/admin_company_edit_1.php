@@ -55,6 +55,10 @@ $row = $stmt->fetch();
     vertical-align: middle;
     color: #6c757d;
   }
+
+  .breadcrumb-item a{
+        color: rgb(226, 24, 24);
+    }
 </style>
 
 </head>
@@ -82,13 +86,13 @@ $row = $stmt->fetch();
                 <!-- 麵包屑 -->
                 <nav aria-label="breadcrumb">
                   <ol class="breadcrumb mb-3 p-1">
-                    <li class="breadcrumb-item"><a href="admin_hire_list.php">代理商列表</a></li>
-                    <li class="breadcrumb-item"><a href="admin_hire_info.php">編輯代理商資訊</a></li>
+                    <li class="breadcrumb-item"><a href="admin_company_list.php">代理商列表</a></li>
+                    <li class="breadcrumb-item"><a href="admin_company_info.php">編輯代理商資訊</a></li>
                     <li class="breadcrumb-item active font-weight-bold" aria-current="page">編輯基本資訊</li>
                   </ol>
                 </nav>
                 <div class="card edit_card">
-                  <div class="card-body">
+                  <div class="card-body card-body-css">
                     <h5 class="card-title">基本資訊</h5>
                     <form name="form1" onsubmit="return checkForm()">
                       <input type="hidden" name="sid" value="<?=$row['sid']?>">

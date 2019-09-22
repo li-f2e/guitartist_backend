@@ -14,7 +14,8 @@ require 'init.php';
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/login.css">
 </head>
-<body style="background-color: #666666;">
+
+<body style="background-color: #666666; font-family: 微軟正黑體;">
 	
 	<div class="limiter">
 		<div class="container-login100">
@@ -28,35 +29,35 @@ require 'init.php';
 						</div>
 					
 					
-					<span class="login100-form-title p-b-43">
+					<span class="login100-form-title p-b-43" style="font-family: 微軟正黑體;">
 						廠商登入
 					</span>
 					
 					
 					<div class="wrap-input100 validate-input" data-validate = "請填寫正確的email格式">
-						<input class="input100" type="text" name="email" id="email">
-						<span class="focus-input100"></span>
-                        <span class="label-input100">電子信箱</span>
+						<input class="input100" type="text" name="email" id="email" style="font-family: 微軟正黑體;">
+						<span class="focus-input100" style="font-family: 微軟正黑體;"></span>
+                        <span class="label-input100" style="font-family: 微軟正黑體;">電子信箱</span>
 					</div>
 					
 					
 					<div class="wrap-input100 validate-input" style="position:relative" data-validate="密碼為必填欄位">
-						<input class="input100 pwdVisibility" type="password" name="password" id="password">
-						<span class="focus-input100"></span>
-                        <span class="label-input100">密碼</span>
+						<input class="input100 pwdVisibility" type="password" name="password" id="password" style="font-family: 微軟正黑體;">
+						<span class="focus-input100" style="font-family: 微軟正黑體;"></span>
+                        <span class="label-input100" style="font-family: 微軟正黑體;">密碼</span>
                         <a href="" id="eye" style="position:absolute; top:50%; right:5%; transform:translate(-50%, -50%)"><i class="far fa-eye-slash" style="font-size: 1rem; "></a></i>  
 					</div>
 
 					<div class="flex-sb-m w-full p-t-3 p-b-32">
 						<div class="contact100-form-checkbox">
 							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
-							<label class="label-checkbox100" for="ckb1">
+							<label class="label-checkbox100" for="ckb1" style="font-family: 微軟正黑體;">
 								記住我
 							</label>
 						</div>
                         <small id="warn_text"></small>
 						<div>
-							<a href="#" class="txt1">
+							<a href="#" class="txt1" style="font-family: 微軟正黑體;">
 								忘記密碼?
 							</a>
 						</div>
@@ -64,7 +65,7 @@ require 'init.php';
 			
 
 					<div class="container-login100-form-btn">
-						<button type="submit" id='submit_btn' class="login100-form-btn">
+						<button type="submit" id='submit_btn' class="login100-form-btn" style="font-family: 微軟正黑體;">
 							登入
 						</button>
 					</div>
