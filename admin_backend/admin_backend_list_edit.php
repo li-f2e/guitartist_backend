@@ -38,10 +38,10 @@ if (empty($row)) {
 
     <?php require "admin__left_menu.php";?>
 
-        <div class="mainContent">
+    <div class="mainContent mainContent-css">
             <div class="container-fluid">
                 <div class="row justify-content-center">
-                    <div class="col-10 p-0 mt-5 ml-3 ">
+                    <div class="col-11 mt-5 mx-auto">
                         <div class="container">
                             <div style="margin-top: 2rem;">
                                 <div class="row">
@@ -49,24 +49,75 @@ if (empty($row)) {
                                         <div class="alert alert-primary" role="alert" id="info-bar" style="display: none"></div>
                                     </div>
                                 </div>
+                                <!-- 麵包屑 -->
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb mb-3 p-1">
+                                    <li class="breadcrumb-item"><a href="admin_backend_list.php">後台使用者總表</a></li>
+                                    <li class="breadcrumb-item active font-weight-bold" aria-current="page">編輯後台使用者</li>
+                                    </ol>
+                                </nav>
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="card">
+                                    <div class="col-md-6">                                
+                                        <div class="card edit_card">
                                             <div class="card-body">
-                                                <h5 class="card-title">編輯資料</h5>
+                                                <!-- <h5 class="card-title">編輯資料</h5> -->
                                                 <form name="form1" onsubmit="return checkForm()">
                                                     <input type="hidden" name="sid" value="<?=$row['sid']?>">
-                                                    <div class="form-group" id="identity">
+                                                    <div class="m-2" id="identity">
+                                                        <h5>請選擇身分別</h5>
                                                         <input type="checkbox" id="is_company" name="is_company" value="1" <?=$row['is_company'] == 1 ? 'checked' : ''?>>
                                                         <label for="is_company" form-check>吉他代理商</label>
                                                         <input type="checkbox" id="is_teacher" name="is_teacher" value="1" <?=$row['is_teacher'] == 1 ? 'checked' : ''?>>
                                                         <label for="is_teacher" form-check>課程老師</label>
                                                         <input type="checkbox" id="is_hall_owner" name="is_hall_owner" value="1" <?=$row['is_hall_owner'] == 1 ? 'checked' : ''?>>
-                                                        <label for="is_hall_owner" form-check>場地租借</label>
+                                                        <label for="is_hall_owner" form-check>場地廠商</label>
                                                         <input type="checkbox" id="is_hire" name="is_hire" value="1" <?=$row['is_hire'] == 1 ? 'checked' : ''?>>
                                                         <label for="is_hire" form-check>徵才廠商</label>
                                                     </div>
-                                                    <div class="form-group">
+                                                    <table class="table table-hover">
+                                                        <tr>
+                                                            <th for="name">名稱</th>
+                                                            <td>
+                                                                <input type="text" class="" id="name" name="name" value="<?=htmlentities($row['name'])?>">
+                                                            </td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th for="email">電子信箱</th>
+                                                            <td>
+                                                            <input type="text" class="" id="email" name="email" value="<?=htmlentities($row['email'])?>">
+                                                            </td>
+                                                            <td></td>
+                                                        </tr>                       
+                                                        <tr>
+                                                            <th for="password">密碼</th>
+                                                            <td>
+                                                            <input type="password" class="" id="password" name="password" value="<?=htmlentities($row['password'])?>">
+                                                            </td>
+                                                            <td></td>
+                                                        </tr>                       
+                                                        <tr>
+                                                            <th for="mobile">聯絡電話</th>
+                                                            <td>
+                                                            <input type="text" class="" id="tel" name="tel" value="<?=htmlentities($row['tel'])?>">
+                                                            </td>
+                                                            <td></td>
+                                                        </tr>                       
+                                                        <tr>
+                                                            <th for="mobile">老師電話</th>
+                                                            <td>
+                                                            <input type="text" class="" id="teacher_tel" name="teacher_tel" value="<?=htmlentities($row['teacher_tel'])?>" >
+                                                            <td></td>
+                                                        </tr>                       
+                                                        <tr>
+                                                            <th for="address">地址</th>
+                                                            <td>
+                                                            <input type="text" style="width:30%" class="" id="addr_district" name="addr_district" value="<?=htmlentities($row['addr_district'])?>" placeholder="請輸入縣市地區">
+                                                            <input type="text" class="" id="addr" name="addr" value="<?=htmlentities($row['addr'])?>" placeholder="請輸入路名與詳細地址">
+                                                            <td></td>
+                                                        </tr>                                             
+                                                    </table>
+                                                    <!-- <div class="form-group">
                                                         <label for="name">名稱</label>
                                                         <input type="text" class="form-control" id="name" name="name" value="<?=htmlentities($row['name'])?>">
                                                         <small id="nameHelp" class="form-text"></small>
@@ -99,10 +150,12 @@ if (empty($row)) {
                                                             <input type="text" class="form-control" id="addr" name="addr" value="<?=htmlentities($row['addr'])?>">
                                                         </div>
                                                         <small id="addressHelp" class="form-text"></small>
+                                                    </div> -->
+
+                                                    <div class="mr-auto mt-4 d-flex" style="width:130px">
+                                                    <button type="submit" class="btn btn-dark" id="submit_btn" style="margin-right:5px">修改</button>
+                                                    <a name="" id="" class="btn btn-light" href="admin_backend_list.php" role="button">返回</a>
                                                     </div>
-
-
-                                                    <button type="submit" class="btn btn-primary" id="submit_btn">修改</button>
                                                 </form>
                                             </div>
                                         </div>
