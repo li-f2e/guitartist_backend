@@ -1,7 +1,7 @@
 <?php require '__admin_required.php'; ?>
 <?php
 
-require __DIR__.'/__init.php';
+require __DIR__.'/init.php';
 
 $result = [
     'success' => false,
