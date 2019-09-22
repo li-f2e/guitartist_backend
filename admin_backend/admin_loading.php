@@ -191,7 +191,7 @@ require 'init.php';
 
  setTimeout(function() {
         location.href = <?= $href ?>.href; 
- }, 1500);
+ }, 1700);
 
 // $(function(){
 //     setTimeout("delay_run()",1700)
