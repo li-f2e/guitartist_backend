@@ -15,7 +15,7 @@ $row = $stmt->fetch();
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 
 </head>
-
+<link rel="stylesheet" href="css/edit.css">
 <style>
     .fa-user-alt{
         font-size: 25px;
@@ -33,29 +33,26 @@ $row = $stmt->fetch();
         font-size: 23px;
     }
 
-    .table th{
-    width: 20%;
+    .table th {
+        width: 20%;
     }
 
-    .table td{
-    vertical-align: middle;
-    color : #6c757d;
+    .table td {
+        vertical-align: middle;
+        color: #6c757d;
     }
 
-    .mainContent-css{
-        background-color: #F9F9F9;
+    textarea {
+        width: 60%;
+        height: 200px;
+        resize: none;
     }
 
-    .card-css{
-        width: 50rem;
-        border: none;
-        border-radius: 8px;
-        box-shadow: 3px 8px 8px #ccc;
+    input {
+        width: 60%;
     }
-
-
-
 </style>
+
 
 <body>
 <?php require '__nav_bar.php' ?>
@@ -66,10 +63,10 @@ $row = $stmt->fetch();
     <div class="mainContent mainContent-css">
         <div class="container-fluid">
             <div class="row justify-content-center">
-                <div class="col-10 p-0 m-5 ">
+                <div class="col-11 mt-5 mx-auto">
                 <div class="container mt-4">
-                    <div class="card animated fadeInDown card-css">
-                        <div class="card-body">
+                    <div class="card edit_card">
+                        <div class="card-body card-body-css">
                             <div class="d-flex">
                                 <h5 class="card-title">廠商基本資料</h5>
                                 <div class="ml-auto">
