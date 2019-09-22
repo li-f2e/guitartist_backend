@@ -1,98 +1,115 @@
-<!-- 可以改成自己的連結黨 -->
-<?php require '__admin_required.php'; ?>
-<?php require_once __DIR__ . "/init.php"; ?>
+<?php require "__admin_required.php";
+require_once __DIR__ . "/init.php"; 
+?>    
 <?php
-$page_name = 'course_list';
+
+$page_name = 'data_list';
 $page_title = '資料列表';
 
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 
 $per_page = 5; // 每一頁要顯示幾筆
-$email=$_SESSION['loginUser']['email'];
 
+$email = $_SESSION['loginUser']['email'];
+// echo  $email;
 $t_sql = "SELECT COUNT(1) FROM `course_tb` WHERE `course_down`='0' & `email`='$email'";
 
 $t_stmt = $pdo->query($t_sql);
 $totalRows = $t_stmt->fetch(PDO::FETCH_NUM)[0]; // 拿到總筆數
-//$totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0]; // 拿到總筆數
+$totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0]; // 拿到總筆數
 
-$totalPages = ceil($totalRows / $per_page); // 取得總頁數
+$totalPages = ceil($totalRows/$per_page); // 取得總頁數
 
-if ($page < 1) {
+if($page < 1){
     header('Location: course_list.php');
     exit;
 }
-if ($page > $totalPages) {
-    header('Location: course_list.php?page=' . $totalPages);
+if($page > $totalPages){
+    header('Location: course_list.php?page='. $totalPages);
     exit;
 }
 
-$sql = sprintf(
-    "SELECT * FROM course_tb WHERE `email`=? AND `course_down`='0' ORDER BY `sid` DESC LIMIT %s, %s",
-    ($page - 1) * $per_page,
-    $per_page
-);
-// $sql = "SELECT * FROM course_tb  WHERE `email`=?";
-$stmt = $pdo->prepare($sql);
-$stmt->execute([
-    $_SESSION['loginUser']['email']
-]);
-?>
+$sql = "SELECT * FROM course_tb WHERE `email`='$email' AND `course_down`='0'";
 
+$stmt = $pdo->query($sql);
+
+$check=[];
+?>   
 <?php require_once __DIR__ . "/__header.php"; ?>
 <link rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 
-<style>
-    ul li.pageNumber{
-        width:38px;
-        height:50px;
-        line-height:50px;
-        text-align:center;
+    <style>
+
+    /* 頁數
+    .pageNavigation{
+        background-color: #fff;
+        padding: 10px 20px;
+        border-radius: 30px;
+        box-shadow: 0 5px 15px rgba(0,0,0,.2);
     }
-    ul li a{
-        display:block;
-        text-decoration:none;
-        color:black;
-        font-weight:600;
-        border-radius:40%;
+
+    .pageNavigation li{
+        list-style: none;
+        line-height: 30px;
+        margin: 0 5px;
     }
-    ul li.pageNumber:hover a,
-    {
-        background:#333;
-        color:#fff;
+
+    .pageNavigation li.page-number{
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        text-align: center;
     }
-    .table td {
-        vertical-align: middle;
-        color: #6c757d;
-    }
-    .downup a{
-        font-size: 20px;
+
+    .pageNavigation li a{
+        display: block;
         text-decoration: none;
-        color: grey;
-    }
-    .downup span{
-        font-size:20px;
-        color:grey;
-    }
-    .launchedBtn{
-        font-size: 1.2rem;
-        font-weight: 500;
-        text-decoration: none;
-        color: var(--secondary);
-        border: 2px solid var(--secondary);
-        padding: 4px;
+        color: #777;
+        font-weight: 900;
+        border-radius: 50%;
         transition: .3s;
+        
     }
 
-    .launchedBtn:hover{
-        text-decoration: none;
-        color: var(--white);
-        border: 2px solid var(--gold);
-        background-color: var(--gold);
+    .pageNavigation li.page-number:hover a,
+    .pageNavigation li.page-number.active a{
+        background-color: var(--dark);
+        color: #fff;
     }
+
+    .pageNavigation li:first-child{
+        margin-right: 30px;
+        font-weight: 700;
+        font-size: 16px;
+    }
+
+    .pageNavigation li:last-child{
+        margin-left: 30px;
+        font-weight: 700;
+        font-size: 16px;
+    } */
+
+
+    .table th{
+        text-align:center;
+        vertical-align: middle;
+        /* letter-spacing: 3px; */
+    }
+     .table td{
+        text-align:center;
+        vertical-align: middle;
+        color : #6c757d;
+    }
+
+    .fa-trash{
+        color : var(--dark);
+    }
+   
     .fa-times, .fa-edit, .fa-trash-alt{
         font-size: 1.5rem;
-        color: var(--secondary);
+        color: var(--dark);
     }
 
     .fa-check{
@@ -105,185 +122,177 @@ $stmt->execute([
         color: var(--red);
     }
 
-    .fa-caret-right, .fa-caret-left{
-        color: var(--dark);
+    .condition a{
+        font-size: 20px;
+        text-decoration: none;
+        color: grey;
     }
-    .page-item.active .page-link {
-        background-color: var(--dark);
-        border-color: var(--dark);
+    .condition span{
+        font-size:20px;
+        color:grey;
     }
-</style>
-</head>
 
+    .my-card{
+        border: none;
+        padding: 5px 0;
+        /* margin: 5px 0; */
+    }
+
+    .my-card-header{
+        background-color: transparent;
+        border: none;
+    }
+
+    .my-card-title{
+        display: flex;
+    }
+    
+    </style>
+</head>
 <body>
-    <?php require_once __DIR__ . "/teacher__nav_bar.php"; ?>
+<?php require_once __DIR__ . "/teacher__nav_bar.php"; ?>
 
     <div class="wrapper d-flex">
-
-        <?php require_once __DIR__ . "/teacher__left_menu.php"; ?>
-
+        
+    <?php require_once __DIR__ . "/teacher__left_menu.php"; ?>
+    
         <div class="mainContent ">
             <div class="container-fluid">
-                <div class="row justify-content-start">
-                    <div class="col-10 p-0 mt-5 mx-auto ">
-                        <!-- 商品狀態 -->
-
+                <div class="row justify-content-center">
+                    <div class="col-11 p-0 mt-5 ml-3 ">
+                    
+                        <!-- html馬打這裡 -->
+                        <div class="container ">
                         
-                            <div style="margin-top: 2rem;">
-                                <div class="downup">
-                                    <a href="course_list.php">全部</a><span> |</span>
-                                    <a href="course_up.php">上架中</a><span> |</span>
-                                    <a href="course_down.php">下架中</a>
-                                </div>
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination d-flex justify-content-center">
-                                        <li class="page-item pageNumber">
-                                            <a class="page-link" href="?page=<?= $page-1 ?>">
-                                                <i class="fas fa-caret-left"></i>
-                                            </a>
-                                        </li>
-                                        
-                                        <?php 
-                                            $pageStart = $page-5;
-                                            $pageEnd = $page+5;
-                                        ?>
-                                        <?php if( $page <= 5  ): ?>
-                                        <?php    $pageStart = 0;?>
-                                        <?php    $pageEnd = $page+11; ?>
-                                            <?php for($i=$pageStart; $i <= $pageEnd -$page ; $i++): 
-                                                if($i<1 or $i>$totalPages){
-                                                    continue;
-                                                }?>
-                                                <li class="page-item pageNumber <?= $i==$page ? 'active' : ''  ?>">
-                                                    <a class="page-link" href="?page=<?= $i ?>" > <?= $i ?> </a>
-                                                </li>
-                                            <?php endfor; ?>
-                                        <?php elseif($page > $totalPages-5): ?>
-                                        <?php $pageStart = $totalPages-10 ?>
-                                            <?php for($i=$pageStart; $i <= $pageEnd; $i++): ?>
-                                                <?php   if($i<1 or $i>$totalPages){ continue; } ?>
-                                                    <li class="page-item pageNumber <?= $i==$page ? 'active' : ''  ?>">
-                                                        <a class="page-link" href="?page=<?= $i ?>" > <?= $i ?> </a>
-                                                    </li>
-                                            <?php endfor; ?>
-                                        <?php else: ?>
-                                            <?php for($i=$pageStart; $i <= $pageEnd; $i++): ?>
-                                            <?php   if($i<1 or $i>$totalPages){ continue; } ?>
-                                                <li class="page-item pageNumber <?= $i==$page ? 'active' : ''  ?>">
-                                                    <a class="page-link" href="?page=<?= $i ?>" > <?= $i ?> </a>
-                                                </li>
-                                            <?php endfor; ?>
-                                        <?php endif; ?>
-                                            
 
-                                        <li class="page-item pageNumber">
-                                            <a class="page-link" href="?page=<?= $page+1 ?>">
-                                                <i class="fas fa-caret-right"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                                <div>總共有 <?= $totalRows; ?> 筆商品</div>
+                        <div style="margin-top: 1.25rem;">
+                            <!-- <h2 class="card-title" style="text-align:center;">我的課程</h2> -->
+                            <div class="condition my-3">
+                                <a class="condition" href="course_list.php">全部</a>
+                                <span>|</span>
+                                <a class="condition" href="course_up.php">上架中</a>
+                                <span>|</span>
+                                <a class="condition" href="course_down.php">下架中</a>
+                            </div> 
 
-                                <table class="table table-sm product-table">
-                                    <thead class="thead-dark">
-                                        <tr class="text-center">
-                                            <th scope="col" style="vertical-align:left;">
-                                                <label class='checkbox-inline checkboxAll'>
-                                                    全選
-                                                    <input id='checkAll' type='checkbox' name='checkboxall' value='1' class="regular-checkbox"><label for="checkAll">
+                            <div class="d-flex justify-content-start mb-4">
+                                <table class="table table-hover course_table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="width: 60px">編號</th>
+                                            <th scope="col" style="">
+                                                <label class='checkbox-inline checkboxeach'>
+                                                    <!-- 選取全部 -->
+                                                    選取
                                                 </label>
+                                                <input id='checkAll' type='checkbox' name='checkboxall' value='1'>
                                             </th>
                                             <!--刪除全部 -->
-                                            <th scope="col"><a href="javascript:delete_all()" style="outline: none;"><i class="fas fa-trash delete_all"></i></a></th>
-
-                                            <th scope="col" >編號 <a href="course_list2.php"><i class="fas fa-sort"></i></a></th>
-                                            <!-- <th scope="col">帳號（電子信箱）</th> -->
-                                            <th scope="col" >名稱</th>
-                                            <th scope="col" >類型</th>
-                                            <th scope="col" >開始日期</th>
-                                            <th scope="col" >結束時期</th>
-                                            <th scope="col" >時間</th>
-                                            <th scope="col" >人數</th>
-                                            <th scope="col" >地點</th>
-                                            <th scope="col" >價格</th>
-                                            <th scope="col" >優惠價格</th>
-                                            <!-- <th scope="col" >描述</th> -->
-                                            <th scope="col" >圖片</th>
-                                            <th scope="col" >編輯</i></th>
+                                            <th scope="col" style="">
+                                                <a href="javascript:delete_all()" style="outline: none;">
+                                                    <i class="fas fa-trash delete_all"></i>
+                                                </a>
+                                            </th>
+                                            <!-- <th scope="col"class="box_td">帳號（電子信箱）</th> -->
+                                            <th scope="col"class="box_td" style="width: 60px">名稱</th>
+                                            
+                                            <th scope="col"class="box_td" style="width: 60px">開始日期</th>
+                                            <th scope="col"class="box_td" style="width: 60px">結束日期</th>
+                                            <th scope="col"class="box_td" style="width: 60px">時間</th>
+                                            <th scope="col"class="box_td" style="width: 60px">人數</th>
+                                            <th scope="col"class="box_td" style="width: 60px">地點</th>
+                                            <th scope="col"class="box_td" style="width: 60px">價格</th>
+                                            <th scope="col"class="box_td" style="width: 60px">優惠</th>
+                                            <!-- <th scope="col"class="box_td" style="width: 60px">課程描述</th> -->
+                                            <th scope="col"class="box_td" style="width: 150px">課程圖片</th>
+                                            <th scope="col"class="box_td" style="width: 60px">編輯</th>
                                             <th scope="col" >狀態</th>
-
+                                            <!-- <th scope="col"class="box_td"><i class="fas fa-trash-alt"></i></th> -->
                                         </tr>
                                     </thead>
-                                    <tbody class="table-striped">
-                                        <?php while ($r = $stmt->fetch()) {  ?>
-                                            <tr>
-                                                <td>
-                                                    <label class=' checkbox-inline checkboxAll'>
-                                                        <!-- 單個刪除選sid -->
-                                                        <input id="<?= 'delete' . $r['sid'] ?>" type='checkbox' name=<?= 'delete' . $r['sid'] . '[]' ?> value='<?= $r['sid'] ?>'>
-                                                    </label>
-                                                </td>
-                                                <td>
-                                                    <!-- 刪除單個sid -->
-                                                    <!-- <a style="outline: none;" href="javascript:delete_one(<?= $r['sid'] ?>)"><i class="fas fa-trash-alt"></i></a> -->
-
-
-                                                </td>
-                                                <td class="box_td"><?= $r['sid'] ?></td>
-                                                <!-- <td class="box_td"><?= htmlentities($r['email']) ?></td> -->
-                                                <td class="box_td"><?= htmlentities($r['course_name']) ?></td>
-                                                <td class="box_td"><?= htmlentities($r['course_sort']) ?></td>
-                                                <td class="box_td"><?= htmlentities($r['course_begindate']) ?></td>
-                                                <td class="box_td"><?= htmlentities($r['course_enddate']) ?></td>
-                                                <td class="box_td"><?= htmlentities($r['course_time']) ?></td>
-                                                <td class="box_td"><?= htmlentities($r['course_person']) ?></td>
-                                                <td class="box_td"><?= htmlentities($r['course_address']) ?></td>
-                                                <td class="box_td"><?= htmlentities($r['course_price']) ?></td>
-                                                <td class="box_td"><?= htmlentities($r['course_bonus']) ?></td>
-                                                <!-- <td class="box_td"><?= htmlentities($r['course_describe']) ?></td> -->
-                                                <td><img src="uploads/<?= $r['course_pic'] ?>" alt="" width="150"></td>
-                                                <td><a href="course_edit.php?sid=<?= $r['sid'] ?>"><i class="fas fa-edit"></i></a></td>
-                                                <td>
+                                    <tbody>
+                                    <?php while($r=$stmt->fetch()){  ?>
+                                        <tr>
+                                            <td class="box_td"><?= htmlentities($r['sid']) ?></td>
+                                            <td class="box_td">
+                                                <label class=' checkbox-inline checkboxeach'>
+                                                    <!-- 單個刪除選sid -->
+                                                    <input id="<?= 'readtrue' . $r['sid'] ?>" type='checkbox' name=<?= 'readtrue' . $r['sid'] . '[]' ?> value='<?= $r['sid'] ?>'>
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <!-- 刪除單個sid -->
+                                                <a style="outline: none;" href="javascript:delete_one(<?= $r['sid'] ?>)"><i class="fas fa-trash-alt"></i></a>                   
+                                            </td>
+                                            
+                                            <!-- <td class="box_td"><?= htmlentities($r['email'])?></td> -->
+                                            <td class="box_td"><?= htmlentities($r['course_name']) ?></td>
+                                            
+                                            <td class="box_td"><?= htmlentities($r['course_begindate']) ?></td>
+                                            <td class="box_td"><?= htmlentities($r['course_enddate']) ?></td>
+                                            <td class="box_td"><?= htmlentities($r['course_time']) ?></td>
+                                            <td class="box_td"><?= htmlentities($r['course_person']) ?></td>
+                                            <td class="box_td"><?= htmlentities($r['course_address']) ?></td>
+                                            <td class="box_td"><?= htmlentities($r['course_price']) ?></td>
+                                            <td class="box_td"><?= htmlentities($r['course_bonus']) ?></td>
+                                            <!-- <td class="box_td"><?= htmlentities($r['course_describe']) ?></td> -->
+                                            <td><img src="uploads/<?=$r['course_pic']?>" alt=""  ></td>
+                                            <td><a href="course_edit.php?sid=<?= $r['sid'] ?>">
+                                            <i class="fas fa-edit"></i></a>
+                                            </td>
+                                            <td>
                                                     <?php
                                                     $d=$r['course_down']=="0"? "block":"none";
                                                     $u=$r['course_down']=="1"? "block":"none";
                                                     ?>
                                                 <a href="javascript:down_one(<?= $r['sid'] ?>)"><i class="fas fa-arrow-down " style="display:<?=$d?>"></i></a>
                                                 <a href="javascript:up_one(<?= $r['sid'] ?>)"><i class="fas fa-arrow-up " style="display:<?=$u?>"></i></a>
-                                                </td>
-                                                <!-- <td class="align-middle ">
-
-                                                <? if($r['course_down']): ?>
-                                                    <a class="launchedBtn" id="btn<?= $r['sid'] ?>" href="javascript: down_one(<?= $r['product_id'] ?>, 0)">
-                                                        下架中
-                                                    </a>
-                                                <? else: ?>
-                                                    <a class="launchedBtn" id="btn<?= $r['sid'] ?>" href="javascript: up_one(<?= $r['product_id'] ?>, 1)">
-                                                        上架中
-                                                    </a> 
-                                                <? endif; ?>
-
-                                                </td> -->
-                                                
-                                                
-                    
-                                            </tr>
-                                        <?php } ?>
+                                            </td>
+                                            <!-- <td>
+                                                <a href="javascript:delete_one(<?= $r['sid'] ?>)"><i class="fas fa-trash-alt"></i></a>
+                                            </td> -->
+                                        </tr>
+                                    <?php } ?>
 
                                     </tbody>
+                                </table>
                             </div>
-                        
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
     <script>
-        //上架課程
-        function up_one(sid) {
+
+
+$('.course_table').dataTable({
+        // scrollY: '60vh',
+        // scrollCollapse: true,
+        // paging: true,
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        "columnDefs": [
+            { "orderable": false, "targets": 1},
+            { "orderable": false, "targets": 2},
+            { "orderable": false, "targets": 3},
+            { "orderable": false, "targets": 4},
+            { "orderable": false, "targets": 5},
+            { "orderable": false, "targets": 8},
+            { "orderable": false, "targets": 11},
+            { "orderable": false, "targets": 12},
+            { "orderable": false, "targets": 13},
+
+        ]
+    });
+
+
+    //上架課程
+    function up_one(sid) {
             if (confirm(`確定要上架編號為 ${sid} 的課程嗎?`)) {
                 location.href = 'course_up_api.php?sid=' + sid;
             }
@@ -294,39 +303,45 @@ $stmt->execute([
                 location.href = 'course_down_api.php?sid=' + sid;
             }
         }
-        // 單筆刪除
-        function delete_one(sid) {
-            if (confirm(`確定要刪除編號為 ${sid} 的課程嗎?`)) {
-                location.href = 'course_delete.php?sid=' + sid;
-            }
-        }
-        //checkbox全選
-        
-        let checkAll = $('#checkAll'); //全選
-        let checkBoxes = $('tbody .checkboxAll input'); //其他勾選欄位
-        // 以長度來判斷
-        checkAll.click(function() {
-            for (let i = 0; i < checkBoxes.length; i++) {
-                checkBoxes[i].checked = this.checked;
-            }
-        })
-    
-        // 批次刪除 
-        function delete_all() {
-            let sid = [];
-            checkBoxes.each(function() {
-                if ($(this).prop('checked')) {
-                    sid.push($(this).val())
-                }
-            });
-            if (!sid.length) {
-                alert('沒有選擇任何資料');
-            } else {
-                if (confirm('確定要刪除這些資料嗎？')) {
-                    location.href = 'course_delete_all.php?sid=' + sid.toString();
-                }
-            }
-        }
-    </script>
 
-    <?php require_once __DIR__ . "/__footer.php"; ?>
+
+
+    let checkAll = $('#checkAll'); //控制所有勾選的欄位
+    let checkBoxes = $('tbody .checkboxeach input'); //其他勾選欄位
+    // 以長度來判斷
+    checkAll.click(function() {
+        for (let i = 0; i < checkBoxes.length; i++) {
+            checkBoxes[i].checked = this.checked;
+        }
+    })
+
+
+    $('.list-link.active').css('color','var(--red)');
+
+    // 單筆刪除
+    function delete_one(sid) {
+        if (confirm(`確定要刪除編號為 ${sid} 的資料嗎?`)) {
+            location.href = 'course_delete.php?sid=' + sid;
+        }
+    }
+
+    // 多重刪除 
+    function delete_all() {
+        let sid = [];
+        checkBoxes.each(function() {
+            if ($(this).prop('checked')) {
+                sid.push($(this).val())
+            }
+        });
+        if (!sid.length) {
+            alert('沒有選擇任何資料');
+        } else {
+            if (confirm('確定要刪除這些資料嗎？')) {
+                location.href = 'course_delete_all.php?sid=' + sid.toString();
+            }
+        }
+    }
+</script>
+
+
+<?php require_once __DIR__ . "/__footer.php"; ?>
