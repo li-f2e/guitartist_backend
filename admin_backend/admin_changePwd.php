@@ -198,12 +198,9 @@ $row = $stmt->fetch();
                                             />
                                         </div>
                                         <div class="row" style="margin-top:15px">
-                                          <div class="col-12" style="text-align:right">
+                                          <div class="col-12" style="">
                                             <button type="submit" class="btn" id="submit_btn">
                                               修改
-                                            </button>
-                                            <button type="submit" class="btn btn-outline-dark" style="margin-top:10px">
-                                                取消
                                             </button>
                                           </div>
                                         </div>
