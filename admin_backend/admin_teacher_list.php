@@ -71,20 +71,41 @@ if ($page > $totalPages) {
 ;
 
 
-$sql_final = $sql_page . $asc_sql." LIMIT ". ($page - 1) * $perPage . "," . $perPage;
+// $sql_final = $sql_page . $asc_sql." LIMIT ". ($page - 1) * $perPage . "," . $perPage;
 
-
-
-// echo '$sql_final = '.$sql_final;
+$sql_final = "SELECT * FROM `member_list` WHERE `is_teacher`= 1 ";
 $stmt = $pdo->query($sql_final);
 
 include 'admin__header.php';
-include 'admin__nav_bar.php';
-
 ?>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+<style>
+    .my-card{
+        border: none;
+        padding: 5px 0;
+        /* margin: 5px 0; */
+    }
 
+    .my-card-header{
+        background-color: transparent;
+        border: none;
+    }
 
+    .my-card-title{
+        display: flex;
+    }
 
+    .fa-check {
+        color: var(--success);
+    }
+
+    .ban:hover{
+        cursor: pointer;
+    }
+</style>
+<body>
+<?php include 'admin__nav_bar.php'; ?>
 <div class="wrapper d-flex">
 
         <?php require "admin__left_menu.php";?>
@@ -116,21 +137,21 @@ include 'admin__nav_bar.php';
 
                             <div class="d-flex justify-content-between align-items-center mt-4">
                                 <!-- 搜尋功能 -->
-                                <form name="form2" method="post" action="" class="">
-                                    <!-- 分類選項 -->
+                                <!-- <form name="form2" method="post" action="" class="">
+                                    
                                     <select  name="select_one" id="select_one">
                                         <option value="" <?= isset($_GET['select_one']) ? '': 'selected'; ?>  >--請選擇--</option>
                                         <option value="name" <?= $selection == 'name'? 'selected': ''; ?>  >名稱</option>
                                         <option value="email" <?= $selection == 'email'? 'selected': ''; ?> >電子郵件</option>
                                         <option value="teacher_tel" <?= $selection == 'teacher_tel'? 'selected': ''; ?> >連絡電話</option>
                                     </select>
-                                    <!-- 搜尋框 -->
+                                    
                                     <input type="text" name="search" id="search" value="<?= isset($_GET['search']) ? $_GET['search'] : ''; ?>">
-                                    <!-- 提交按鈕 -->
+                                    
                                     <input onclick="classification2()" type="button" value="提交">
-                                </form>
+                                </form> -->
 
-                                <ul class="pageNavigation d-flex justify-content-end m-0">
+                                <!-- <ul class="pageNavigation d-flex justify-content-end m-0">
                                     <li class="pageDir"">
                                         <a class="" href="?page=<?= $page-1 ?>">
                                             <i class="fas fa-caret-left"></i>
@@ -181,22 +202,21 @@ include 'admin__nav_bar.php';
                                             <i class="fas fa-caret-right"></i>
                                         </a>
                                     </li>
-                                </ul>
+                                </ul> -->
                             </div>
 
-
-
                             <div style="margin-top: 2rem;">
-                                <table class="table table-hover">
+                                <table id="teacher-table" class="table table-hover">
                                     <thead>
                                     <tr>
-                                        <!-- ▴ ▾ -->
+                                        
                                         <th scope="col">
-                                            <form name="form3"  method="post"> 排列
+                                            編號
+                                            <!-- <form name="form3"  method="post"> 排列
                                                 <input type="hidden" name="asc_value" id="asc_value" value="<?=$triangle?>">
                                                 <input id="sortBtn" onclick="classification()"  type="button"  class="arrange" value="<?=$triangle?>">
-                                                <!-- <input id="sortBtn" onclick="classification()" name="submit2" type="submit" name="submit2" method="get" class="arrange" value="<?=$triangle?>"> -->
-                                            </form>
+                                               
+                                            </form> -->
                                         </th>
                                         <th scope="col" style="vertical-align:left;">
                                             <label class='checkbox-inline checkboxAll'>
@@ -231,7 +251,7 @@ include 'admin__nav_bar.php';
                                             <!-- 刪除單個sid -->
                                             <a style="outline: none;" href="javascript:delete_one(<?=$r['sid']?>)"><i class="fas fa-trash-alt"></i></a>
                                         </td>
-                                        <td> <img style="height:50px; width:50px" src="uploads/<?=$r['teacher_pic']?>" class="pic" alt=""></td>
+                                        <td> <img src="uploads/<?=$r['teacher_pic']?>" class="pic" alt=""></td>
                                         <td><?=$r['teacher_name']?></td>
                                         <td><?=$r['email']?></td>
                                         <td><?=$r['password']?></td>
@@ -245,7 +265,15 @@ include 'admin__nav_bar.php';
                                             <!-- <a href="javascript:loadData(<%=%>)"><i class="fas fa-edit"></i></a> -->
                                         </td>
                                         <td>
-                                            <a class="ban" href="javascript:ban_one(<?=$r['sid']?>)" style="color: <?=$r['is_suspended'] == 1 ? 'red' : 'rgb(0, 123, 255)'?>"><i class="fas fa-ban"></i></a>
+                                            <?php if($r['is_suspended'] == 1): ?>
+                                                <a class="ban" data-baned="1" data-sid=" <?= $r['sid']?> " role="button" >
+                                                    <i class="fas fa-ban"></i>
+                                                </a>
+                                            <?php else: ?>
+                                                <a class="ban" data-baned="0" data-sid=" <?= $r['sid']?> " role="button" >
+                                                    <i class="fas fa-check"></i>
+                                                </a>
+                                            <?php endif; ?>
                                         </td>
                                     </tr>
                                         <?php }?>
@@ -262,10 +290,57 @@ include 'admin__nav_bar.php';
 
 
 
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
     <script src="js/admin_ban_one.js"></script>
     <script>
     //被選取的頁簽文字顏色變紅
     $('.nav-link.active').css('color','var(--red)');
+
+    //禁用
+    let banBtns = document.querySelectorAll('.ban');
+    // console.log(banBtns);
+    banBtns.forEach( function(banBtn){
+        banBtn.onclick = function(){
+            let isBaned = this.dataset.baned;
+            // console.log( this.dataset.baned );
+            let sid = this.dataset.sid;
+            // console.log(sid);
+
+            if ( isBaned == 1 ) {
+                if (confirm(`確定要解除編號為 ${sid} 的禁用嗎?`)) {
+                location.href = 'remove_data_ban.php?sid=' + sid;
+                }
+            } 
+            else {
+                if (confirm(`確定要禁用編號為 ${sid} 的資料嗎?`)) {
+                    location.href = 'data_ban.php?sid=' + sid;
+                }
+            }
+        }
+    })
+
+
+    // dataTable
+    $('#teacher-table').dataTable({
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        "columnDefs": [
+            { "orderable": false, "targets": 1},
+            { "orderable": false, "targets": 2},
+            { "orderable": false, "targets": 3},
+            { "orderable": false, "targets": 4},
+            // { "orderable": false, "targets": 5},
+            // { "orderable": false, "targets": 6},
+            // { "orderable": false, "targets": 7},
+            // { "orderable": false, "targets": 8},
+            // { "orderable": false, "targets": 9},
+            { "orderable": false, "targets": 10},
+            { "orderable": false, "targets": 11},
+            // { "orderable": false, "targets": 12},
+            // { "orderable": false, "targets": 13},
+        ]
+    });
 
     function classification(){
         let gets = [];
@@ -323,13 +398,13 @@ include 'admin__nav_bar.php';
         
         
     }
-        //刪除資料提示
+    //刪除資料提示
     function delete_one(sid) {
             if(confirm(`確定要刪除編號為 ${sid} 的資料嗎?`)){
                 location.href = 'data_delete.php?sid=' + sid;
             }
         }
-      
+
 
     //傳送
     // function Search() {
