@@ -461,7 +461,7 @@
                                     <th scope="col" style="width: 60px;">編號</th>
                                     <th scope="col" style="width: 60px;">選取</th>
                                     <th scope="col" style="width: 60px;">刪除</th>
-                                    <th scope="col" style="width: 100px;">狀態</th>
+                                    <th scope="col" style="width: 60px;">狀態</th>
                                     <th scope="col" style="width: 60px;">圖片</th>
                                     <th scope="col" style="width: 60px;">廠牌</th>
                                     <th scope="col" style="width: 60px;">系列</th>
@@ -493,7 +493,7 @@
                                             </a> 
                                         </td>
                                         
-                                        <td class="align-middle " >
+                                        <td class="align-middle " style="width: 60px;">
 
                                         <?php if($r['product_out']): ?>
                                             <a class="launchedBtn" id="btn<?= $r['product_id'] ?>" href="javascript: changeProduct(<?= $r['product_id'] ?>, 0)">
