@@ -1,40 +1,66 @@
-<?php require '__admin_required.php'; ?>
-<!-- 可以改成自己的連結黨 -->
-<?php require_once __DIR__ . "/init.php"; ?>    
 <?php
-    $page_name='course_insert';
-?>   
-<?php require_once __DIR__ . "/__header.php"; ?>
-<link rel="stylesheet" href="css/index.css">
+require '__admin_required.php';
+require 'init.php';
+$page_name = 'course_insert';;
 
-    <style>
-    
-    </style>
+?>
+<?php include __DIR__ . '/__header.php' ?>
+
 </head>
-<body>
-<?php require_once __DIR__ . "/teacher__nav_bar.php"; ?>
 
-    <div class="wrapper d-flex">
-        
-    <?php require_once __DIR__ . "/teacher__left_menu.php"; ?>
-    
-        <div class="mainContent justify-content ml-5" >
-            <div class="container-fluid">
-                <div class="row justify-content-start">
-                    <div class="col-10 p-0 mt-5 ml-3 ">
-                        <div class="container">
-                            <div style="margin-top: 2rem;">
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="alert alert-primary" role="alert" id="info-bar" style="display: none"></div>
-                                         </div>
-                                    </div>
-                                     <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">新增課程</h5>
-                                                    <form name="form1" onsubmit="return checkForm()"  enctype="multipart/form-data">
+<style>
+    .fa-user-alt{
+        font-size: 25px;
+    }
+
+    .fa-hotel{
+        font-size: 22px;
+    }
+
+    .fa-list-alt{
+        font-size: 25px;
+    }
+
+    .fa-piggy-bank{
+        font-size: 23px;
+    }
+
+    .mainContent-css{
+        background-color: #F9F9F9;
+    }
+
+    .card-css{
+        border: none;
+        border-radius: 8px;
+        box-shadow: 3px 8px 8px #ccc;
+    }
+    small.form-text {
+        color: red;
+    }
+
+
+    .custom-date-style {
+	background-color: red !important;
+    }
+
+</style>
+
+<body>
+
+<?php include __DIR__ . '/teacher__nav_bar.php' ?>
+<div class="wrapper d-flex">
+    <?php include 'teacher__left_menu.php' ?>
+    <div class="mainContent mainContent-css">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-10 p-0 m-5 ">
+                    <div class="container mt-4">
+                    <div class="alert alert-primary" role="alert" id="info-bar" style="display: none;width: 50rem;"></div>
+                        <div class="card card-css" style="width: 50rem;">
+                            <div class="card-body">
+                            <h2 class="card-title" style="text-align:center;">新增課程</h2>
+                                <!-- <div class="d-flex"></div> -->
+                                <form name="form1" onsubmit="return checkForm()"  >
                                                         <div class="form-group">
                                                             <label for="email">帳號（電子信箱）</label>
                                                             <input type="text" class="form-control" id="email" name="email" value="<?= $_SESSION['loginUser']['email']?>" readonly>
@@ -138,23 +164,22 @@
                                                             </div>
                                                         </div>
                                                     </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        </div>
+        </div>
+        </div>
 
-    <script>
+            <script>
     function selUpload(){
         document.querySelector('#course_pic').click();
     }
     function previewFile() {
-            var preview = document.querySelector('img');
+            var preview = document.querySelector('#course_img');
             var file    = document.querySelector('input[type=file]').files[0];
             var reader  = new FileReader();
 
@@ -274,5 +299,3 @@
     </script>
 
 <?php require_once __DIR__ . "/__footer.php"; ?>
-
-

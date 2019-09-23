@@ -21,33 +21,70 @@
 <?php require_once __DIR__ . "/__header.php"; ?>
 <link rel="stylesheet" href="css/index.css">
 
-    <script>
-        // css打這裡
-    </script>
+    <style>
+    small.form-text {
+        color: red;
+    }
+
+    .fa-user-alt{
+        font-size: 25px;
+    }
+
+    .fa-hotel{
+        font-size: 22px;
+    }
+
+    .fa-list-alt{
+        font-size: 25px;
+    }
+
+    .fa-piggy-bank{
+        font-size: 23px;
+    }
+
+    .table td{
+        vertical-align: middle;
+        color : #6c757d;
+    }
+
+    .mainContent-css{
+        background-color: #F9F9F9;
+    }
+
+    .card-css{
+        border: none;
+        border-radius: 8px;
+        box-shadow: 3px 8px 8px #ccc;
+    }
+    .form-group{
+        margin:10px;
+    }
+    .upload_pic{
+        position:absolute;
+        bottom:50px;
+    }
+    .submit_btn{
+        margin-top:132px;
+    }
+    </style>
 </head>
 <body>
 <?php require_once __DIR__ . "/teacher__nav_bar.php"; ?>
-
-    <div class="wrapper d-flex">
-        
-    <?php require_once __DIR__ . "/teacher__left_menu.php"; ?>
-    
-        <div class="mainContent">
-            <div class="container-fluid">
-                <div class="row justify-content-start">
-                    <div class="col-10 p-0 mt-5 ml-3 ">
-                    <div style="margin-top: 2rem;">
-    <div class="row">
-        <div class="col">
-            <div class="alert alert-primary" role="alert" id="info-bar" style="display: none"></div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">編輯課程</h5>
-                    <form name="form1" onsubmit="return checkForm()">
+<div class="wrapper d-flex">
+    <?php include 'teacher__left_menu.php' ?>
+    <div class="mainContent mainContent-css">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-10 p-0 m-5 ">
+                    <div class="container mt-4">
+                    <div class="alert alert-primary" role="alert" id="info-bar" style="display: none;width: 50rem;"></div>   
+                        <div class="card card-css" style="width: 50rem;">
+                            <div class="card-body">
+                            <h2 class="card-title" style="text-align:center;">修改場地資訊</h2>
+                                <div class="d-flex">
+                                    <!-- <div class="alert alert-primary" role="alert" id="info-bar" style="display: none;width: 50rem;"></div>    -->
+                               </div>
+                               <form name="form1" onsubmit="return checkForm()">
                     <input type="hidden" name="sid" value="<?= $row['sid'] ?>">
                     <div class="form-group">
                             <label for="email">帳號（電子信箱）</label>
@@ -136,40 +173,31 @@
                             <small id="course_describeHelp" class="form-text"></small>
                         </div>
                         
-                        <div class="form-row">
-                            <div class="form-group">
+                        <img class="course_pic" src="uploads/<?=$row['course_pic']?>" alt="" height="200">
+                            <div class="upload_pic">
                                 
                                 <input type="file" class="form-control-file" id="course_pic" name="course_pic" style="display: none" onchange="previewFile()" >
-                            </div>
-                            <div class="form-group">
+                            
                                 <button type="button" class="btn btn-info" onclick="selUpload()" >選擇上傳的圖檔</button>
                             </div>
                             
-                            <img class="course_pic" src="uploads/<?=$row['course_pic']?>" alt="" height="200">
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary" id="submit_btn">確定修改</button>
+                            
+                            <div class="submit_btn">
+                                <button type="submit" class="btn btn-info" id="submit_btn" >確定修改</button>
                             </div>
-                        </div>
+                            
                         
 
 
                         <!-- <button type="submit" class="btn btn-primary" id="submit_btn">修改</button> -->
                     </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-        </div>
-    </div>
-
-
-
-
-
-
-</div>
-
-
-    <script>
+            <script>
         
         function selUpload(){
             document.querySelector('#course_pic').click();

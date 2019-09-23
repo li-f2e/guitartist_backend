@@ -44,12 +44,23 @@ if(!empty($_FILES['course_pic'])){ // 有沒有上傳
 
 
 
-$sql="INSERT INTO `course_tb`(`email`,`course_name`, `course_sort`,`course_begindate`,`course_enddate`,`course_time`, `course_person`, `course_address`, `course_price`, `course_bonus`, `course_describe`, `course_pic`,`created_at`) 
+$sql="INSERT INTO `course_tb`(
+`course_name`,
+`course_sort`,
+`course_begindate`,
+`course_enddate`,
+`course_time`, 
+`course_person`, 
+`course_address`, 
+`course_price`, 
+`course_bonus`, 
+`course_describe`, 
+`course_pic`,
+`created_at`) 
 VALUES(?,?,?,?,?,?,?,?,?,?,?,?,NOW())";
 
 $stmt=$pdo->prepare($sql);
 $stmt->execute([
-    $_SESSION['loginUser']['email'],
     $_POST['course_name'],
     $_POST['course_sort'],
     $_POST['course_begindate'],
