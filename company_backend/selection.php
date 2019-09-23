@@ -124,7 +124,7 @@ body{
     <div class="container d-flex flex-column justify-content-center" >
         <!-- 登入打招呼文字 -->
             <div class="position-relative" style="top:110px">
-                <div class="card position-absolute" style="height:500px; margin-top:100px; background-color:white; width:100%; opacity:0.7; "></div> 
+                <div class="card position-absolute" style="height:500px; margin-top:100px; background-color:white; width:100%; opacity:0.5; "></div> 
                 <!-- 身分選擇 -->
                 <div class="card-body" style=" margin-top:100px">
                     <div class="input_introduction d-flex flex-column align-items-center ">
