@@ -90,9 +90,9 @@ include 'admin__header.php';
 
             <div class="mainContent">
                 <div class="container-fluid">
-                    <div class="row justify-content-center">
-                        <div class="col-11 p-0 mt-5 ml-3 ">
-                            <div class="container">
+                    <div class="row justify-content-start">
+                        <div class="col p-0 mt-5 ml-3 ">
+                            <div class="container-fluid">
                             <ul class="nav nav-tabs">
                                 <li class="nav-item">
                                     <a class="nav-link" href="admin_backend_insert.php" style="color: var(--dark);">新增使用者</a>
@@ -118,14 +118,14 @@ include 'admin__header.php';
                             <table id="company-table" class="table table-hover">
                                 <thead>
                                 <tr>
-                                    <th scope="col">編號</th>
-                                    <th scope="col" style="vertical-align:left;">
+                                    <th scope="col" style="60px">編號</th>
+                                    <th scope="col" style="">
                                         <label class='checkbox-inline checkboxAll'>
                                             <input id='checkAll' type='checkbox' name='checkboxall' value='1' class="regular-checkbox"><label for="checkAll">
                                         </label>
                                     </th>
                                     <!--刪除全部 -->
-                                    <th scope="col"><a href="javascript:delete_all()" style="outline: none;"><i class="fas fa-trash delete_all"></i></a></th>
+                                    <th scope="col" style="100px"><a href="javascript:delete_all()" style="outline: none;"><i class="fas fa-trash delete_all"></i></a></th>
                                     <th scope="col">照片</th>
                                     <th scope="col">廠商名稱</th>
                                     <th scope="col">電子信箱</th>
@@ -140,7 +140,7 @@ include 'admin__header.php';
                                 <tbody>
                                 <?php while ($r = $stmt->fetch()) {?>
                                 <tr>
-                                    <td><?=$r['sid']?></td>
+                                    <td style="50px"><?=$r['sid']?></td>
                                     <td>
                                         <label class=' checkbox-inline checkboxAll'>
                                         <!-- 單個刪除選sid -->
@@ -215,7 +215,7 @@ include 'admin__header.php';
             { "orderable": false, "targets": 9},
             { "orderable": false, "targets": 10},
             { "orderable": false, "targets": 11},
-            { "orderable": false, "targets": 12},
+            // { "orderable": false, "targets": 12},
         ]
     });
 

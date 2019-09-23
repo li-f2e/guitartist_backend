@@ -1,8 +1,8 @@
 <?php
 $db_host = 'localhost';
 $db_name = 'guitartist';
-$db_user = 'root';
-$db_password = '';
+$db_user = 'YU';
+$db_password = '1234';
 $dsn = 'mysql:host=' . $db_host . ';dbname=' . $db_name;
 $db_charset = 'utf8';
 $db_collate = 'utf8_unicode_ci';
