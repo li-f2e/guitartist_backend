@@ -67,9 +67,7 @@ if ($page < 1) {
 if ($page > $totalPages) {
     header("Location: admin_teacher_list.php?page={$totalPages}");
     exit();
-}
-;
-
+};
 
 // $sql_final = $sql_page . $asc_sql." LIMIT ". ($page - 1) * $perPage . "," . $perPage;
 
@@ -81,27 +79,47 @@ include 'admin__header.php';
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 <style>
+
+    .fa-check {
+        color: var(--success);
+    }
+
     .my-card{
         border: none;
-        padding: 5px 0;
-        /* margin: 5px 0; */
+        border-radius: 0;
     }
 
     .my-card-header{
         background-color: transparent;
         border: none;
+        margin-bottom: 5px !important;
     }
 
     .my-card-title{
         display: flex;
     }
 
-    .fa-check {
-        color: var(--success);
+    input[type="search"]:focus{
+        box-shadow: none;
+        border-color:var(--dark);
+    }
+
+    .custom-select:focus{
+        border-color:var(--dark);
+        box-shadow: none;
     }
 
     .ban:hover{
         cursor: pointer;
+    }
+
+    .swal2-icon.swal2-warning {
+        border-color: var(--red);
+        color: var(--red);
+    }
+
+    .swal2-icon.swal2-success .swal2-success-ring {
+        border: .25em solid var(--success);
     }
 </style>
 <body>
@@ -136,73 +154,7 @@ include 'admin__header.php';
                             </ul>
 
                             <div class="d-flex justify-content-between align-items-center mt-4">
-                                <!-- 搜尋功能 -->
-                                <!-- <form name="form2" method="post" action="" class="">
-                                    
-                                    <select  name="select_one" id="select_one">
-                                        <option value="" <?= isset($_GET['select_one']) ? '': 'selected'; ?>  >--請選擇--</option>
-                                        <option value="name" <?= $selection == 'name'? 'selected': ''; ?>  >名稱</option>
-                                        <option value="email" <?= $selection == 'email'? 'selected': ''; ?> >電子郵件</option>
-                                        <option value="teacher_tel" <?= $selection == 'teacher_tel'? 'selected': ''; ?> >連絡電話</option>
-                                    </select>
-                                    
-                                    <input type="text" name="search" id="search" value="<?= isset($_GET['search']) ? $_GET['search'] : ''; ?>">
-                                    
-                                    <input onclick="classification2()" type="button" value="提交">
-                                </form> -->
-
-                                <!-- <ul class="pageNavigation d-flex justify-content-end m-0">
-                                    <li class="pageDir"">
-                                        <a class="" href="?page=<?= $page-1 ?>">
-                                            <i class="fas fa-caret-left"></i>
-                                            Prev
-                                        </a>
-                                    </li>
-
-                                    <?php 
-                                        $pageStart = $page-2;
-                                        $pageEnd = $page+2;
-                                    ?>
-                                    <?php if( $page <= 3  ): ?>
-                                    <?php    $pageStart = 1;?>
-                                    <?php    $pageEnd = $page+5; ?>
-                                        <?php for($i=$pageStart; $i <= $pageEnd -$page ; $i++): 
-                                                if ($i < 1 or $i > $totalPages) {
-                                                    continue;
-                                                }?>
-                                            <li class="page-number <?= $i==$page ? 'active' : ''  ?>">
-                                                <a class="" href="?page=<?= $i ?>" > <?= $i ?> </a>
-                                            </li>
-                                        <?php endfor; ?>
-                                    <?php elseif($page > $totalPages-2): ?>
-                                    <?php $pageStart = $totalPages-4 ?>
-                                        <?php for($i=$pageStart; $i <= $totalPages; $i++): 
-                                            if ($i < 1 or $i > $totalPages) {
-                                                    continue;
-                                            }?>
-                                            <li class="page-number <?= $i==$page ? 'active' : ''  ?>">
-                                                <a class="" href="?page=<?= $i ?>" > <?= $i ?> </a>
-                                            </li>
-                                        <?php endfor; ?>
-                                    <?php else: ?>
-                                        <?php for($i=$pageStart; $i <= $pageEnd; $i++): 
-                                            if ($i < 1 or $i > $totalPages) {
-                                                    continue;
-                                            }?>
-                                            <li class="page-number <?= $i==$page ? 'active' : ''  ?>">
-                                                <a class="" href="?page=<?= $i ?>" > <?= $i ?> </a>
-                                            </li>
-                                        <?php endfor; ?>
-                                    <?php endif; ?>
-                                                                    
-
-                                    <li class="">
-                                        <a class="pageDir" href="?page=<?= $page+1 ?>">
-                                            Next
-                                            <i class="fas fa-caret-right"></i>
-                                        </a>
-                                    </li>
-                                </ul> -->
+                                
                             </div>
 
                             <div style="margin-top: 2rem;">
@@ -298,29 +250,6 @@ include 'admin__header.php';
     //被選取的頁簽文字顏色變紅
     $('.nav-link.active').css('color','var(--red)');
 
-    //禁用
-    let banBtns = document.querySelectorAll('.ban');
-    // console.log(banBtns);
-    banBtns.forEach( function(banBtn){
-        banBtn.onclick = function(){
-            let isBaned = this.dataset.baned;
-            // console.log( this.dataset.baned );
-            let sid = this.dataset.sid;
-            // console.log(sid);
-
-            if ( isBaned == 1 ) {
-                if (confirm(`確定要解除編號為 ${sid} 的禁用嗎?`)) {
-                location.href = 'remove_data_ban.php?sid=' + sid;
-                }
-            } 
-            else {
-                if (confirm(`確定要禁用編號為 ${sid} 的資料嗎?`)) {
-                    location.href = 'data_ban.php?sid=' + sid;
-                }
-            }
-        }
-    })
-
 
     // dataTable
     $('#teacher-table').dataTable({
@@ -330,15 +259,10 @@ include 'admin__header.php';
             { "orderable": false, "targets": 2},
             { "orderable": false, "targets": 3},
             { "orderable": false, "targets": 4},
-            // { "orderable": false, "targets": 5},
-            // { "orderable": false, "targets": 6},
-            // { "orderable": false, "targets": 7},
-            // { "orderable": false, "targets": 8},
-            // { "orderable": false, "targets": 9},
+            { "orderable": false, "targets": 5},
+            { "orderable": false, "targets": 9},
             { "orderable": false, "targets": 10},
             { "orderable": false, "targets": 11},
-            // { "orderable": false, "targets": 12},
-            // { "orderable": false, "targets": 13},
         ]
     });
 
@@ -449,8 +373,4 @@ include 'admin__header.php';
             }
         }
     </script>
-
-
-
-
 <?php require 'admin__footer.php';?>

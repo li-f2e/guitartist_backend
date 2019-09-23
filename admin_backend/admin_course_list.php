@@ -26,10 +26,7 @@ if($page > $totalPages){
     exit;
 }
 
-$sql = sprintf("SELECT * FROM course_tb  ORDER BY `sid` DESC LIMIT %s, %s",
-        ($page-1)*$per_page,
-            $per_page
-);
+$sql = "SELECT * FROM course_tb";
 
 $stmt = $pdo->query($sql);
 
@@ -37,58 +34,10 @@ $check=[];
 ?>   
 <?php require_once __DIR__ . "/admin__header.php"; ?>
 <link rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 
-    <style>
-
-    /* 頁數 */
-    .pageNavigation{
-        background-color: #fff;
-        padding: 10px 20px;
-        border-radius: 30px;
-        box-shadow: 0 5px 15px rgba(0,0,0,.2);
-    }
-
-    .pageNavigation li{
-        list-style: none;
-        line-height: 30px;
-        margin: 0 5px;
-    }
-
-    .pageNavigation li.page-number{
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        text-align: center;
-    }
-
-    .pageNavigation li a{
-        display: block;
-        text-decoration: none;
-        color: #777;
-        font-weight: 900;
-        border-radius: 50%;
-        transition: .3s;
-        
-    }
-
-    .pageNavigation li.page-number:hover a,
-    .pageNavigation li.page-number.active a{
-        background-color: var(--dark);
-        color: #fff;
-    }
-
-    .pageNavigation li:first-child{
-        margin-right: 30px;
-        font-weight: 700;
-        font-size: 16px;
-    }
-
-    .pageNavigation li:last-child{
-        margin-left: 30px;
-        font-weight: 700;
-        font-size: 16px;
-    }
-
+<style>
 
     .table th{
         text-align:center;
@@ -105,8 +54,32 @@ $check=[];
         color : var(--dark);
     }
    
+    input[type="search"]:focus{
+        box-shadow: none;
+        border-color:var(--dark);
+    }
+
+    .custom-select:focus{
+        border-color:var(--dark);
+        box-shadow: none;
+    }
+
+    .my-card{
+        border: none;
+        padding: 5px 0;
+        /* margin: 5px 0; */
+    }
+
+    .my-card-header{
+        background-color: transparent;
+        border: none;
+    }
+
+    .my-card-title{
+        display: flex;
+    }
     
-    </style>
+</style>
 </head>
 <body>
 <?php require_once __DIR__ . "/admin__nav_bar.php"; ?>
@@ -117,7 +90,7 @@ $check=[];
     
         <div class="mainContent ">
             <div class="container-fluid">
-                <div class="row justify-content-center">
+                <div class="row justify-content-start">
                     <div class="col-11 p-0 mt-5 ml-3 ">
                     
                         <!-- html馬打這裡 -->
@@ -138,96 +111,43 @@ $check=[];
 <div style="margin-top: 1.25rem;">
     <h2 class="card-title" style="text-align:center;">課程列表 </h2>
 
-    <div class="d-flex justify-content-end mb-4">
-        <ul class="pageNavigation d-flex justify-content-end m-0">
-                <li class="pageDir">
-                    <a class="" href="?page=<?= $page-1 ?>">
-                        <i class="fas fa-caret-left"></i>
-                        Prev
-                    </a>
-                </li>
-
-                <?php 
-                    $pageStart = $page-2;
-                    $pageEnd = $page+2;
-                ?>
-                <?php if( $page <= 3  ): ?>
-                <?php    $pageStart = 1;?>
-                <?php    $pageEnd = $page+5; ?>
-                    <?php for($i=$pageStart; $i <= $pageEnd -$page ; $i++): 
-                            if ($i < 1 or $i > $totalPages) {
-                                continue;
-                            }?>
-                        <li class="page-number <?= $i==$page ? 'active' : ''  ?>">
-                            <a class="" href="?page=<?= $i ?>" > <?= $i ?> </a>
-                        </li>
-                    <?php endfor; ?>
-                <?php elseif($page > $totalPages-2): ?>
-                <?php $pageStart = $totalPages-4 ?>
-                    <?php for($i=$pageStart; $i <= $totalPages; $i++): 
-                        if ($i < 1 or $i > $totalPages) {
-                                continue;
-                        }?>
-                        <li class="page-number <?= $i==$page ? 'active' : ''  ?>">
-                            <a class="" href="?page=<?= $i ?>" > <?= $i ?> </a>
-                        </li>
-                    <?php endfor; ?>
-                <?php else: ?>
-                    <?php for($i=$pageStart; $i <= $pageEnd; $i++): 
-                        if ($i < 1 or $i > $totalPages) {
-                                continue;
-                        }?>
-                        <li class="page-number <?= $i==$page ? 'active' : ''  ?>">
-                            <a class="" href="?page=<?= $i ?>" > <?= $i ?> </a>
-                        </li>
-                    <?php endfor; ?>
-                <?php endif; ?>
-                                            
-
-                <li class="">
-                    <a class="pageDir" href="?page=<?= $page+1 ?>">
-                        Next
-                        <i class="fas fa-caret-right"></i>
-                    </a>
-                </li>
-        </ul>
-    </div>
-
-                                    
-
-
-    <table class="table table-hover ">
+    <table class="table table-hover course_table">
         <thead>
         <tr>
-            <th scope="col">
+            <th scope="col" style="width: 60px">編號</th>
+            <th scope="col" style="">
                 <label class='checkbox-inline checkboxeach'>
-                        <!-- 選取全部 -->
-                    <input id='checkAll' type='checkbox' name='checkboxall' value='1'>
-                </label>選取
+                    <!-- 選取全部 -->
+                    選取
+                </label>
+                <input id='checkAll' type='checkbox' name='checkboxall' value='1'>
             </th>
             <!--刪除全部 -->
-            <th scope="col"><a href="javascript:delete_all()" style="outline: none;"><i class="fas fa-trash delete_all"></i></a></th>
-                
-            <th scope="col"class="box_td">#</th>
+            <th scope="col" style="">
+                <a href="javascript:delete_all()" style="outline: none;">
+                    <i class="fas fa-trash delete_all"></i>
+                </a>
+            </th>
             <!-- <th scope="col"class="box_td">帳號（電子信箱）</th> -->
-            <th scope="col"class="box_td">課程名稱</th>
-            <!-- <th scope="col"class="box_td">課程類型</th> -->
-            <th scope="col"class="box_td">課程開始時期</th>
-            <th scope="col"class="box_td">課程結束時期</th>
-            <th scope="col"class="box_td">課程時間</th>
-            <th scope="col"class="box_td">課程人數</th>
-            <th scope="col"class="box_td">上課地點</th>
-            <th scope="col"class="box_td">課程價格</th>
-            <th scope="col"class="box_td">課程優惠價格</th>
-            <!-- <th scope="col"class="box_td">課程描述</th> -->
-            <th scope="col"class="box_td">課程圖片</th>
-            <th scope="col"class="box_td">編輯</th>
+            <th scope="col"class="box_td" style="width: 60px">課程名稱</th>
+            <th scope="col"class="box_td" style="width: 60px">類型</th>
+            <th scope="col"class="box_td" style="width: 60px">開始</th>
+            <th scope="col"class="box_td" style="width: 60px">結束</th>
+            <th scope="col"class="box_td" style="width: 60px">課程時間</th>
+            <th scope="col"class="box_td" style="width: 60px">人數</th>
+            <th scope="col"class="box_td" style="width: 60px">地點</th>
+            <th scope="col"class="box_td" style="width: 60px">價格</th>
+            <th scope="col"class="box_td" style="width: 60px">優惠</th>
+            <th scope="col"class="box_td" style="width: 60px">描述</th>
+            <th scope="col"class="box_td" style="width: 150px">圖片</th>
+            <th scope="col"class="box_td" style="width: 60px">編輯</th>
             <!-- <th scope="col"class="box_td"><i class="fas fa-trash-alt"></i></th> -->
         </tr>
         </thead>
         <tbody>
         <?php while($r=$stmt->fetch()){  ?>
             <tr>
+                <td class="box_td"><?= htmlentities($r['sid']) ?></td>
                 <td class="box_td">
                     <label class=' checkbox-inline checkboxeach'>
                         <!-- 單個刪除選sid -->
@@ -238,10 +158,10 @@ $check=[];
                     <!-- 刪除單個sid -->
                     <a style="outline: none;" href="javascript:delete_one(<?= $r['sid'] ?>)"><i class="fas fa-trash-alt"></i></a>                   
                 </td>
-                <td class="box_td"><?= $r['sid'] ?></td>
+                
                 <!-- <td class="box_td"><?= htmlentities($r['email'])?></td> -->
                 <td class="box_td"><?= htmlentities($r['course_name']) ?></td>
-                <!-- <td class="box_td"><?= htmlentities($r['course_sort']) ?></td> -->
+                <td class="box_td"><?= htmlentities($r['course_sort']) ?></td>
                 <td class="box_td"><?= htmlentities($r['course_begindate']) ?></td>
                 <td class="box_td"><?= htmlentities($r['course_enddate']) ?></td>
                 <td class="box_td"><?= htmlentities($r['course_time']) ?></td>
@@ -249,8 +169,8 @@ $check=[];
                 <td class="box_td"><?= htmlentities($r['course_address']) ?></td>
                 <td class="box_td"><?= htmlentities($r['course_price']) ?></td>
                 <td class="box_td"><?= htmlentities($r['course_bonus']) ?></td>
-                <!-- <td class="box_td"><?= htmlentities($r['course_describe']) ?></td> -->
-                <td><img src="uploads/<?=$r['course_pic']?>" alt=""  width="150"></td>
+                <td class="box_td"><?= htmlentities($r['course_describe']) ?></td>
+                <td><img src="uploads/<?=$r['course_pic']?>" alt="" width="150" ></td>
                 <td><a href="admin_course_edit.php?sid=<?= $r['sid'] ?>">
                 <i class="fas fa-edit"></i></a>
                 </td>
@@ -270,7 +190,35 @@ $check=[];
         </div>
     </div>
 
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
     <script>
+
+
+$('.course_table').dataTable({
+        // scrollY: '60vh',
+        // scrollCollapse: true,
+        // paging: true,
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        "columnDefs": [
+            { "orderable": false, "targets": 1},
+            { "orderable": false, "targets": 2},
+            { "orderable": false, "targets": 3},
+            { "orderable": false, "targets": 4},
+            { "orderable": false, "targets": 9},
+            { "orderable": false, "targets": 12},
+            { "orderable": false, "targets": 13},
+            { "orderable": false, "targets": 14},
+        ]
+    });
+
+
+
+
+
+
     let checkAll = $('#checkAll'); //控制所有勾選的欄位
     let checkBoxes = $('tbody .checkboxeach input'); //其他勾選欄位
     // 以長度來判斷
@@ -279,8 +227,8 @@ $check=[];
             checkBoxes[i].checked = this.checked;
         }
     })
-</script>
-<script> 
+
+
     $('.list-link.active').css('color','var(--red)');
 
     // 單筆刪除
@@ -306,6 +254,7 @@ $check=[];
             }
         }
     }
-    </script>
+</script>
+
 
 <?php require_once __DIR__ . "/admin__footer.php"; ?>

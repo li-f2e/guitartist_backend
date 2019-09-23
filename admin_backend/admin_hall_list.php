@@ -28,18 +28,22 @@ if ($page > $totalPages) {
 }
 ;
 
-$sql_page = sprintf("SELECT * FROM `member_list` WHERE `is_hall_owner` =1 ORDER BY `sid` DESC LIMIT %s, %s",($page - 1) * $perPage, $perPage);
+$sql_page = "SELECT * FROM `member_list` ";
 $stmt = $pdo->query($sql_page);
 include 'admin__header.php';
-include 'admin__nav_bar.php';
 
 ?>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 <style>
 *{
     font-family: 微軟正黑體;
 }
 
-
+.fa-check {
+    color: var(--success);
+}
 
 .table{
     font-size: 14px;
@@ -59,11 +63,45 @@ th{
     object-fit: cover;
 }
 
+    input[type="search"]:focus{
+        box-shadow: none;
+        border-color:var(--dark);
+    }
 
+    .custom-select:focus{
+        border-color:var(--dark);
+        box-shadow: none;
+    }
+
+    .my-card{
+        border: none;
+        border-radius: 0;
+    }
+
+    .my-card-header{
+        background-color: transparent;
+        border: none;
+        margin-bottom: 5px !important;
+    }
+
+    .my-card-title{
+        display: flex;
+    }
+
+
+
+    .swal2-icon.swal2-warning {
+        border-color: var(--red);
+        color: var(--red);
+    }
+
+    .swal2-icon.swal2-success .swal2-success-ring {
+        border: .25em solid var(--success);
+    }
 </style>
+<?php include 'admin__nav_bar.php'; ?>
 
-
-
+<body>
 <div class="wrapper d-flex">
 
     <?php require "admin__left_menu.php";?>
@@ -93,64 +131,10 @@ th{
                                     <a class="nav-link" href="admin_hire_list.php" style="color: var(--dark);">徵才廠商列表</a>
                                 </li>
                             </ul>
-                            <!-- //換頁按鈕 -->
-                            <div class="d-flex justify-content-end my-4">
-                                <ul class="pageNavigation d-flex justify-content-end m-0">
-                                    <li class="pageDir"">
-                                        <a class="" href="?page=<?= $page-1 ?>">
-                                            <i class="fas fa-caret-left"></i>
-                                            Prev
-                                        </a>
-                                    </li>
 
-                                    <?php 
-                                        $pageStart = $page-2;
-                                        $pageEnd = $page+2;
-                                    ?>
-                                    <?php if( $page <= 3  ): ?>
-                                    <?php    $pageStart = 1;?>
-                                    <?php    $pageEnd = $page+5; ?>
-                                        <?php for($i=$pageStart; $i <= $pageEnd -$page ; $i++): 
-                                                if ($i < 1 or $i > $totalPages) {
-                                                    continue;
-                                                }?>
-                                            <li class="page-number <?= $i==$page ? 'active' : ''  ?>">
-                                                <a class="" href="?page=<?= $i ?>" > <?= $i ?> </a>
-                                            </li>
-                                        <?php endfor; ?>
-                                    <?php elseif($page > $totalPages-2): ?>
-                                    <?php $pageStart = $totalPages-4 ?>
-                                        <?php for($i=$pageStart; $i <= $totalPages; $i++): 
-                                            if ($i < 1 or $i > $totalPages) {
-                                                    continue;
-                                            }?>
-                                            <li class="page-number <?= $i==$page ? 'active' : ''  ?>">
-                                                <a class="" href="?page=<?= $i ?>" > <?= $i ?> </a>
-                                            </li>
-                                        <?php endfor; ?>
-                                    <?php else: ?>
-                                        <?php for($i=$pageStart; $i <= $pageEnd; $i++): 
-                                            if ($i < 1 or $i > $totalPages) {
-                                                    continue;
-                                            }?>
-                                            <li class="page-number <?= $i==$page ? 'active' : ''  ?>">
-                                                <a class="" href="?page=<?= $i ?>" > <?= $i ?> </a>
-                                            </li>
-                                        <?php endfor; ?>
-                                    <?php endif; ?>
-                                                                    
-
-                                    <li class="">
-                                        <a class="pageDir" href="?page=<?= $page+1 ?>">
-                                            Next
-                                            <i class="fas fa-caret-right"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
 
                         <div style="margin-top: 2rem;">
-                            <table class="table table-hover">
+                            <table id="hall-table" class="table table-hover">
                                 <thead>
                                 <tr>
                                     <th scope="col">編號</th>
@@ -199,11 +183,18 @@ th{
                                         <a href="admin_hall_edit.php?sid=<?=$r['sid']?>"><i class="fas fa-edit"></i></a>
                                     </td>
                                     <td>
-                                        <a class="ban" href="javascript:ban_one(<?=$r['sid']?>)" style="color: <?=$r['is_suspended'] == 1 ? 'red' : 'rgb(0, 123, 255)'?>"><i class="fas fa-ban"></i></a>
+                                        <?php if($r['is_suspended'] == 1): ?>
+                                            <a class="ban" data-baned="1" data-sid=" <?= $r['sid']?> " role="button" >
+                                                <i class="fas fa-ban"></i>
+                                            </a>
+                                        <?php else: ?>
+                                            <a class="ban" data-baned="0" data-sid=" <?= $r['sid']?> " role="button" >
+                                                <i class="fas fa-check"></i>
+                                            </a>
+                                        <?php endif; ?>
                                     </td>
                                 </tr>
-                                <?php }
-;?>
+                                <?php };?>
                                 </tbody>
                             </table>
                         </div>
@@ -213,18 +204,37 @@ th{
             </div>
         </div>
     </div>
-    <script src="js/admin_ban_one.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    <script src="js/admin_ban_once.js"></script>
     <script>
-    //被選取的頁簽文字顏色變紅
-    $('.nav-link.active').css('color','var(--red)');
+        //被選取的頁簽文字顏色變紅
+        $('.nav-link.active').css('color','var(--red)');
 
-    function delete_one(sid) {
-            if(confirm(`確定要刪除編號為 ${sid} 的資料嗎?`)){
-                location.href = 'data_delete.php?sid=' + sid;
-            }
+        // dataTable
+        $('#hall-table').dataTable({
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            "columnDefs": [
+                { "orderable": false, "targets": 1},
+                { "orderable": false, "targets": 2},
+                { "orderable": false, "targets": 3},
+                { "orderable": false, "targets": 4},
+                { "orderable": false, "targets": 5},
+                { "orderable": false, "targets": 9},
+                { "orderable": false, "targets": 10},
+                { "orderable": false, "targets": 11},
+            ]
+        });
+
+        function delete_one(sid) {
+                if(confirm(`確定要刪除編號為 ${sid} 的資料嗎?`)){
+                    location.href = 'data_delete.php?sid=' + sid;
+                }
         }
-        //checkbox全選
 
+
+        //checkbox全選
         let checkAll = $('#checkAll'); //全選
         let checkBoxes = $('tbody .checkboxAll input'); //其他勾選欄位
         // 以長度來判斷
