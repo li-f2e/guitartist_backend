@@ -27,10 +27,12 @@ if($page > $totalPages){
     exit;
 }
 
-$sql = sprintf("SELECT * FROM job_list WHERE `job_out` = '1' ORDER BY `sid` DESC LIMIT %s, %s",
-        ($page-1)*$per_page,
-            $per_page
-);
+$sql = "SELECT * FROM `job_list` WHERE `job_out` = '1' ";
+
+// $sql = sprintf("SELECT * FROM job_list WHERE `job_out` = '1' ORDER BY `sid` DESC LIMIT %s, %s",
+//         ($page-1)*$per_page,
+//             $per_page
+// );
 
 $stmt = $pdo->query($sql);
 
@@ -38,6 +40,8 @@ $check=[];
 ?>   
 <?php require_once __DIR__ . "/admin__header.php"; ?>
 <link rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 
 <style>
      .table td{
@@ -75,8 +79,16 @@ $check=[];
     }
 
     .checkAll{
+        /* padding: 0 13px;
+        letter-spacing: 2px; */
         padding: 0 13px;
         letter-spacing: 2px;
+        background-color: var(--dark);
+        border-color: var(--dark);
+    }
+    .checkAll:hover{
+        background-color: rgb(226, 24, 24);
+        border-color: rgb(226, 24, 24);
     }
 
     .launchedBtn{
@@ -92,8 +104,8 @@ $check=[];
     .launchedBtn:hover{
         text-decoration: none;
         color: var(--white);
-        border: 2px solid var(--gold);
-        background-color: var(--gold);
+        border: 2px solid var(--red);
+        background-color: var(--red);
     }
 
     .mainPhoto img{
@@ -162,6 +174,20 @@ $check=[];
         height: 100px;
     }
 
+    .my-card{
+        border: none;
+        border-radius: 0;
+    }
+
+    .my-card-header{
+        background-color: transparent;
+        border: none;
+        margin-bottom: 5px !important;
+    }
+
+    .my-card-title{
+        display: flex;
+    }
     
     
 </style>    
@@ -203,30 +229,7 @@ $check=[];
                             <a href="admin_job_down.php">下架中</a>
                         </div>
 <!-- 換頁按鈕 -->
-    <nav aria-label="Page navigation example">
-        <ul class="pagination">
-            <li class="page-item">
-                <a class="page-link" href="?page=<?= $page-1 ?>">
-                    <i class="fas fa-chevron-left"></i>
-                </a>
-            </li>
-            <?php
-            $p_start = $page-5;
-            $p_end = $page+5;
-            for($i=$p_start; $i<=$p_end; $i++):
-                if($i<1 or $i>$totalPages) continue;
-                ?>
-            <li class="page-item <?= $i==$page ? 'active' : '' ?>">
-                <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
-            </li>
-            <?php endfor; ?>
-            <li class="page-item">
-                <a class="page-link" href="?page=<?= $page+1 ?>">
-                    <i class="fas fa-chevron-right"></i>
-                </a>
-            </li>
-        </ul>
-    </nav>
+
 
          <!-- 總比數計數器 -->
          <div class="my-2  pl-2">
@@ -246,9 +249,9 @@ $check=[];
             <!--刪除全部 -->
             <th scope="col"><a href="javascript:delete_all()" style="outline: none;"><i class="fas fa-trash delete_all"></i></a></th>
                 
-            <th scope="col"class="box_td">狀態</th>
+            <th scope="col"class="box_td" style="width:10%">狀態</th>
             <!-- <th scope="col"class="box_td">帳號（電子信箱）</th> -->
-            <th scope="col"class="box_td">職缺名稱</th>
+            <th scope="col"class="box_td" >職缺名稱</th>
             <th scope="col"class="box_td">職缺類型</th>
             <th scope="col"class="box_td">職缺內容</th>
             <th scope="col"class="box_td">報酬</th>
@@ -292,7 +295,11 @@ $check=[];
                 <td class="box_td"><?= htmlentities($r['job_name']) ?></td>
                 <td class="box_td"><?= htmlentities($r['job_class']) ?></td>
                 <td class="box_td"><?= htmlentities($r['job_introduce']) ?></td>
-                <td class="box_td"><?= htmlentities($r['job_pay']) ?></td>
+                <td class="box_td"><?php  
+                if($r['job_full-part']=="兼職"){
+                    echo "時薪";
+                }
+                echo htmlentities($r['job_pay']) ?>~<?= htmlentities($r['job_pay_up'])?></td>
                 <td class="box_td"><?= htmlentities($r['job_experience']) ?></td>
                 <td class="box_td"><?= htmlentities($r['job_num']) ?></td>
                 <td class="box_td"><?= htmlentities($r['job_urgent']) ?></td>
@@ -315,8 +322,75 @@ $check=[];
             </div>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 
     <script>
+    $('#example').dataTable({
+        // scrollY: '60vh',
+        // scrollCollapse: true,
+        // paging: true,
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        "columnDefs": [
+            // { "orderable": false, "targets": 1},
+            // { "orderable": false, "targets": 2},
+            // { "orderable": false, "targets": 3},
+            // { "orderable": false, "targets": 4},
+            // { "orderable": false, "targets": 5},
+            // { "orderable": false, "targets": 6},
+            // { "orderable": false, "targets": 7},
+            // { "orderable": false, "targets": 8},
+            // // { "orderable": false, "targets": 9},
+            // // { "orderable": false, "targets": 10},
+            // { "orderable": false, "targets": 11},
+            // { "orderable": false, "targets": 12},
+            // { "orderable": false, "targets": 13},
+        ]
+    });
+
+    $('.page-item').css({
+        'width': '30px',
+        'height': '30px',
+        'padding': '0',
+    })
+
+    $('.page-link').css({
+        'display':'flex',
+        'justify-content':'center',
+        'align-items':'center',
+        'width': '30px',
+        'height': '30px',
+        'padding': '0',
+        'border': 'none',
+        'border-radius': '50%',
+        'vertical-align': 'middle',
+        'color':'var(--dark)',
+    })
+    
+    // $('.page-link').mouseover().css({
+    //     'background-color':'red',
+    // })
+
+    $('.page-item.active .page-link').css({
+        'background-color':'var(--dark)',
+        'color':'var(--white)',
+    })
+
+    
+    $('.paginate_button').mouseover().css({
+        'background':'transparent',
+        'border':'none',
+    })
+
+
+    $('.previous').css({
+        'margin-right': '30px',
+    })
+
+    $('.next').css({
+        'margin-left': '30px',
+    })
     let checkAll = $('#checkAll'); //控制所有勾選的欄位
     let checkBoxes = $('tbody .checkboxeach input'); //其他勾選欄位
     let antiCheckAll = $('#antiCheckAll'); //反選所有勾選的欄位
