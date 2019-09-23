@@ -123,7 +123,7 @@ $row = $stmt->fetch();
     // email + -
     // let addBtn_1 = document.querySelector("#addBtn_1");
     // let removeBtn_1 = document.querySelector("#removeBtn_1");
-    // let input_1 = document.querySelector("#alt_email");
+    let input_1 = document.querySelector("#alt_email");
     // addBtn_1.addEventListener("click", function (e) {
     //   e.preventDefault();
     //   input_1.setAttribute("type", "text");
