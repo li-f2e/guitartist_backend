@@ -69,7 +69,7 @@ body{
     background-color: #c62828;
     width: 150px;
     height: 150px;
-    border-radius: 8px;
+    border-radius: 50%;
 }
 
 .icon:hover i{
@@ -123,12 +123,12 @@ body{
     
     <div class="container d-flex flex-column justify-content-center" >
         <!-- 登入打招呼文字 -->
-            <div class="position-relative">
+            <div class="position-relative" style="top:110px">
                 <div class="card position-absolute" style="height:500px; margin-top:100px; background-color:white; width:100%; opacity:0.7; "></div> 
                 <!-- 身分選擇 -->
                 <div class="card-body" style=" margin-top:100px">
                     <div class="input_introduction d-flex flex-column align-items-center ">
-                        <h4 class="animated fadeInDown" style="color:#555555">請選擇您的身份</h4>
+                        <h3 class="animated fadeInDown" style="color:#555555">請選擇您的身份</h3>
                         <!-- <p class="identity_choose animated fadeInDown " style="color:#555555">Please choose your identity</p> -->
                     </div>
 
