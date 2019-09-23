@@ -1,0 +1,28 @@
+.mainContent-css{
+    background-color: #F9F9F9;
+}
+
+.edit_card{
+    border: none;
+    width: 45rem;
+}
+
+.card-body-css{
+    box-shadow: 5px 5px 5px #ddd;
+}
+
+.fa-plus ,.fa-minus{
+    font-size: 15px;
+}
+
+.fa-edit, .fa-trash-alt{
+    font-size: 20px
+}
+
+.breadcrumb{
+    background-color: transparent;
+}
+
+.breadcrumb-item{
+    font-size: 18px;
+}
