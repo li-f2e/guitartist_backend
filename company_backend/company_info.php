@@ -11,10 +11,18 @@ $row = $stmt->fetch();
 
 <?php require_once "__header.php";?>
 <link rel="stylesheet" href="css/index.css">
-<link rel="stylesheet" href="css/company_info.css">
+<link rel="stylesheet" href="css/edit.css">
+
+
 <style>
+.table th{
+    width: 20%;
+}
 
-
+.table td{
+    vertical-align: middle;
+    color : #6c757d;
+}
 </style>
 
 </head>
@@ -25,64 +33,59 @@ $row = $stmt->fetch();
 
     <?php require_once "__left_menu.php";?>
 
-
-
-
-        <div class="mainContent">
+    <div class="mainContent mainContent-css">
             <div class="container-fluid">
-                <div class="row justify-content-center">
-                    <div class="col-10 p-0 mt-5 ml-3 ">
-                        <!-- html馬打這裡 -->
+                <div class="row justify-content-start">
+                    <div class="col-11 mt-5 mx-auto">
                         <div class="container mt-4">
-                            <div class="card" style="width: 50rem;">
-                                <div class="card-body">
+                            <div class="card edit_card">
+                                <div class="card-body card-body-css">
                                     <div class="d-flex">
-                                        <h5 class="card-title align-middle">廠商資料</h5>
+                                        <h5 class="card-title">基本資訊</h5>
                                         <div class="ml-auto">
-                                            <a href="company_edit_1.php"><i class="fas fa-edit"></i></a>
+                                            <a href="company_edit_1.php?sid=<?= $row['sid'] ?>"><i
+                                                    class="fas fa-edit"></i></a>
+                                            <!-- <a href="changePwd.php">修改密碼用(暫放)</i></a> -->
                                         </div>
                                     </div>
                                     <table class="table table-hover">
                                         <tr>
-                                            <th class="align-middle">照片</th>
-                                                <td class="d-flex">
-                                                    <figure class="pic my-auto" style="border: 1px solid lightgray;background-image: url(uploads/<?=empty($row['pic']) ? 'profile.png' : $row['pic']?>);">
-                                                        <a href="company_edit_1.php">
-                                                            <!-- <img src="uploads/<?=empty($row['pic']) ? 'profile.png' : $row['pic']?>"> -->
-                                                        </a>
-                                                    </figure>
-                                                </td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th class="align-middle">名稱</th>
-                                            <td><?=htmlentities($row['name'])?></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th class="align-middle">統一編號</th>
-                                            <td><?=htmlentities($row['tax_id'])?></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <!-- <tr>
-                                            <th class="align-middle">密碼</th>
-                                            <td >
-                                                <?=htmlentities($row['password'])?>
-                                            </td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr> -->
-                                        <tr>
-                                            <th class="align-middle">代理品牌</th>
+                                            <th>L O G O</th>
                                             <td>
-                                                <?=htmlentities($row['brand_1'])?>
-                                                <div><?=htmlentities($row['brand_2'])?></div>
-                                                <div><?=htmlentities($row['brand_3'])?></div>
+
+                                                <img style="object-fit:cover; width:64px; height:64px"
+                                                    src="uploads/<?=empty($row['pic']) ? 'profile.png' : $row['pic']?>"
+                                                    alt="">
+
+
                                             </td>
                                             <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <th>名稱</th>
+                                            <td><?=$row['name']?></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <th>統一編號</th>
+                                            <td><?=$row['tax_id']?></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <th>密碼</th>
+                                            <td>
+                                                <?=$row['password']?>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <th>代理品牌</th>
+                                            <td>
+                                                <?=$row['brand_1']?>
+                                                <div><?=$row['brand_2']?></div>
+                                                <div><?=$row['brand_3']?></div>
+                                            </td>
                                             <td></td>
                                         </tr>
                                     </table>
@@ -92,40 +95,41 @@ $row = $stmt->fetch();
 
 
                         <div class="container mt-4">
-                            <div class="card" style="width: 50rem;">
-                                <div class="card-body">
+                            <div class="card edit_card">
+                                <div class="card-body card-body-css">
                                     <div class="d-flex">
-                                        <h5 class="card-title align-middle">聯絡資訊</h5>
+                                        <h5 class="card-title">聯絡資訊</h5>
                                         <div class="ml-auto">
-                                            <a href="company_edit_2.php"><i class="fas fa-edit "></i></a>
+                                            <a href="company_edit_2.php?sid=<?= $row['sid'] ?>"><i
+                                                    class="fas fa-edit "></i></a>
                                         </div>
                                     </div>
                                     <table class="table table-hover">
                                         <tr>
-                                            <th class="align-middle">電子郵件</th>
+                                            <th>電子郵件</th>
                                             <td class="test">
-                                                <?=htmlentities($row['email'])?>
-                                                <div><?=htmlentities($row['alt_email'])?></div>
+                                                <?=$row['email']?>
+                                                <div><?=$row['alt_email']?></div>
                                             </td>
                                             <td></td>
                                         </tr>
 
                                         <tr>
-                                            <th class="align-middle">聯絡電話</th>
+                                            <th>聯絡電話</th>
                                             <td>
-                                                <?=htmlentities($row['tel'])?>
-                                                <div><?=htmlentities($row['alt_tel'])?></div>
+                                                <?=$row['tel']?>
+                                                <div><?=$row['alt_tel']?></div>
                                             </td>
                                             <td></td>
                                         </tr>
                                         <tr>
-                                            <th class="align-middle">傳真號碼</th>
-                                            <td><?=htmlentities($row['fax'])?></td>
+                                            <th>傳真號碼</th>
+                                            <td><?=$row['fax']?></td>
                                             <td></td>
                                         </tr>
                                         <tr>
-                                            <th class="align-middle">地址</th>
-                                            <td><?=htmlentities($row['addr'])?></td>
+                                            <th>地址</th>
+                                            <td><?=$row['addr']?></td>
                                             <td></td>
                                         </tr>
                                     </table>
@@ -133,23 +137,24 @@ $row = $stmt->fetch();
                             </div>
                         </div>
                         <div class="container mt-4">
-                            <div class="card mb-5" style="width: 50rem;">
-                                <div class="card-body">
+                            <div class="card edit_card">
+                                <div class="card-body card-body-css">
                                     <div class="d-flex">
                                         <h5 class="card-title">收款資訊</h5>
                                         <div class="ml-auto">
-                                            <a href="company_edit_3.php"><i class="fas fa-edit "></i></a>
+                                            <a href="company_edit_3.php?sid=<?= $row['sid'] ?>"><i
+                                                    class="fas fa-edit "></i></a>
                                         </div>
                                     </div>
                                     <table class="table table-hover">
                                         <tr>
-                                            <th class="align-middle">帳戶名稱</th>
-                                            <td><?=htmlentities($row['bank_acc'])?></td>
+                                            <th>帳戶名稱</th>
+                                            <td><?=$row['bank_acc']?></td>
                                             <td></td>
                                         </tr>
                                         <tr>
-                                            <th class="align-middle">帳戶號碼</th>
-                                            <td><?=htmlentities($row['bank_num'])?></td>
+                                            <th>帳戶號碼</th>
+                                            <td><?=$row['bank_num']?></td>
                                             <td></td>
                                         </tr>
                                     </table>

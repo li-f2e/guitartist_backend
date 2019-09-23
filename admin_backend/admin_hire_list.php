@@ -28,7 +28,7 @@ if ($page > $totalPages) {
 }
 ;
 
-$sql_page = sprintf("SELECT * FROM `member_list` WHERE `is_hall_owner` =1 ORDER BY `sid` DESC LIMIT %s, %s",($page - 1) * $perPage, $perPage);
+$sql_page = sprintf("SELECT * FROM `member_list` WHERE `is_hire` =1 ORDER BY `sid` DESC LIMIT %s, %s",($page - 1) * $perPage, $perPage);
 $stmt = $pdo->query($sql_page);
 include 'admin__header.php';
 include 'admin__nav_bar.php';
@@ -100,7 +100,7 @@ th{
                             <!-- //換頁按鈕 -->
                             <div class="d-flex justify-content-end my-4">
                                 <ul class="pageNavigation d-flex justify-content-end m-0">
-                                    <li class="pageDir"">
+                                    <li class="pageDir">
                                         <a class="" href="?page=<?= $page-1 ?>">
                                             <i class="fas fa-caret-left"></i>
                                             Prev
@@ -217,7 +217,7 @@ th{
             </div>
         </div>
     </div>
-
+    <script src="js/admin_ban_one.js"></script>
     <script>
         //被選取的頁簽文字顏色變紅
         $('.nav-link.active').css('color','var(--red)');
@@ -228,19 +228,7 @@ th{
             }
         }
 
-        function ban_one(sid) {
-            let ban_btn = document.querySelector('.ban[href="javascript:ban_one(' + sid + ')"]');
 
-            if(ban_btn.style.color == 'rgb(0, 123, 255)'){
-                if(confirm(`確定要禁用編號為 ${sid} 的資料嗎?`)){
-                    location.href = 'data_ban.php?sid=' + sid;
-                }
-            }else{
-                if(confirm(`確定要解除編號為 ${sid} 的禁用嗎?`)){
-                    location.href = 'remove_data_ban.php?sid=' + sid;
-                }
-            }
-        }
         //checkbox全選
 
         let checkAll = $('#checkAll'); //全選

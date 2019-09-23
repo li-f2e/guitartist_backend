@@ -10,8 +10,10 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
     <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="images/icons/logo-sample-pic.png"/>
     <!-- <link rel="stylesheet" href="css/index.css"> -->
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
     <style>
         *{
             font-family: '微軟正黑體';
@@ -146,12 +148,15 @@
     <link href="https://fonts.googleapis.com/css?family=Lobster|Noto+Sans+TC&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Prata&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="01_fontawesome-free-5.9.0-web\css\all.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 
     <link rel="stylesheet" type="text/css" href="css/flatpickr.dark.min.css">
     <!-- <link rel="stylesheet" href="css/admin_list.css"> -->
     <!-- 不確定這隻css還要不要 -->
     <link rel="stylesheet" href="css/style.css">
+    
+    <!-- 廠商【新增與編輯】的CSS -->
+    <link rel="stylesheet" href="css/admin_edit.css">
 </head>
 
 <body>

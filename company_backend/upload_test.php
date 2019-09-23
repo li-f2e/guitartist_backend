@@ -1,5 +1,5 @@
 <?
-    require_once __DIR__ . "/__connect_db.php";
+    require_once __DIR__ . "/init.php";
 
     // 要上傳到哪個資料夾的路徑
     $upload_dir = __DIR__."/uploads/";

@@ -6,7 +6,7 @@ require 'init.php';
 $result = [
     'success' => false,
     'code' => 400,
-    'info' => '沒有輸入姓名',
+    'info' => '資料欄位不足',
     'post' => $_POST,
 ];
 

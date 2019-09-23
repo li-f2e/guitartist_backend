@@ -54,9 +54,12 @@ $row = $stmt->fetch();
   padding: 15%;
 }
 
-.fa-eye-slash, .fa-eye{
-  color: var(--gold);
+.fa-eye-slash{
+  color: gray;
   z-index:10;
+}
+.fa-eye{
+  color:black;
 }
 
 .form-group{
@@ -65,12 +68,13 @@ $row = $stmt->fetch();
 
 #submit_btn{
   border: 0;
-  background-color:var(--gold);
+  background-color:var(--red);
 }
 
 .card-img{
-  width:35%;
-  margin-left: 30%;
+  width:90%;
+  margin:auto;
+  margin-bottom:10%;
 }
 
 .input_css{
@@ -88,7 +92,7 @@ $row = $stmt->fetch();
 }
 
 .text-p{
-  color: #dc3545;
+  color: gray;
   margin-bottom: 3px;
 }
 
@@ -143,23 +147,23 @@ $row = $stmt->fetch();
                                     
                                     <!-- <div class="card-img"></div> -->
                                     <div class="card-body">
-                                        <img class="card-img" src="uploads/ef73d.jpg" alt="">
+                                        <img class="card-img" src="images/logo.svg" alt="">
                                         <form name="form1" onsubmit="return checkForm()">
                                         <input type="hidden" name="sid" value="<?=$row['sid']?>" />
-                                        <p class="text-p">Enter the old password</p>
+                                        <p class="text-p">請輸入舊密碼</p>
                                         <div class="form-group d-flex">
                                             <input
                                             type="password"
                                             class="input_css"
                                             id="old_pwd"
                                             name="old_pwd"
-                                            placeholder="Enter the old password"
+                                            
                                             style=""/>
                                             <a href="" id="eye_1" style="position:absolute; top:20%; right:5%"><i class="far fa-eye-slash"></i></a>
                                             <small id="passwordHelp" class="form-text"></small>
                                         </div>
                                         <div class="d-flex pass-div mb-2 align-items-center">
-                                            <div class="PAWS">Password Strength</div>
+                                            <div class="PAWS">密碼強度</div>
                                             <div class="progress" style="width:120px; height:15px; margin-left:8px;">
                                             <div
                                                 class="progress-bar bg-dark"
@@ -169,27 +173,29 @@ $row = $stmt->fetch();
                                             ></div>
                                             </div>
                                         </div>
+                                        <p class="text-p">請輸入新密碼</p>
                                         <div class="form-group d-flex">
                                             <input
                                             type="password"
                                             class="input_css pwdVisibility"
                                             id="password"
                                             name="password"
-                                            placeholder="Enter the new password"
+                                            
                                             />
                                             <a href="" id="eye_2" style="position:absolute; top:20%; right:5%"><i class="far fa-eye-slash"></a></i>
                                         </div>
+                                        <p class="text-p">確認密碼</p>
                                         <div class="form-group">
                                             <input
                                             type="password"
                                             class="input_css pwdVisibility"
                                             id="confirm_pwd"
                                             name="confirm_pwd"
-                                            placeholder="Confirm the new password"
+                                            
                                             />
                                         </div>
                                         <button type="submit" class="btn btn-primary" id="submit_btn">
-                                            EDIT
+                                            修改
                                         </button>
                                         </form>
                                     </div>

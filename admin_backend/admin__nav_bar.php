@@ -30,14 +30,9 @@ $row_main = $stmt_main->fetch();
 
 </div> -->
 
-<div class="search-box">
-    <input class="search-text" type="text" name="" placeholder="Type to search">
-    <a href="#" class="search-btn">
-        <i class="fas fa-search"></i>
-    </a>
-</div>
 
-<form class="form-inline my-2 my-lg-0 mx-3">
+
+<form class="form-inline my-2 my-lg-0 mr-3 ml-auto">
     <!-- <button href id="logOut" type="button" class="btn my-2 my-sm-0" data-toggle="modal"
         data-target="#exampleModal"></button> -->
         <a href="#" id="profile">
@@ -66,7 +61,7 @@ $row_main = $stmt_main->fetch();
         <a class="btn btn-outline-secondary" style="display:inline-block; margin-left:200px" href="logout.php" role="button">登出</a>
     </div>
     </div> -->
-<div class="card" id="logout" style="position: absolute; right: 20px; top: 82px;width: 300px; height:183px; z-index: 1000; display:none">
+<div class="card" id="logout" style="position: absolute; right: 20px; top: 82px;width: 300px; height:183px; z-index: 1000; display:none; box-shadow: 5px 5px 5px rgb(129, 129, 129)">
     <div class="d-flex" style="height:120px">
         <a href="#"><div style="margin: 10px 10px 10px 20px;border: 1px solid lightgray; width:100px; height:100px; border-radius:50%; background-size:cover; background-image: url(uploads/<?=empty($row_main['pic']) ? 'profile.png' : $row_main['pic']?>);"></div></a>
         <div style="flex:1; width:160px;margin:auto">
