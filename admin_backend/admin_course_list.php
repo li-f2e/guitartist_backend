@@ -260,7 +260,7 @@ $check=[];
                     <div class="col-11 p-0 mt-5 ml-3 ">
                     
                         <!-- html馬打這裡 -->
-                        <div class="container ">
+                        <div class="container-fluid">
                         <!-- 頁籤 -->
                         <ul class="nav nav-tabs">
                             <li class="nav-item ">
@@ -298,7 +298,7 @@ $check=[];
         <thead>
         <tr class="text-center">
             <th scope="col" style="width: 60px">編號</th>
-            <th scope="col" style="">
+            <th scope="col" style="width: 60px">
                 <label class='checkbox-inline checkboxeach'>
                     <!-- 選取全部 -->
                     選取
@@ -306,7 +306,7 @@ $check=[];
                 <!-- <input id='checkAll' type='checkbox' name='checkboxall' value='1'> -->
             </th>
             <!--刪除全部 -->
-            <th scope="col" style="">
+            <th scope="col" style="width: 60px">
                 <a href="javascript:delete_all()" style="outline: none;">
                     <i class="fas fa-trash delete_all"></i>
                 </a>
