@@ -202,7 +202,7 @@ $check=[];
     
         <div class="mainContent ">
             <div class="container-fluid">
-                <div class="row justify-content-start">
+                <div class="row justify-content-center">
                     <div class="col-11 p-0 mt-5 ml-3 ">
                         <!-- html馬打這裡 -->
                         <div class="container-fluid ">
@@ -338,11 +338,11 @@ $('#example').dataTable({
         // paging: true,
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
         "columnDefs": [
-            // { "orderable": false, "targets": 1},
-            // { "orderable": false, "targets": 2},
-            // { "orderable": false, "targets": 3},
-            // { "orderable": false, "targets": 4},
-            // { "orderable": false, "targets": 5},
+            { "orderable": false, "targets": 1},
+            { "orderable": false, "targets": 2},
+            { "orderable": false, "targets": 3},
+            { "orderable": false, "targets": 4},
+            { "orderable": false, "targets": 5},
             // { "orderable": false, "targets": 6},
             // { "orderable": false, "targets": 7},
             // { "orderable": false, "targets": 8},
@@ -510,4 +510,4 @@ function delete_one(sid) {
     }
     </script>
 
-<?php require_once __DIR__ . "/__footer.php"; ?>
+<?php require_once __DIR__ . "/admin__footer.php"; ?>

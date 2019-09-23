@@ -80,6 +80,14 @@ include 'admin__header.php';
         border: .25em solid var(--success);
     }
 
+
+    .wrapper {
+  height: 100vh !important;
+}
+
+.left-menu {
+  height: 100vh !important;
+}
 </style>
 </header>
 <body>
@@ -90,10 +98,10 @@ include 'admin__header.php';
 
     <?php require "admin__left_menu.php";?>
         <div class="mainContent">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row justify-content-center">
                     <div class="col p-0 m-5">
-                        <div class="container">
+                        <div class="container-fluid">
                             <ul class="nav nav-tabs">
                                 <li class="nav-item">
                                     <a class="nav-link" href="admin_backend_insert.php" style="color: var(--dark);">新增使用者</a>
@@ -122,21 +130,21 @@ include 'admin__header.php';
                                 <table id="backend-table" class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th scope="col">編號</th>
+                                            <th scope="col" style="60px">編號</th>
                                             <!--  -->
-                                            <th scope="col">
+                                            <th scope="col" style="60px">
                                                 <label class='checkbox-inline checkboxAll'>
                                                     <input id='checkAll' type='checkbox' name='checkboxall' value='1' class="regular-checkbox"><label for="checkAll" >
                                                 </label>
                                             </th>
                                             <!--  -->
-                                            <th scope="col">
+                                            <th scope="col" style="60px">
                                                 <a href="javascript:delete_all()" style="outline: none;"><i class="fas fa-trash delete_all"></i></a>
                                             </th>
-                                            <th scope="col">名稱</th>
-                                            <th scope="col">電子郵箱</th>
+                                            <th scope="col" style="60px">名稱</th>
+                                            <th scope="col" style="60px">電子郵箱</th>
                                             
-                                            <th scope="col">身份</th>
+                                            <th scope="col" style="60px">身份</th>
                                             <th scope="col">聯絡電話</th>
                                             <th scope="col">地址</th>
 
@@ -239,8 +247,8 @@ include 'admin__header.php';
             { "orderable": false, "targets": 6},
             { "orderable": false, "targets": 7},
             { "orderable": false, "targets": 8},
-            { "orderable": false, "targets": 9},
-            { "orderable": false, "targets": 10},
+            // { "orderable": false, "targets": 9},
+            // { "orderable": false, "targets": 10},
             ]
         });
 

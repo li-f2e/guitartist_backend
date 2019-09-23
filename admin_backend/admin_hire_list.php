@@ -105,6 +105,14 @@ include 'admin__header.php';
     .swal2-icon.swal2-success .swal2-success-ring {
         border: .25em solid var(--success);
     }
+
+    .wrapper {
+  height: 100vh !important;
+}
+
+.left-menu {
+  height: 100vh !important;
+}
 </style>
 
 </head>
@@ -118,7 +126,7 @@ include 'admin__header.php';
             <div class="container-fluid">
                 <div class="row justify-content-center">
                     <div class="col-11 mt-5 mx-auto">
-                       <div class="container">
+                       <div class="container-fluid">
                        <ul class="nav nav-tabs">
                                 <li class="nav-item">
                                     <a class="nav-link" href="admin_backend_insert.php" style="color: var(--dark);">新增使用者</a>
@@ -232,7 +240,7 @@ include 'admin__header.php';
             { "orderable": false, "targets": 8},
             { "orderable": false, "targets": 9},
             { "orderable": false, "targets": 10},
-            { "orderable": false, "targets": 11},
+            // { "orderable": false, "targets": 11},
             // { "orderable": false, "targets": 12},
             // { "orderable": false, "targets": 13},
             ]
