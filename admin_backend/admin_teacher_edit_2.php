@@ -52,7 +52,7 @@ require "admin__nav_bar.php";
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb mb-3 p-1">
                                     <li class="breadcrumb-item"><a href="admin_teacher_list.php">老師列表</a></li>
-                                    <li class="breadcrumb-item"><a href="admin_teacher_edit.php">編輯老師資訊</a></li>
+                                    <li class="breadcrumb-item"><a href="admin_teacher_edit.php?sid=<?= $row['sid'] ?>">編輯老師資訊</a></li>
                                     <li class="breadcrumb-item active font-weight-bold" aria-current="page">編輯聯絡資訊</li>
                                 </ol>
                             </nav>

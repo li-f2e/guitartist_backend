@@ -245,7 +245,7 @@ include 'admin__header.php';
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-    <script src="js/admin_ban_one.js"></script>
+    <script src="js/admin_ban_once.js"></script>
     <script>
     //被選取的頁簽文字顏色變紅
     $('.nav-link.active').css('color','var(--red)');

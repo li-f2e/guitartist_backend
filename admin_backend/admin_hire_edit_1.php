@@ -84,8 +84,9 @@ $row = $stmt->fetch();
                 <!-- 麵包屑 -->
                 <nav aria-label="breadcrumb">
                   <ol class="breadcrumb mb-3 p-1">
-                    <li class="breadcrumb-item"><a href="admin_company_list.php">徵才廠商列表</a></li>
-                    <li class="breadcrumb-item"><a href="admin_company_info.php">編輯廠商資訊</a></li>
+                    <li class="breadcrumb-item"><a href="admin_hire_list.php">徵才廠商列表</a></li>
+                    <li class="breadcrumb-item"><a href="admin_hire_info.php?sid=<?= $row['sid']?>">編輯廠商資訊</a></li>
+                    
                     <li class="breadcrumb-item active font-weight-bold" aria-current="page">編輯基本資訊</li>
                   </ol>
                 </nav>
