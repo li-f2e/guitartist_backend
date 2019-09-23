@@ -356,7 +356,7 @@ $check=[];
                 <!-- <td class="box_td"><?= htmlentities($r['course_describe']) ?></td> -->
                 <td>
                 <a href="uploads/<?=$r['course_pic']?>" data-lightbox="image" data-title="預覽圖片">
-                <img src="uploads/<?=$r['course_pic']?>" alt="" width="150" >
+                <img src="uploads/<?=$r['course_pic']?>" alt=""  height="100" >
                 </a>
                
                 </td>
