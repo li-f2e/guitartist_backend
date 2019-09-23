@@ -66,7 +66,7 @@ require_once __DIR__ . "/init.php"; ?>
                             <select id="job_class" class="form-control" name="job_class" value="<?= htmlentities($row['job_class']) ?>">
                                 <option <?php if($row['job_class'] == "表演駐唱"){ ?> selected <?php } ?>>表演駐唱</option>
                                 <option <?php if($row['job_class'] == "樂團吉他手"){ ?> selected <?php } ?>>樂團吉他手</option>
-                                <option <?php if($row['job_class'] == "社團老師招募"){ ?> selected <?php } ?>>社團老師招募</option>
+                                <option <?php if($row['job_class'] == "社團老師招募"){ ?> selected <?php } ?>>吉他老師</option>
                                 <option <?php if($row['job_class'] == "吉他音樂創作"){ ?> selected <?php } ?>>吉他音樂創作</option>
                                 <option <?php if($row['job_class'] == "其他"){ ?> selected <?php } ?>>其他</option>
                             </select>
@@ -83,27 +83,24 @@ require_once __DIR__ . "/init.php"; ?>
                         </div>
                         
                         <div class="form-group" ></div>
-                        <label for="job_pay">新資</label>
-                        <div class="form-row">
-                            
-                            <div class="form-group col-md-5">
-                            <input type="text" class="form-control" id="job_pay" name="job_pay" value="<?= htmlentities($row['job_pay']) ?>">
-                            <small id="job_payHelp" class="form-text"></small>   
+                        <label for="job_pay">新資<?php if($row['job_full-part']=="兼職"){echo " (時薪)";} ?></label>
 
+                        <div class="form-row">                            
+                            <div class="form-group col-md-4">
+                            <input type="number" class="form-control number" id="job_pay" name="job_pay" value="<?= htmlentities($row['job_pay']) ?>">
+                            <small id="job_payHelp" class="form-text"></small>
                             </div>
-                            <div class="form-group ">~</div>
-
-                        <div class="form-group col-md-5">
-                            
-                            <input type="text" class="form-control" id="job_pay_up" name="job_pay_up" value="<?= htmlentities($row['job_pay_up']) ?>">
+                            <div class="form-group col-md-1">~</div>
+                            <div class="form-group col-md-4">
+                            <input type="number" class="form-control number" id="job_pay_up" name="job_pay_up" value="<?= htmlentities($row['job_pay_up']) ?>">
                             <small id="job_pay_upHelp" class="form-text"></small>
-                        </div>
-                        新台幣
+                            </div>
+                            <div class="form-group col-md-2">台幣</div>                    
                         </div>
 
                         <div class="form-group">
                             <label for="job_num">需求人數</label>
-                            <input type="text" class="form-control" id="job_num" name="job_num" value="<?= htmlentities($row['job_num']) ?>">
+                            <input type="number" class="form-control number" id="job_num" name="job_num" value="<?= htmlentities($row['job_num']) ?>">
                             <small id="job_numHelp" class="form-text"></small>
                         </div>
 
@@ -162,6 +159,16 @@ require_once __DIR__ . "/init.php"; ?>
 
 
     <script>
+
+    //數字不得 <0
+    $('.number').change(function(){      
+        let num = $(this).val();
+        
+        if(num<0){ num = 0; }
+        $(this).val(num);
+
+        // console.log(num)
+    })
         
         function selUpload(){
             document.querySelector('#course_pic').click();
