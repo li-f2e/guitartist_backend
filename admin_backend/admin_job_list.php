@@ -203,21 +203,21 @@ $check=[];
         <div class="mainContent ">
             <div class="container-fluid">
                 <div class="row justify-content-start">
-                    <div class="col-10 p-0 mt-5 ml-3 ">
+                    <div class="col-11 p-0 mt-5 ml-3 ">
                         <!-- html馬打這裡 -->
-                        <div class="container ">
+                        <div class="container-fluid ">
                         <ul class="nav nav-tabs">
                                 <li class="nav-item ">
-                                    <a class="nav-link " href="admin_product_list.php">商品列表</a>
+                                    <a class="nav-link " href="admin_product_list.php" style="color: var(--dark)">商品列表</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="admin_course_list.php">課程列表</a>
+                                    <a class="nav-link" href="admin_course_list.php" style="color: var(--dark)">課程列表</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="admin_location_list.php">場地列表</a>
+                                    <a class="nav-link" href="admin_location_list.php" style="color: var(--dark)">場地列表</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="admin_job_list.php">徵才列表</a>
+                                    <a class="nav-link active" href="admin_job_list.php" style="color: var(--red)">徵才列表</a>
                                 </li>
                             </ul>
 <div style="margin-top: 2rem;">
@@ -237,27 +237,27 @@ $check=[];
               <button id='antiCheckAll' class="checkAll btn btn-info mr-2" name='checkboxall'>反選</button>
                  總共有 <?= $totalRows; ?> 筆商品
               </div>
-    <table id="example" class="table table-striped table-bordered">
+    <table id="example" class="table table-hover ">
         <thead>
         <tr>
         <th scope="col"class="box_td">編號</th>
-            <th scope="col" style="vertical-align:left;">
+            <th scope="col" style="vertical-align:left; ">
                 <label class='checkbox-inline checkboxeach'>
             <!-- 選取全部 -->
                 </label>選取
             </th>
             <!--刪除全部 -->
-            <th scope="col"><a href="javascript:delete_all()" style="outline: none;"><i class="fas fa-trash delete_all"></i></a></th>
+            <th scope="col" style="width:30px"><a href="javascript:delete_all()" style="outline: none;"><i class="fas fa-trash delete_all"></i></a></th>
                 
-            <th scope="col"class="box_td" style="width:10%">狀態</th>
+            <th scope="col"class="box_td" >狀態</th>
             <!-- <th scope="col"class="box_td">帳號（電子信箱）</th> -->
-            <th scope="col"class="box_td">職缺名稱</th>
+            <th scope="col"class="box_td" >職缺名稱</th>
             <th scope="col"class="box_td">職缺類型</th>
             <th scope="col"class="box_td">職缺內容</th>
             <th scope="col"class="box_td">報酬</th>
             <th scope="col"class="box_td">工作經驗</th>
-            <th scope="col"class="box_td">需求人數</th>
-            <th scope="col"class="box_td">急徵</th>
+            <th scope="col"class="box_td" >需求人數</th>
+            <th scope="col"class="box_td" >急徵</th>
             <th scope="col"class="box_td">全職/兼職</th>
             <th scope="col"class="box_td"><i class="fas fa-edit"></i></th>
             <!-- <th scope="col"class="box_td"><i class="fas fa-trash-alt"></i></th> -->

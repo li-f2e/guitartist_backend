@@ -288,6 +288,9 @@
                             <li class="nav-item">
                                 <a class="nav-link list-link" href="admin_location_list.php" style="color: var(--dark);" >場地列表</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link list-link" href="admin_job_list.php" style="color: var(--dark);" >徵才列表</a>
+                            </li>
                         </ul>
 
                         <h2 class="" style="text-align:center; margin-top: 1.25rem;">商品列表 </h2>
