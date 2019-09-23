@@ -44,6 +44,7 @@
 ?>   
 <?php require_once __DIR__ . "/admin__header.php"; ?>
 <link rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="css/lightbox.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 <style>
@@ -365,7 +366,9 @@
                                         
                                         <td class="align-middle">
                                             <figure class="mainPhoto">
-                                                <img src="uploads/<?= htmlspecialchars( $r['product_image1'] ) ?>" alt="" height="200">
+                                                <a href="uploads/<?= htmlspecialchars( $r['product_image1'] ) ?>" data-lightbox="image-1" data-title="預覽圖片">
+                                                    <img src="uploads/<?= htmlspecialchars( $r['product_image1'] ) ?>" alt="" height="200">
+                                                </a> 
                                             </figure>
                                         </td>
                                         <td class="align-middle"  style="width: 60px;"><?= htmlspecialchars( $r['product_brand']); ?></td>
@@ -408,8 +411,9 @@
             </div>
         </div>
     </div>
-
+    
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="js/lightbox.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
     <script>
