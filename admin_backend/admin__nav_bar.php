@@ -5,7 +5,7 @@ $stmt_main->execute([$_SESSION['loginUser']['email']]);
 $row_main = $stmt_main->fetch();
 ?>
 
-<nav class="navbar navbar-expand-md navbar-light bg-light navBar">
+<nav class="navbar navbar-expand-md navBar">
 
 <a  class="left-menu-toggle-btn d-flex flex-column justify-content-center align-items-center py-1" role="button">
     <div class="black-line up-line"></div>
@@ -14,7 +14,7 @@ $row_main = $stmt_main->fetch();
 </a>
 
 <a href="#" class="navbar-brand d-flex justify-content-start align-items-center logo" href="#">
-    <img src="images/logo-sample-01.png" alt="" style="width: 23%">
+    <img src="images/logo-sample-01.png" alt="" >
 </a>
 
 <!-- <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse"

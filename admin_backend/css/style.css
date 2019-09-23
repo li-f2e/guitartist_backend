@@ -68,6 +68,12 @@ body::after {
   /* color: #fff !important; */
   margin-right: 20px;
   margin-left: 20px;
+  max-width: 12%;
+  /* border: 1px solid black; */
+}
+
+.logo img{
+  width: 100%;
 }
 
 /* 搜尋Bar */
@@ -236,9 +242,6 @@ body::after {
   border-radius: 0;
 }
 
-/* .my-card {
-            background-color: rgb(46, 46, 46);
-        } */
 
 .my-card-header {
   border-radius: 0px 32px 32px 0px !important;
@@ -246,7 +249,6 @@ body::after {
   background-color: transparent;
   width: 95%;
   overflow-x: hidden;
-  /* padding-left: 10px; */
 }
 
 .my-card-header:hover {
@@ -276,11 +278,6 @@ body::after {
   width: 198px;
   overflow: hidden;
 }
-
-/* .heading {
-            width: 720px !important;
-            overflow: hidden;
-        } */
 
 .my-card-title:hover {
   /* color: rgb(19, 19, 19); */
