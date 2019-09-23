@@ -129,7 +129,6 @@ include 'admin__header.php';
                                     <th scope="col">照片</th>
                                     <th scope="col">廠商名稱</th>
                                     <th scope="col">電子信箱</th>
-                                    <th scope="col">密碼</th>
                                     <th scope="col">統一編號</th>
                                     <th scope="col">代理品牌</th>
                                     <th scope="col">連絡電話</th>
@@ -157,7 +156,6 @@ include 'admin__header.php';
                                     </td>
                                     <td><?=$r['name']?></td>
                                     <td><?=$r['email']?></td>
-                                    <td><?=$r['password']?></td>
                                     <td><?=$r['tax_id']?></td>
                                     <td>
                                         <div><?=$r['brand_1']?></div>

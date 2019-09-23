@@ -98,6 +98,9 @@ th{
     .swal2-icon.swal2-success .swal2-success-ring {
         border: .25em solid var(--success);
     }
+    .ban:hover{
+        cursor:pointer;
+    }
 </style>
 <?php include 'admin__nav_bar.php'; ?>
 
@@ -147,7 +150,6 @@ th{
                                     <th>照片</th>
                                     <th scope="col">廠商名稱</th>
                                     <th scope="col">電子信箱</th>
-                                    <th scope="col">密碼</th>
                                     <th scope="col">統一編號</th>
                                     <th scope="col">連絡電話</th>
                                     <th scope="col">地址</th>
@@ -172,7 +174,6 @@ th{
                                     <td class="p-1"><img class="member-logo" src="uploads/<?=$r['pic']?>" alt=""></td>
                                     <td><?=$r['name']?></td>
                                     <td><?=$r['email']?></td>
-                                    <td><?=$r['password']?></td>
                                     <td><?=$r['tax_id']?></td>
                                     <td><?=$r['tel']?></td>
                                     <td>

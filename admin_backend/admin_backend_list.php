@@ -122,7 +122,7 @@ include 'admin__header.php';
                                 <table id="backend-table" class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th scope="col">編輯</th>
+                                            <th scope="col">編號</th>
                                             <!--  -->
                                             <th scope="col">
                                                 <label class='checkbox-inline checkboxAll'>
@@ -135,7 +135,7 @@ include 'admin__header.php';
                                             </th>
                                             <th scope="col">名稱</th>
                                             <th scope="col">電子郵箱</th>
-                                            <th scope="col">密碼</th>
+                                            
                                             <th scope="col">身份</th>
                                             <th scope="col">聯絡電話</th>
                                             <th scope="col">地址</th>
@@ -162,8 +162,11 @@ include 'admin__header.php';
                                             <!--  -->
                                             <td><?=$r['name']?></td>
                                             <td><?=$r['email']?></td>
-                                            <td><?=$r['password']?></td>
+                                            
                                             <td>
+                                                <div>
+                                                    <?=$r['is_admin'] ? '管理員' : ''?>
+                                                </div>
                                                 <div>
                                                     <?=$r['is_company'] ? '代理商' : ''?>
                                                 </div>

@@ -155,7 +155,6 @@ include 'admin__header.php';
                                     <th>照片</th>
                                     <th scope="col">廠商名稱</th>
                                     <th scope="col">電子信箱</th>
-                                    <th scope="col">密碼</th>
                                     <th scope="col">統一編號</th>
                                     <th scope="col">連絡電話</th>
                                     <th scope="col">地址</th>
@@ -180,7 +179,6 @@ include 'admin__header.php';
                                     <td class="p-1"><img class="member-logo" src="uploads/<?=$r['pic']?>" alt=""></td>
                                     <td><?=$r['name']?></td>
                                     <td><?=$r['email']?></td>
-                                    <td><?=$r['password']?></td>
                                     <td><?=$r['tax_id']?></td>
                                     <td><?=$r['tel']?></td>
                                     <td>

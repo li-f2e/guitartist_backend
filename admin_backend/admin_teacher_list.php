@@ -179,7 +179,7 @@ include 'admin__header.php';
                                         <th scope="col">照片</th>
                                         <th scope="col">姓名</th>
                                         <th scope="col">電子信箱</th>
-                                        <th scope="col">密碼</th>
+                                        
                                         <th scope="col">生日</th>
                                         <th scope="col">聯絡電話</th>
                                         <th scope="col">專長</th>
@@ -206,7 +206,7 @@ include 'admin__header.php';
                                         <td> <img src="uploads/<?=$r['teacher_pic']?>" class="pic" alt=""></td>
                                         <td><?=$r['teacher_name']?></td>
                                         <td><?=$r['email']?></td>
-                                        <td><?=$r['password']?></td>
+                                        
                                         <td><?=$r['teacher_birthday']?></td>
                                         <td><?=$r['teacher_tel']?></td>
                                         <td><?=$r['teacher_specialty']?></td>
