@@ -90,9 +90,9 @@ include 'admin__header.php';
 
     <?php require "admin__left_menu.php";?>
         <div class="mainContent">
-            <div class="container-fluid">
+            <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-12 p-0 m-5">
+                    <div class="col p-0 m-5">
                         <div class="container">
                             <ul class="nav nav-tabs">
                                 <li class="nav-item">

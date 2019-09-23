@@ -121,6 +121,14 @@ include 'admin__header.php';
     .swal2-icon.swal2-success .swal2-success-ring {
         border: .25em solid var(--success);
     }
+
+    .member-logo{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    overflow: hidden;
+    object-fit: cover;
+}
 </style>
 <body>
 <?php include 'admin__nav_bar.php'; ?>
@@ -203,7 +211,7 @@ include 'admin__header.php';
                                             <!-- 刪除單個sid -->
                                             <a style="outline: none;" href="javascript:delete_one(<?=$r['sid']?>)"><i class="fas fa-trash-alt"></i></a>
                                         </td>
-                                        <td> <img src="uploads/<?=$r['teacher_pic']?>" class="pic" alt=""></td>
+                                        <td> <img  class="member-logo" src="uploads/<?=$r['teacher_pic']?>" alt=""></td>
                                         <td><?=$r['teacher_name']?></td>
                                         <td><?=$r['email']?></td>
                                         

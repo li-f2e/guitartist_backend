@@ -112,8 +112,8 @@ th{
     <div class="mainContent">
             <div class="container-fluid">
                 <div class="row justify-content-center">
-                    <div class="col-11 mt-5 mx-auto">
-                       <div class="container">
+                    <div class="col-12 mt-5 mx-auto">
+                       <div class="container-fluid">
                             <ul class="nav nav-tabs">
                                 <li class="nav-item">
                                     <a class="nav-link" href="admin_backend_insert.php" style="color: var(--dark);">新增使用者</a>
@@ -218,13 +218,13 @@ th{
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             "columnDefs": [
                 { "orderable": false, "targets": 1},
-                { "orderable": false, "targets": 2},
-                { "orderable": false, "targets": 3},
-                { "orderable": false, "targets": 4},
-                { "orderable": false, "targets": 5},
-                { "orderable": false, "targets": 9},
-                { "orderable": false, "targets": 10},
-                { "orderable": false, "targets": 11},
+                // { "orderable": false, "targets": 2},
+                // { "orderable": false, "targets": 3},
+                // { "orderable": false, "targets": 4},
+                // { "orderable": false, "targets": 5},
+                // { "orderable": false, "targets": 9},
+                // { "orderable": false, "targets": 10},
+                // { "orderable": false, "targets": 11},
             ]
         });
 
