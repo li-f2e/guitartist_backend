@@ -272,6 +272,9 @@ $check=[];
                             <li class="nav-item">
                                 <a class="nav-link list-link" href="admin_location_list.php" style="color: var(--dark);" >場地列表</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link list-link" href="admin_job_list.php" style="color: var(--dark);" >徵才列表</a>
+                            </li>
                         </ul>
 
 <div style="margin-top: 1.25rem;">

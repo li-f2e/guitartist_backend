@@ -208,16 +208,16 @@ $check=[];
                         <div class="container ">
                         <ul class="nav nav-tabs">
                                 <li class="nav-item ">
-                                    <a class="nav-link " href="admin_product_list.php">商品列表</a>
+                                    <a class="nav-link " href="admin_product_list.php" style="color: var(--dark)">商品列表</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="admin_course_list.php">課程列表</a>
+                                    <a class="nav-link" href="admin_course_list.php" style="color: var(--dark)">課程列表</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="admin_location_list.php">場地列表</a>
+                                    <a class="nav-link" href="admin_location_list.php" style="color: var(--dark)">場地列表</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="admin_job_list.php">徵才列表</a>
+                                    <a class="nav-link active" href="admin_job_list.php" style="color: var(--red)">徵才列表</a>
                                 </li>
                             </ul>
 <div style="margin-top: 2rem;">
