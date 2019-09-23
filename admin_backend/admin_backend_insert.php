@@ -76,12 +76,12 @@ require 'init.php';
                                                         <div class="card-body" style="1rem 0 1rem 0">
                                                             <div class="form-group " style="margin: 20px 23px 0 23px">
                                                                 <label for="email">電子信箱</label>
-                                                                <input type="text" class="form-control" id="email" name="email" style="width:880px">
+                                                                <input type="text" class="form-control" id="email" name="email" style="width:1010px">
                                                                 <small id="emailHelp" class="form-text"></small>
                                                             </div>
                                                             <div class="form-group" style="padding-bottom:1rem;margin: 20px 23px 0 23px">
                                                                 <label for="password">密碼</label>
-                                                                <input type="text" class="form-control" id="password" name="password" style="width:880px">
+                                                                <input type="text" class="form-control" id="password" name="password" style="width:1010px">
                                                                 <small id="passwordHelp" class="form-text"></small>
                                                             </div>
                                                         </div>
@@ -154,7 +154,7 @@ require 'init.php';
                                                             <div class="row">
                                                                 <div class="col">
 
-                                                                    <div class="form-group" style="margin: 20px 0 0 23px; width: 890px">
+                                                                    <div class="form-group" style="margin: 20px 0 0 23px; width: 1015px">
                                                                         <label for="addr">地址</label>
                                                                         <div class="d-flex">
                                                                             <input type="text" class="form-control" id="addr_district" name="addr_district" style="width:30%; margin-right:10px">
@@ -192,17 +192,17 @@ require 'init.php';
                                                 <div class="card-body">
                                                     <div class="form-group" style="margin: 20px 23px 0 23px">
                                                         <label for="brand_1">代理品牌1</label>
-                                                        <input type="text" class="form-control" id="brand_1" name="brand_1" style="width:880px">
+                                                        <input type="text" class="form-control" id="brand_1" name="brand_1" style="width:1010px">
                                                         <small id="addrHelp" class="form-text"></small>
                                                     </div>
                                                     <div class="form-group" style="margin: 20px 23px 0 23px">
                                                         <label for="addr">代理品牌2</label>
-                                                        <input type="text" class="form-control" id="brand_2" name="brand_2" style="width:880px">
+                                                        <input type="text" class="form-control" id="brand_2" name="brand_2" style="width:1010px">
                                                         <small id="brand_2Help" class="form-text"></small>
                                                     </div>
                                                     <div class="form-group" style="margin: 20px 23px 0 23px;padding-bottom:1rem">
                                                         <label for="addr">代理品牌3</label>
-                                                        <input type="text" class="form-control" id="brand_3" name="brand_3" style="width:880px">
+                                                        <input type="text" class="form-control" id="brand_3" name="brand_3" style="width:1010px">
                                                         <small id="brand_3Help" class="form-text"></small>
                                                     </div>
                                                 </div>

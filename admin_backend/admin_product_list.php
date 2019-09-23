@@ -8,47 +8,35 @@
     
     $pageName = 'product_info';
 
-    //用戶選的頁面是第幾頁? 沒有選的話就是1
+    
     $page = isset($_GET['page'])? intval($_GET['page']) : 1;
     
-    //每一頁顯示幾筆
-    // $perPage = 25;
-
-    // $modalType = isset($_GET['modal'])? $_GET['modal'] : null;
-    
-
-    // $brand = isset($_GET['brand'])? $_GET['brand'] : null;
-    
+    // 原始的SQL語句
+    $sql =  "SELECT * FROM `product` ";
+    $sql_count = "SELECT COUNT(1) FROM `product`"; 
 
     $quantity = isset($_GET['quantity'])? $_GET['quantity'] : 0;
     // echo $modalType;
     
     $cutaway = isset($_GET['cutaway'])? $_GET['cutaway'] : 0;
 
-
+    if (isset($_GET['quantity'])) {
+        $quantity = $_GET['quantity'];
+        
+        $low_quantity = " WHERE `product_quantity` < 20 " ;
+        
+        $sql = $sql . $low_quantity;
+        
+        $sql_count = $sql_count . $low_quantity;
+    } 
     
     function querySql(PDO $pdo, $str){
         $stmt = $pdo->query($str);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-
-    
-    $sql_total = "SELECT COUNT(1) FROM `product` ";
-    $totalRows = $pdo->query($sql_total)->fetch(PDO::FETCH_NUM)[0];
-    // $totalPages = ceil( $totalRows/$perPage);
-
-    // if($page<1){
-    //     header("Location: admin_product_list.php");
-    //     exit();
-    // };
-
-    // if($page > $totalPages){
-    //     header("Location: admin_product_list.php?page={$totalPages}");
-    //     exit();
-    // };
-
-    $sql =  "SELECT * FROM `product` ORDER BY `product_id` DESC ";
+    // $sql_total = "SELECT COUNT(1) FROM `product` ";
+    $totalRows = $pdo->query($sql_count)->fetch(PDO::FETCH_NUM)[0];
     $rows = querySql($pdo, $sql);
         
     
@@ -90,57 +78,10 @@
         color: var(--red);
     }
 
-    /* 頁數 */
-    /* .pageNavigation{
-        background-color: #fff;
-        padding: 10px 20px;
-        border-radius: 30px;
-        box-shadow: 0 5px 15px rgba(0,0,0,.2);
-    }
-
-    .pageNavigation li{
-        list-style: none;
-        line-height: 30px;
-        margin: 0 5px;
-    }
-
-    .pageNavigation li.page-number{
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        text-align: center;
-    }
-
-    .pageNavigation li a{
-        display: block;
-        text-decoration: none;
-        color: #777;
-        font-weight: 900;
-        border-radius: 50%;
-        transition: .3s;
-        
-    }
-
-    .pageNavigation li.page-number:hover a,
-    .pageNavigation li.page-number.active a{
-        background-color: var(--dark);
-        color: #fff;
-    }
-
-    .pageNavigation li:first-child{
-        margin-right: 30px;
-        font-weight: 700;
-        font-size: 16px;
-    }
-
-    .pageNavigation li:last-child{
-        margin-left: 30px;
-        font-weight: 700;
-        font-size: 16px;
-    } */
+    
+    
 
 
-    /* dataTable */
     
 
     /* 表單 */
@@ -165,11 +106,11 @@
 
     input[type="search"]:focus{
         box-shadow: none;
-        border-color:var(--red);
+        border-color:var(--dark);
     }
 
     .custom-select:focus{
-        border-color:var(--red);
+        border-color:var(--dark);
         box-shadow: none;
     }
 
@@ -308,20 +249,20 @@
 
     .my-card{
         border: none;
-        padding: 5px 0;
-        /* margin: 5px 0; */
+        border-radius: 0;
+        padding:0;
     }
 
     .my-card-header{
         background-color: transparent;
         border: none;
+        margin-bottom: 5px !important;
     }
 
     .my-card-title{
         display: flex;
     }
-    
-    
+
 </style>    
 </head>
 <body>
@@ -358,100 +299,16 @@
                                 <span>|</span>
                                 <a class="condition" href="admin_product_down.php">下架中</a>
                             </div>
-                            
-
-                                <!-- //換頁按鈕 -->                              
-                                    <!-- <ul class="pageNavigation d-flex justify-content-end m-0">
-                                        <li class="pageDir"">
-                                            <a class="" href="?page=<?= $page-1 ?>">
-                                                <i class="fas fa-caret-left"></i>
-                                                Prev
-                                            </a>
-                                        </li>
-
-                                        <?php 
-                                            $pageStart = $page-2;
-                                            $pageEnd = $page+2;
-                                        ?>
-                                        <?php if( $page <= 3  ): ?>
-                                        <?php    $pageStart = 1;?>
-                                        <?php    $pageEnd = $page+5; ?>
-                                            <?php for($i=$pageStart; $i <= $pageEnd -$page ; $i++): 
-                                                    if ($i < 1 or $i > $totalPages) {
-                                                        continue;
-                                                    }?>
-                                                <li class="page-number <?= $i==$page ? 'active' : ''  ?>">
-                                                    <a class="" href="?page=<?= $i ?>" > <?= $i ?> </a>
-                                                </li>
-                                            <?php endfor; ?>
-                                        <?php elseif($page > $totalPages-2): ?>
-                                        <?php $pageStart = $totalPages-4 ?>
-                                            <?php for($i=$pageStart; $i <= $totalPages; $i++): 
-                                                if ($i < 1 or $i > $totalPages) {
-                                                        continue;
-                                                }?>
-                                                <li class="page-number <?= $i==$page ? 'active' : ''  ?>">
-                                                    <a class="" href="?page=<?= $i ?>" > <?= $i ?> </a>
-                                                </li>
-                                            <?php endfor; ?>
-                                        <?php else: ?>
-                                            <?php for($i=$pageStart; $i <= $pageEnd; $i++): 
-                                                if ($i < 1 or $i > $totalPages) {
-                                                        continue;
-                                                }?>
-                                                <li class="page-number <?= $i==$page ? 'active' : ''  ?>">
-                                                    <a class="" href="?page=<?= $i ?>" > <?= $i ?> </a>
-                                                </li>
-                                            <?php endfor; ?>
-                                        <?php endif; ?>
-                                            
-
-                                        <li class="">
-                                            <a class="pageDir" href="?page=<?= $page+1 ?>">
-                                                Next
-                                                <i class="fas fa-caret-right"></i>
-                                            </a>
-                                        </li>
-                                    </ul> -->
                         </div>
                         
                         <!-- 分類選擇 -->
                         <div class="d-flex align-items-center py-2  pl-2">
-                            <div class="mr-4">
-                                總共有 <?= $totalRows; ?> 筆商品
-                            </div>
-                            
-                            <!-- <label class="mb-0 mr-2" for="modalSelect">桶身</label>
-                            <select class="modalSelect mr-5 h-100" name="modalSelect" id="modalSelect" onchange="selectCategory()">
-                                <option value="" <?= isset($modalType)? '' : 'selected'; ?> >--請選擇--</option>
-                                <option value="D" <?= $modalType == "D" ? 'selected' : ''; ?> >D</option>
-                                <option value="OM" <?= $modalType == "OM" ? 'selected' : ''; ?> >OM</option>
-                                <option value="OOO" <?= $modalType == "OOO" ? 'selected' : ''; ?> >OOO</option>
-                            </select>
-                            
-                            <label class="mb-0 mr-2" for="brandSelect"> 廠牌 </label> 
-                            <select class="brandSelect mr-5 h-100" name="brandSelect" id="brandSelect" onchange="selectCategory()">
-                                <option value="" <?= isset($brand)? '' : 'selected'; ?> >--請選擇--</option>
-                                <option value="LakeWood" <?= $brand == "LakeWood" ? 'selected' : ''; ?> >LakeWood</option>
-                                <option value="Alvarez" <?= $brand == "Alvarez" ? 'selected' : ''; ?> >Alvarez</option>
-                                <option value="Martin" <?= $brand == "Martin" ? 'selected' : ''; ?> >Martin</option>
-                                <option value="Cort" <?= $brand == "Cort" ? 'selected' : ''; ?> >Cort</option>
-                                <option value="Seagull" <?= $brand == "Seagull" ? 'selected' : ''; ?> >Seagull</option>
-                            </select> -->
                             <button id='checkAll' class="checkAll btn btn-info mr-2" name='checkboxall'>全選</button>
                             <button id='antiCheckAll' class="checkAll btn btn-info mr-2" name='checkboxall'>反選</button>
                             <button class="btn btn-secondary checkAll mr-3" onclick="showCutaway()"> 缺角 </button>
-                            
                             <button class="btn btn-secondary checkAll mr-3" onclick="lowQuantity('quantity', '20')"> 庫存緊張 </button>
-                            
                         </div>
                         
-
-                        <!-- 總比數計數器 -->
-                        <div class="my-2  pl-2">
-                            
-                            
-                        </div>
 
 
                         <!-- //顯示商品的表格 -->
@@ -461,7 +318,7 @@
                                     <th scope="col" style="width: 60px;">編號</th>
                                     <th scope="col" style="width: 60px;">選取</th>
                                     <th scope="col" style="width: 60px;">刪除</th>
-                                    <th scope="col" style="width: 60px;">狀態</th>
+                                    <th scope="col" style="width: 100px;">狀態</th>
                                     <th scope="col" style="width: 60px;">圖片</th>
                                     <th scope="col" style="width: 60px;">廠牌</th>
                                     <th scope="col" style="width: 60px;">系列</th>
@@ -472,7 +329,6 @@
                                     <th scope="col" style="width: 60px;">優惠</th>
                                     <th scope="col" style="width: 60px;">編輯</th>
                                     <th scope="col" style="width: 60px;">販售</th>
-                                    
                                 </tr>
                             </thead>
 
@@ -493,7 +349,7 @@
                                             </a> 
                                         </td>
                                         
-                                        <td class="align-middle " style="width: 60px;">
+                                        <td class="align-middle " style="width: 100px;">
 
                                         <?php if($r['product_out']): ?>
                                             <a class="launchedBtn" id="btn<?= $r['product_id'] ?>" href="javascript: changeProduct(<?= $r['product_id'] ?>, 0)">
@@ -580,48 +436,7 @@
         ]
     });
 
-    $('.page-item').css({
-        'width': '30px',
-        'height': '30px',
-        'padding': '0',
-    })
-
-    $('.page-link').css({
-        'display':'flex',
-        'justify-content':'center',
-        'align-items':'center',
-        'width': '30px',
-        'height': '30px',
-        'padding': '0',
-        'border': 'none',
-        'border-radius': '50%',
-        'vertical-align': 'middle',
-        'color':'var(--dark)',
-    })
     
-    // $('.page-link').mouseover().css({
-    //     'background-color':'red',
-    // })
-
-    $('.page-item.active .page-link').css({
-        'background-color':'var(--dark)',
-        'color':'var(--white)',
-    })
-
-    
-    $('.paginate_button').mouseover().css({
-        'background':'transparent',
-        'border':'none',
-    })
-
-
-    $('.previous').css({
-        'margin-right': '30px',
-    })
-
-    $('.next').css({
-        'margin-left': '30px',
-    })
 
     let checkAll = $('#checkAll'); //控制所有勾選的欄位
     let antiCheckAll = $('#antiCheckAll'); //反選所有勾選的欄位
