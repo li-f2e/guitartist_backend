@@ -28,7 +28,7 @@ if ($page > $totalPages) {
 }
 ;
 
-$sql_page = "SELECT * FROM `member_list` ";
+$sql_page = "SELECT * FROM `member_list` WHERE `is_hall_owner` = 1";
 $stmt = $pdo->query($sql_page);
 include 'admin__header.php';
 

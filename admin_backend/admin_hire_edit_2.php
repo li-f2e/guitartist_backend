@@ -58,12 +58,12 @@ $row = $stmt->fetch();
                           <td>
                             <div>
                               <?=htmlentities($row['email'])?>
-                              <a href="#" id="addBtn_1" style="margin-left:309px"><i class="fas fa-plus"></i></a>
+                              <a href="#" id="addBtn_1" style="margin-right:10px"><i class="fas fa-plus"></i></a>
                             </div>
 
                             <input type="<?=!empty($row['alt_email']) ? 'text' : 'hidden'?>" name="alt_email"
                               id="alt_email" class="mt-1" value="<?=htmlentities($row['alt_email'])?>" />
-                            <a href="" style="<?=!empty($row['alt_email']) ? 'display:inline-block' : 'display: none'?>"
+                            <a href="" style="<?=!empty($row['alt_email']) ? 'display:inline-block' : 'display: none'?>; margin-right:10px"
                               id="removeBtn_1"><i class="fas fa-minus"></i></a>
                             <small id="alt_emailHelp" class="form-text"></small>
                           </td>
@@ -121,7 +121,7 @@ $row = $stmt->fetch();
     // email + -
     // let addBtn_1 = document.querySelector("#addBtn_1");
     // let removeBtn_1 = document.querySelector("#removeBtn_1");
-    // let input_1 = document.querySelector("#alt_email");
+    let input_1 = document.querySelector("#alt_email");
     // addBtn_1.addEventListener("click", function(e) {
     //   e.preventDefault();
     //   input_1.setAttribute("type", "text");
