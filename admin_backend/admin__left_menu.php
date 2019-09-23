@@ -55,7 +55,7 @@
                                     <li class="ml-5"><a href="admin_teacher_list.php" style="text-align: left;">老師列表</a></li>
                                     <li class="ml-5"><a href="admin_hall_list.php" style="text-align: left;">場地廠商列表</a></li>
                                     <li class="ml-5"><a href="admin_hire_list.php" style="text-align: left;">徵才廠商列表</a></li>
-                                    <li class="ml-5"><a href="#" style="text-align: left;">預留欄位</a></li>
+                                   
                                 </ul>
                             </div>
                         </div>
