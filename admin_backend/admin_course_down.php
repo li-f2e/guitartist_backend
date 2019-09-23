@@ -9,7 +9,7 @@ $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 
 $per_page = 5; // 每一頁要顯示幾筆
 
-$t_sql = "SELECT COUNT(1) FROM `course_tb` ";
+$t_sql = "SELECT COUNT(1) FROM `course_tb` WHERE `course_down`='1'";
 
 $t_stmt = $pdo->query($t_sql);
 $totalRows = $t_stmt->fetch(PDO::FETCH_NUM)[0]; // 拿到總筆數
@@ -26,7 +26,7 @@ if($page > $totalPages){
     exit;
 }
 
-$sql = "SELECT * FROM course_tb";
+$sql = "SELECT * FROM course_tb WHERE `course_down`='1'";
 
 $stmt = $pdo->query($sql);
 
