@@ -184,44 +184,74 @@ include 'admin__nav_bar.php';
 
 <script>
 
-            // tel + -
-            let addBtn_1 = document.querySelector('#addBtn_1');
-            let removeBtn_1 = document.querySelector('#removeBtn_1');
-            let input_1 = document.querySelector('#alt_tel');
-            addBtn_1.addEventListener('click', function(e) {
-                e.preventDefault();
-                input_1.setAttribute('type', 'text');
-                removeBtn_1.style = 'block';
-            })
+        // tel + -
+        // let addBtn_1 = document.querySelector('#addBtn_1');
+        // let removeBtn_1 = document.querySelector('#removeBtn_1');
+        // let input_1 = document.querySelector('#alt_tel');
+        // addBtn_1.addEventListener('click', function (e) {
+        //     e.preventDefault();
+        //     input_1.setAttribute('type', 'text');
+        //     removeBtn_1.style = 'block';
+        // })
 
-            removeBtn_1.addEventListener("click", function(e) {
-                if (confirm('確定要刪除這筆資料嗎?')) {
-                    e.preventDefault();
-                    input_1.setAttribute('type', 'hidden');
-                    removeBtn_1.style.display = "none";
-                    input_1.value = "<?=$row['alt_tel'] = ''?>";
-                }
-            })
+        // removeBtn_1.addEventListener("click", function (e) {
+        //     if (confirm('確定要刪除這筆資料嗎?')) {
+        //         e.preventDefault();
+        //         input_1.setAttribute('type', 'hidden');
+        //         removeBtn_1.style.display = "none";
+        //         input_1.value = "<?=$row['alt_tel'] = ''?>";
+        //     }
+        // })
+
+        //--------
+        // tel + -　用jQuery寫＆加動畫
+        $("#addBtn_1").click(function (e) {
+            e.preventDefault()
+            $("#alt_tel").removeClass("animated fadeOutUp").addClass("animated fadeInDown mt-1").attr("type", "text")
+            $("#removeBtn_1").show()
+        })
+
+        $("#removeBtn_1").click(function (e) {
+            e.preventDefault()
+            confirm("確定要刪除這筆電話資料嗎？")
+            $("#alt_tel").removeClass("animated fadeInDown").addClass("animated fadeOutUp").attr("type", "hidden").attr("value", "<?=$row['alt_tel'] = ''?>")
+            $(this).hide()
+        })
 
 
-            // email + -
-            let addBtn_2 = document.querySelector('#addBtn_2');
-            let removeBtn_2 = document.querySelector('#removeBtn_2');
-            let input_2 = document.querySelector('#alt_email');
-            addBtn_2.addEventListener('click', function(e) {
-                e.preventDefault();
-                input_2.setAttribute('type', 'text');
-                removeBtn_2.style = 'block';
-            })
+        // email + -
+        // let addBtn_2 = document.querySelector('#addBtn_2');
+        // let removeBtn_2 = document.querySelector('#removeBtn_2');
+        // let input_2 = document.querySelector('#alt_email');
+        // addBtn_2.addEventListener('click', function (e) {
+        //     e.preventDefault();
+        //     input_2.setAttribute('type', 'text');
+        //     removeBtn_2.style = 'block';
+        // })
 
-            removeBtn_2.addEventListener("click", function(e) {
-                if (confirm('確定要刪除這筆資料嗎?')) {
-                    e.preventDefault();
-                    input_2.setAttribute('type', 'hidden');
-                    removeBtn_2.style.display = "none";
-                    input_2.value = "<?=$row['alt_email'] = ''?>";
-                }
-            })
+        // removeBtn_2.addEventListener("click", function (e) {
+        //     if (confirm('確定要刪除這筆資料嗎?')) {
+        //         e.preventDefault();
+        //         input_2.setAttribute('type', 'hidden');
+        //         removeBtn_2.style.display = "none";
+        //         input_2.value = "<?=$row['alt_email'] = ''?>";
+        //     }
+        // })
+
+        //--------
+        // email + -　用jQuery寫＆加動畫
+        $("#addBtn_2").click(function (e) {
+            e.preventDefault()
+            $("#alt_email").removeClass("animated fadeOutUp").addClass("animated fadeInDown mt-1").attr("type", "text")
+            $("#removeBtn_2").show()
+        })
+
+        $("#removeBtn_2").click(function (e) {
+            e.preventDefault()
+            confirm("確定要刪除這筆電子信箱資料嗎？")
+            $("#alt_email").removeClass("animated fadeInDown").addClass("animated fadeOutUp").attr("type", "hidden").attr("value", "<?=$row['alt_email'] = ''?>")
+            $(this).hide()
+        })
 
 
             // 預覽上傳圖片
