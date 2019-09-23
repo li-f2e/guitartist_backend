@@ -145,9 +145,7 @@ body::after {
   color: #fff;
   margin: 0;
 }
-.wrapper {
-  height: 300vh;
-}
+
 
 /* 左邊導覽列 */
 .fa-user-friends {
@@ -169,6 +167,13 @@ body::after {
   margin-left: 1px;
 }
 
+.wrapper {
+  min-height: 100vh !important;
+}
+
+/* .left-menu {
+  height: 100vh !important;
+} */
 
 .left-menu {
   width: 208px;
@@ -177,7 +182,7 @@ body::after {
   transition: 0.3s ease-in-out;
   position: relative;
   z-index: 499;
-  height: 300vh;
+  min-height: 100vh !important;
 }
 
 .left-menu.active {

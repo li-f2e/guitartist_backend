@@ -78,6 +78,14 @@ include 'admin__header.php';
     .swal2-icon.swal2-success .swal2-success-ring {
         border: .25em solid var(--success);
     }
+
+    .wrapper {
+  height: 100vh !important;
+}
+
+.left-menu {
+  height: 100vh !important;
+}
 </style>
 
 </head>
@@ -214,7 +222,7 @@ include 'admin__header.php';
             { "orderable": false, "targets": 8},
             { "orderable": false, "targets": 9},
             { "orderable": false, "targets": 10},
-            { "orderable": false, "targets": 11},
+            // { "orderable": false, "targets": 11},
             // { "orderable": false, "targets": 12},
         ]
     });

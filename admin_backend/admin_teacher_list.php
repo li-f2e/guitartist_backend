@@ -76,6 +76,7 @@ $stmt = $pdo->query($sql_final);
 
 include 'admin__header.php';
 ?>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 <style>
@@ -128,6 +129,14 @@ include 'admin__header.php';
     border-radius: 50%;
     overflow: hidden;
     object-fit: cover;
+    }
+
+    .wrapper {
+  height: 100vh !important;
+}
+
+.left-menu {
+  height: 100vh !important;
 }
 </style>
 <body>
@@ -270,7 +279,7 @@ include 'admin__header.php';
             { "orderable": false, "targets": 5},
             { "orderable": false, "targets": 9},
             { "orderable": false, "targets": 10},
-            { "orderable": false, "targets": 11},
+            // { "orderable": false, "targets": 11},
         ]
     });
 
